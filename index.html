@@ -177,7 +177,7 @@ img { max-width: 100%; }
   color: var(--ivory);
 }
 
-/* ONLY ONE BACK BUTTON */
+/* ONE BACK BUTTON ONLY */
 .back-invitation {
   position: fixed;
   top: 82px;
@@ -195,7 +195,7 @@ img { max-width: 100%; }
 
 .back-invitation:hover { background: var(--champagne); }
 
-/* SECTIONS */
+/* GENERAL SECTIONS */
 .section {
   padding: 85px 0;
   background: transparent;
@@ -220,7 +220,7 @@ h2 {
   color: var(--ink);
 }
 
-/* Use the actual divider.png only for the three requested sections */
+/* DIVIDER.PNG: only before the three requested headings */
 .section-head.divider-before::before {
   content: "";
   display: block;
@@ -247,30 +247,34 @@ h2 {
 
 .hero-copy { text-align: center; }
 
+/* OUR WEDDING DAY IS NOW THE MAIN HEADLINE */
 .wedding-date-title {
   display: block;
   margin: 0 auto 22px;
-  font-size: clamp(1.8rem, 4vw, 2.8rem);
-  line-height: 1.25;
-  font-weight: 400;
   color: var(--ink);
+  line-height: 1.15;
 }
 
 .wedding-date-title .date-label {
   display: block;
-  font-size: .78em;
-  letter-spacing: .015em;
+  font-size: clamp(3.1rem, 5.5vw, 5rem);
+  font-weight: 400;
+  letter-spacing: -.035em;
+  line-height: 1.08;
 }
 
 .wedding-date-title .date-value {
   display: block;
-  margin-top: 3px;
+  margin-top: 12px;
+  font-size: clamp(1.65rem, 2.8vw, 2.35rem);
+  font-weight: 400;
+  line-height: 1.3;
 }
 
 .hero h1 {
   margin: 10px 0 18px;
-  font-size: clamp(3.4rem, 7vw, 6rem);
-  line-height: 1;
+  font-size: clamp(2.5rem, 4vw, 3.8rem);
+  line-height: 1.05;
   font-weight: 400;
   color: var(--ink);
 }
@@ -294,7 +298,7 @@ h2 {
   object-fit: contain;
 }
 
-/* COUNTDOWN SECTION - NO COUNTDOWN BUTTON */
+/* COUNTDOWN */
 .countdown-section {
   padding: 65px 0;
   text-align: center;
@@ -402,7 +406,6 @@ h2 {
   margin: 0 auto;
 }
 
-/* COLOR SWATCHES */
 .palette-swatches {
   display: flex;
   flex-wrap: wrap;
@@ -463,7 +466,7 @@ h2 {
   font-size: .96rem;
 }
 
-/* OUR STORY - AFTER ENTOURAGE */
+/* OUR STORY */
 .story-copy {
   max-width: 800px;
   margin: 0 auto 35px;
@@ -671,9 +674,19 @@ h2 {
   .hero-art img { max-height: 550px; }
   .hero-copy { grid-row: 2; }
 
-  .wedding-date-title {
-    font-size: clamp(1.8rem, 7vw, 2.5rem);
-    margin-bottom: 18px;
+  /* Keep the wedding headline bigger than the couple's names on mobile */
+  .wedding-date-title .date-label {
+    font-size: clamp(2.7rem, 9vw, 3.7rem);
+    line-height: 1.08;
+  }
+
+  .wedding-date-title .date-value {
+    font-size: clamp(1.45rem, 5vw, 2rem);
+    margin-top: 10px;
+  }
+
+  .hero h1 {
+    font-size: clamp(2.25rem, 7vw, 3rem);
   }
 
   .section { padding: 60px 0; }
@@ -782,21 +795,20 @@ h2 {
 <!-- MAIN WEBSITE -->
 <div class="wedding-website" id="weddingWebsite" hidden>
 
-  <button
-    type="button"
-    class="back-invitation"
-    id="backToInvitation"
-  >← Back to Invitation</button>
+  <button type="button" class="back-invitation" id="backToInvitation">
+    ← Back to Invitation
+  </button>
 
   <header class="topbar">
     <nav class="nav wrap" aria-label="Main navigation">
       <a class="brand" href="#home">Don <span>&amp;</span> Lorena</a>
 
+      <!-- NAVIGATION ORDER UPDATED -->
       <div class="navlinks">
-        <a href="#details">Details</a>
         <a href="#story">Our Story</a>
-        <a href="#attire">Attire</a>
+        <a href="#details">Details</a>
         <a href="#entourage">Entourage</a>
+        <a href="#attire">Attire</a>
         <a class="nav-rsvp" href="#rsvp">RSVP</a>
       </div>
     </nav>
@@ -829,7 +841,7 @@ h2 {
       </div>
     </section>
 
-    <!-- COUNTDOWN - NO BUTTONS -->
+    <!-- COUNTDOWN -->
     <section class="countdown-section" id="countdown">
       <div class="wrap countdown-panel">
         <div class="eyebrow">A day to remember</div>
@@ -860,7 +872,64 @@ h2 {
       </div>
     </section>
 
-    <!-- WEDDING DETAILS -->
+    <!-- 1. OUR STORY -->
+    <section class="section" id="story">
+      <div class="wrap">
+
+        <div class="section-head divider-before">
+          <div class="eyebrow">A little piece of us</div>
+          <h2>Our Story</h2>
+        </div>
+
+        <div class="story-copy">
+          <p>
+            Every beautiful love story begins with two lives
+            moving in their own directions, until a special
+            moment brings them closer. For Don and Lorena,
+            what began as getting to know one another grew
+            into a meaningful bond built on care, trust,
+            laughter, and understanding.
+          </p>
+
+          <p>
+            Through life's little moments and the dreams they
+            continue to share, their connection became a
+            promise to stand beside each other through every
+            new chapter. Today, they look forward to beginning
+            their next adventure as husband and wife, surrounded
+            by the love and support of family and friends.
+          </p>
+
+          <p><em>And so, their forever begins.</em></p>
+        </div>
+
+        <div class="story-grid">
+          <figure class="story-tile">
+            <img src="story 1.png" alt="Don and Lorena memory 1" loading="lazy">
+          </figure>
+          <figure class="story-tile">
+            <img src="story 2.png" alt="Don and Lorena memory 2" loading="lazy">
+          </figure>
+          <figure class="story-tile">
+            <img src="story 3.png" alt="Don and Lorena memory 3" loading="lazy">
+          </figure>
+          <figure class="story-tile">
+            <img src="story 4.png" alt="Don and Lorena memory 4" loading="lazy">
+          </figure>
+          <figure class="story-tile">
+            <img src="story 5.png" alt="Don and Lorena memory 5" loading="lazy">
+          </figure>
+          <figure class="story-tile">
+            <img src="story 6.png" alt="Don and Lorena memory 6" loading="lazy">
+          </figure>
+          <figure class="story-tile">
+            <img src="story 7.png" alt="Don and Lorena memory 7" loading="lazy">
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. WEDDING DETAILS -->
     <section class="section" id="details">
       <div class="wrap">
         <div class="section-head">
@@ -889,84 +958,7 @@ h2 {
       </div>
     </section>
 
-    <!-- ATTIRE -->
-    <section class="section" id="attire">
-      <div class="wrap">
-        <div class="section-head">
-          <div class="eyebrow">Dress with the day in mind</div>
-          <h2>Attire</h2>
-          <p>
-            Our wedding embraces quiet luxury and timeless
-            neutral elegance.
-          </p>
-        </div>
-
-        <div class="attire-list">
-
-          <div class="attire-category">
-            <img
-              src="principal sponsors.png"
-              alt="Principal sponsors attire inspiration"
-              loading="lazy"
-            >
-            <h3>Principal Sponsors</h3>
-            <div class="palette-swatches">
-              <div class="swatch-item">
-                <span class="swatch champagne"></span>
-                <span>Champagne</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="attire-category">
-            <img
-              src="entourage.png"
-              alt="Wedding entourage attire inspiration"
-              loading="lazy"
-            >
-            <h3>Entourage</h3>
-            <div class="palette-swatches">
-              <div class="swatch-item">
-                <span class="swatch champagne"></span>
-                <span>Champagne</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="attire-category">
-            <img
-              src="guests.png"
-              alt="Guest attire inspiration"
-              loading="lazy"
-            >
-            <h3>Guests</h3>
-
-            <!-- FOUR SHADES MATCHING THE GUEST ATTIRE IMAGE -->
-            <div class="palette-swatches">
-              <div class="swatch-item">
-                <span class="swatch champagne"></span>
-                <span>Champagne</span>
-              </div>
-              <div class="swatch-item">
-                <span class="swatch beige"></span>
-                <span>Beige</span>
-              </div>
-              <div class="swatch-item">
-                <span class="swatch taupe"></span>
-                <span>Taupe</span>
-              </div>
-              <div class="swatch-item">
-                <span class="swatch greige"></span>
-                <span>Greige</span>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- ENTOURAGE LIST -->
+    <!-- 3. OUR ENTOURAGE -->
     <section class="section" id="entourage">
       <div class="wrap">
         <div class="section-head">
@@ -1039,64 +1031,82 @@ h2 {
       </div>
     </section>
 
-    <!-- OUR STORY - AFTER ENTOURAGE -->
-    <section class="section" id="story">
+    <!-- 4. ATTIRE -->
+    <section class="section" id="attire">
       <div class="wrap">
-
-        <div class="section-head divider-before">
-          <div class="eyebrow">A little piece of us</div>
-          <h2>Our Story</h2>
+        <div class="section-head">
+          <div class="eyebrow">Dress with the day in mind</div>
+          <h2>Attire</h2>
+          <p>
+            Our wedding embraces quiet luxury and timeless
+            neutral elegance.
+          </p>
         </div>
 
-        <div class="story-copy">
-          <p>
-            Every beautiful love story begins with two lives
-            moving in their own directions, until a special
-            moment brings them closer. For Don and Lorena,
-            what began as getting to know one another grew
-            into a meaningful bond built on care, trust,
-            laughter, and understanding.
-          </p>
+        <div class="attire-list">
 
-          <p>
-            Through life's little moments and the dreams they
-            continue to share, their connection became a
-            promise to stand beside each other through every
-            new chapter. Today, they look forward to beginning
-            their next adventure as husband and wife, surrounded
-            by the love and support of family and friends.
-          </p>
+          <div class="attire-category">
+            <img
+              src="principal sponsors.png"
+              alt="Principal sponsors attire inspiration"
+              loading="lazy"
+            >
+            <h3>Principal Sponsors</h3>
+            <div class="palette-swatches">
+              <div class="swatch-item">
+                <span class="swatch champagne"></span>
+                <span>Champagne</span>
+              </div>
+            </div>
+          </div>
 
-          <p><em>And so, their forever begins.</em></p>
-        </div>
+          <div class="attire-category">
+            <img
+              src="entourage.png"
+              alt="Wedding entourage attire inspiration"
+              loading="lazy"
+            >
+            <h3>Entourage</h3>
+            <div class="palette-swatches">
+              <div class="swatch-item">
+                <span class="swatch champagne"></span>
+                <span>Champagne</span>
+              </div>
+            </div>
+          </div>
 
-        <div class="story-grid">
-          <figure class="story-tile">
-            <img src="story 1.png" alt="Don and Lorena memory 1" loading="lazy">
-          </figure>
-          <figure class="story-tile">
-            <img src="story 2.png" alt="Don and Lorena memory 2" loading="lazy">
-          </figure>
-          <figure class="story-tile">
-            <img src="story 3.png" alt="Don and Lorena memory 3" loading="lazy">
-          </figure>
-          <figure class="story-tile">
-            <img src="story 4.png" alt="Don and Lorena memory 4" loading="lazy">
-          </figure>
-          <figure class="story-tile">
-            <img src="story 5.png" alt="Don and Lorena memory 5" loading="lazy">
-          </figure>
-          <figure class="story-tile">
-            <img src="story 6.png" alt="Don and Lorena memory 6" loading="lazy">
-          </figure>
-          <figure class="story-tile">
-            <img src="story 7.png" alt="Don and Lorena memory 7" loading="lazy">
-          </figure>
+          <div class="attire-category">
+            <img
+              src="guests.png"
+              alt="Guest attire inspiration"
+              loading="lazy"
+            >
+            <h3>Guests</h3>
+            <div class="palette-swatches">
+              <div class="swatch-item">
+                <span class="swatch champagne"></span>
+                <span>Champagne</span>
+              </div>
+              <div class="swatch-item">
+                <span class="swatch beige"></span>
+                <span>Beige</span>
+              </div>
+              <div class="swatch-item">
+                <span class="swatch taupe"></span>
+                <span>Taupe</span>
+              </div>
+              <div class="swatch-item">
+                <span class="swatch greige"></span>
+                <span>Greige</span>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
     </section>
 
-    <!-- GIFTS - DIVIDER BEFORE YOUR PRESENCE IS A GIFT -->
+    <!-- GIFTS -->
     <section class="section gift-section" id="gifts">
       <div class="wrap">
         <div class="section-head divider-before">
@@ -1106,7 +1116,6 @@ h2 {
 
         <div class="gift-wrap">
           <img src="gift.png" alt="Elegant wedding gift" loading="lazy">
-
           <div>
             <h3>In Lieu of Gifts</h3>
             <p>
@@ -1132,14 +1141,13 @@ h2 {
 
         <div class="eyebrow">Capture the moments</div>
         <h2>OH SNAP!</h2>
-
         <p>Share your favorite moments from our special day.</p>
         <p class="official-hashtag">#theDONandonlyforLORENA</p>
         <p>Tag your photos with our official wedding hashtag.</p>
       </div>
     </section>
 
-    <!-- RSVP - DIVIDER BEFORE KINDLY REPLY -->
+    <!-- RSVP -->
     <section class="section rsvp-section" id="rsvp">
       <div class="wrap">
         <div class="section-head divider-before">
@@ -1185,7 +1193,6 @@ h2 {
 
 </div>
 
-<!-- WEDDING MUSIC -->
 <audio id="weddingMusic" src="wedding.mp3" loop preload="auto"></audio>
 
 <button
@@ -1216,7 +1223,6 @@ function updateCountdown() {
     document.getElementById("hours").textContent = "0";
     document.getElementById("minutes").textContent = "0";
     document.getElementById("seconds").textContent = "0";
-
     message.textContent =
       "Our wedding day has passed. Thank you for celebrating our story.";
     return;
@@ -1246,7 +1252,6 @@ function updateMusicButton() {
   );
 }
 
-/* Browsers may block autoplay until the visitor interacts. */
 function openWeddingInvitation() {
   invitationCover.hidden = true;
   weddingWebsite.hidden = false;
@@ -1255,7 +1260,7 @@ function openWeddingInvitation() {
   document.body.classList.remove("invitation-closed");
   document.body.style.overflow = "auto";
 
-  /* Playback is triggered directly by the invitation click. */
+  /* Retry playback from the visitor's invitation click. */
   const playPromise = weddingMusic.play();
 
   if (playPromise && typeof playPromise.then === "function") {
@@ -1307,8 +1312,9 @@ musicButton.addEventListener("click", function() {
 weddingMusic.addEventListener("play", updateMusicButton);
 weddingMusic.addEventListener("pause", updateMusicButton);
 
-/* Attempt autoplay; envelope interaction retries if blocked. */
+/* Try autoplay; the invitation click retries if the browser blocks it. */
 const initialPlay = weddingMusic.play();
+
 if (initialPlay && typeof initialPlay.then === "function") {
   initialPlay.then(updateMusicButton).catch(() => {});
 }
