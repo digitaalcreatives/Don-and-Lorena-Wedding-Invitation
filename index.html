@@ -1,14 +1,1138 @@
-<div class="story-grid">
-  <figure class="story-tile">
-    <img src="story%201.png" alt="Couple memory one" loading="lazy">
-  </figure>
-  <figure class="story-tile">
-    <img src="story%202.png" alt="Couple memory two" loading="lazy">
-  </figure>
-  <figure class="story-tile">
-    <img src="story%203.png" alt="Couple memory three" loading="lazy">
-  </figure>
-  <figure class="story-tile">
-    <img src="story%204.png" alt="Couple memory four" loading="lazy">
-  </figure>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#F8F4EE">
+<meta name="description" content="Don and Lorena's wedding invitation.">
+<title>Don &amp; Lorena | Wedding Invitation</title>
+
+<style>
+:root {
+  --ivory: #F8F4EE;
+  --champagne: #EADCCB;
+  --beige: #D7C6B8;
+  --taupe: #B7A99A;
+  --greige: #9E8F82;
+  --gold: #D4AF7C;
+  --brown: #88715B;
+  --text: #766456;
+  --line: rgba(158,143,130,.35);
+}
+
+* { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 85px;
+}
+
+body {
+  margin: 0;
+  color: var(--text);
+  background: var(--ivory);
+  font-family: Georgia, "Times New Roman", serif;
+  line-height: 1.7;
+}
+
+body.invitation-closed { overflow: hidden; }
+
+img { max-width: 100%; }
+
+button, input, select, textarea { font: inherit; }
+
+.wrap {
+  width: min(1120px, calc(100% - 36px));
+  margin-inline: auto;
+}
+
+.eyebrow {
+  color: var(--greige);
+  font: 600 .68rem/1.6 Arial, sans-serif;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  color: var(--gold);
+  margin: 12px 0 22px;
+}
+
+.divider::before,
+.divider::after {
+  content: "";
+  width: 60px;
+  height: 1px;
+  background: var(--gold);
+}
+
+.btn {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px 22px;
+  border: 1px solid var(--gold);
+  background: var(--gold);
+  color: #fffdf9;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  font: 600 .67rem Arial, sans-serif;
+  cursor: pointer;
+  transition: background .2s ease;
+}
+
+.btn.secondary {
+  color: var(--text);
+  background: transparent;
+  border-color: var(--taupe);
+}
+
+.btn:hover {
+  background: var(--brown);
+  border-color: var(--brown);
+  color: white;
+}
+
+/* OPENING INVITATION */
+#invitationCover {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  background:
+    linear-gradient(rgba(248,244,238,.18),rgba(248,244,238,.24)),
+    url("invitation%20background.png") center/cover no-repeat,
+    var(--ivory);
+}
+
+#invitationCover[hidden] {
+  display: none !important;
+}
+
+#invitationCard {
+  width: min(98vw, 1200px);
+  height: calc(100vh - 16px);
+  height: calc(100svh - 16px);
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  cursor: pointer;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  -webkit-tap-highlight-color: transparent;
+}
+
+#invitationCard:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+}
+
+#invitationCard h1 {
+  margin: 5px 0;
+  color: var(--brown);
+  font-weight: 400;
+  font-size: clamp(2.5rem, 7vw, 5rem);
+  line-height: 1.05;
+  letter-spacing: -.04em;
+}
+
+#invitationCard h1 span {
+  color: var(--gold);
+  font-style: italic;
+}
+
+.cover-ornament {
+  color: var(--gold);
+  font-size: 1.5rem;
+}
+
+.cover-envelope {
+  display: block;
+  width: min(96vw, 1000px);
+  height: min(65vh, 700px);
+  object-fit: contain;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+  margin: 0 auto;
+}
+
+.cover-message {
+  max-width: 330px;
+  margin: 4px 0 8px;
+  font-style: italic;
+  color: var(--text);
+}
+
+.cover-hint {
+  margin-top: 8px;
+  color: var(--greige);
+  font: 600 .65rem Arial, sans-serif;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+}
+
+/* MAIN WEBSITE */
+#weddingWebsite[hidden] {
+  display: none !important;
+}
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(248,244,238,.95);
+  border-bottom: 1px solid var(--line);
+  backdrop-filter: blur(12px);
+}
+
+.nav {
+  min-height: 68px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+.brand {
+  color: var(--text);
+  text-decoration: none;
+  font-size: 1.25rem;
+  white-space: nowrap;
+}
+
+.brand span { color: var(--gold); }
+
+.navlinks {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+
+.navlinks a {
+  color: var(--greige);
+  text-decoration: none;
+  font: 600 .65rem Arial, sans-serif;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.navlinks a:hover { color: var(--brown); }
+
+.back-invitation {
+  position: fixed;
+  left: 18px;
+  top: 82px;
+  z-index: 110;
+  padding: 10px 14px;
+  background: rgba(248,244,238,.97);
+  color: var(--text);
+  border: 1px solid var(--gold);
+  font: 600 .65rem Arial, sans-serif;
+  letter-spacing: .08em;
+  cursor: pointer;
+}
+
+.back-invitation:hover { background: var(--champagne); }
+
+/* HERO: BANNER ABOVE CENTERED COUPLE NAMES */
+.hero {
+  min-height: calc(100vh - 68px);
+  min-height: calc(100svh - 68px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 50px 0 65px;
+}
+
+.couple-banner {
+  display: block;
+  width: min(100%, 800px);
+  height: clamp(190px, 34vw, 380px);
+  object-fit: contain;
+  margin: 0 auto 22px;
+}
+
+.hero-copy {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.hero h1 {
+  margin: 12px 0;
+  color: var(--brown);
+  font-size: clamp(3.5rem, 9vw, 7rem);
+  line-height: 1.05;
+  letter-spacing: -.055em;
+  font-weight: 400;
+  text-align: center;
+}
+
+.hero h1 span {
+  color: var(--gold);
+  font-style: italic;
+}
+
+.hero-copy > p {
+  max-width: 570px;
+  margin: 8px auto;
+  text-align: center;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 25px;
+}
+
+/* GENERAL SECTIONS */
+.section { padding: 82px 0; }
+
+.section-head {
+  max-width: 700px;
+  margin: 0 auto 38px;
+  text-align: center;
+}
+
+.section-head h2 {
+  margin: 10px 0;
+  color: var(--brown);
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 400;
+  line-height: 1.1;
+}
+
+.section-head p {
+  max-width: 570px;
+  margin: 0 auto;
+}
+
+/* WEDDING DETAILS */
+.details-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0,1fr));
+  gap: 22px;
+}
+
+.detail-card {
+  padding: 26px;
+  text-align: center;
+  background: rgba(255,253,249,.86);
+  border: 1px solid var(--line);
+  box-shadow: 0 16px 45px rgba(100,79,57,.07);
+}
+
+.detail-card img {
+  display: block;
+  width: 100%;
+  height: 190px;
+  object-fit: contain;
+  margin-bottom: 12px;
+}
+
+.detail-label {
+  color: var(--greige);
+  font: 600 .65rem Arial, sans-serif;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+
+.detail-card h3 {
+  margin: 8px 0;
+  color: var(--brown);
+  font-size: 1.7rem;
+  font-weight: 400;
+}
+
+.detail-card p { margin: 5px 0; }
+
+/* OUR STORY — EXACT FILENAMES WITH SPACES */
+.story-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0,1fr));
+  gap: 20px;
+}
+
+.story-tile {
+  margin: 0;
+  padding: 8px;
+  border: 1px solid var(--line);
+  background: rgba(255,253,249,.9);
+  box-shadow: 0 12px 35px rgba(100,79,57,.07);
+}
+
+.story-tile img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  background: var(--champagne);
+}
+
+.story-note {
+  margin: 26px auto 0;
+  text-align: center;
+  font-style: italic;
+}
+
+/* ATTIRE */
+.attire-panel {
+  margin-top: 25px;
+  padding: 24px;
+  border: 1px solid var(--line);
+  background: rgba(234,220,203,.38);
+}
+
+.attire-panel h3 {
+  margin: 0 0 20px;
+  text-align: center;
+  font-size: 1.6rem;
+  font-weight: 400;
+}
+
+.attire-images {
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  gap: 20px;
+}
+
+.attire-images figure { margin: 0; text-align: center; }
+
+.attire-images img {
+  width: 100%;
+  max-height: 300px;
+  object-fit: contain;
+}
+
+.attire-images figcaption {
+  margin-top: 8px;
+  color: var(--greige);
+  font: 600 .65rem Arial, sans-serif;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+}
+
+.entourage-image {
+  display: block;
+  width: 100%;
+  max-height: 350px;
+  object-fit: contain;
+  margin: 24px auto 0;
+}
+
+/* GIFTS */
+.gift-wrap {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  align-items: center;
+  gap: 30px;
+  padding: 28px;
+  border: 1px solid var(--line);
+  background: rgba(255,253,249,.9);
+  box-shadow: 0 16px 45px rgba(100,79,57,.07);
+}
+
+.gift-image {
+  display: block;
+  width: 100%;
+  height: 300px;
+  object-fit: contain;
+}
+
+.gift-copy h3 {
+  margin: 8px 0;
+  color: var(--brown);
+  font-size: 2rem;
+  font-weight: 400;
+}
+
+.gift-copy p { margin: 8px 0; }
+
+/* OH SNAP — AFTER GIFTS */
+.oh-snap {
+  padding: 30px 0 85px;
+  text-align: center;
+}
+
+.oh-snap-inner {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 18px;
+}
+
+.camera-banner {
+  display: block;
+  width: 100%;
+  height: 300px;
+  object-fit: contain;
+  margin: 0 auto 12px;
+}
+
+.oh-snap h2 {
+  margin: 8px 0;
+  color: var(--brown);
+  font-size: clamp(2.5rem, 5vw, 3.7rem);
+  line-height: 1.1;
+  font-weight: 400;
+  letter-spacing: .02em;
+}
+
+.hashtag-caption {
+  max-width: 650px;
+  margin: 10px auto 0;
+  color: var(--text);
+  font-size: 1.05rem;
+}
+
+.hashtag {
+  display: inline-block;
+  margin-top: 10px;
+  color: var(--brown);
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+/* RSVP */
+.rsvp-section {
+  background: linear-gradient(135deg,rgba(234,220,203,.45),rgba(248,244,238,.85));
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.rsvp-card {
+  max-width: 760px;
+  margin: auto;
+  padding: clamp(22px,5vw,48px);
+  border: 1px solid var(--line);
+  background: rgba(255,253,249,.93);
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  gap: 16px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.field.full { grid-column: 1/-1; }
+
+.field label {
+  color: var(--greige);
+  font: 600 .68rem Arial, sans-serif;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  padding: 12px;
+  color: var(--text);
+  background: #fffdf9;
+  border: 1px solid var(--beige);
+  outline: none;
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  border-color: var(--gold);
+}
+
+.field textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.form-note {
+  margin: 18px 0;
+  font-size: .85rem;
+}
+
+.submit-row { margin-top: 22px; text-align: center; }
+
+.status {
+  display: none;
+  margin-top: 18px;
+  padding: 12px;
+  background: var(--champagne);
+  border: 1px solid var(--line);
+  overflow-wrap: anywhere;
+}
+
+.status.show { display: block; }
+
+.honeypot {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.footer {
+  padding: 35px 0;
+  text-align: center;
+  font-size: .85rem;
+}
+
+.footer .brand { display: block; margin-bottom: 6px; }
+
+@media (max-width: 760px) {
+  .wrap { width: calc(100% - 28px); }
+
+  .nav { min-height: 62px; }
+  .navlinks { gap: 12px; }
+  .navlinks a { font-size: .56rem; letter-spacing: .06em; }
+  .navlinks a:nth-child(2),
+  .navlinks a:nth-child(3) { display: none; }
+
+  .hero { padding: 35px 0 48px; }
+  .couple-banner {
+    height: clamp(180px,55vw,300px);
+    margin-bottom: 18px;
+  }
+  .hero h1 { font-size: clamp(3.2rem,13vw,5.5rem); }
+
+  .section { padding: 62px 0; }
+
+  .details-grid { grid-template-columns: 1fr; gap: 15px; }
+  .detail-card { padding: 18px 12px; }
+  .detail-card img { height: 155px; }
+  .detail-card h3 { font-size: 1.4rem; }
+
+  .story-grid { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; }
+  .attire-images { grid-template-columns: 1fr; }
+
+  .gift-wrap {
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: 12px;
+    padding: 20px;
+  }
+
+  .gift-image { height: 260px; }
+  .camera-banner { height: 260px; }
+  .oh-snap { padding: 20px 0 60px; }
+
+  .form-grid { grid-template-columns: 1fr; }
+  .field.full { grid-column: auto; }
+
+  .back-invitation {
+    left: 10px;
+    top: 72px;
+    padding: 8px 10px;
+    font-size: .57rem;
+  }
+
+  .cover-envelope { width: 98vw; height: 54vh; }
+}
+
+@media (max-width: 390px) {
+  .brand { font-size: 1.05rem; }
+  .navlinks { gap: 8px; }
+  .camera-banner { height: 230px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+</style>
+</head>
+
+<body class="invitation-closed">
+
+<!-- OPENING INVITATION -->
+<div id="invitationCover">
+  <div id="invitationCard"
+       role="button"
+       tabindex="0"
+       aria-label="Tap to open Don and Lorena's wedding invitation">
+
+    <div class="eyebrow">You are cordially invited</div>
+    <h1>Don <span>&amp;</span> Lorena</h1>
+    <div class="cover-ornament" aria-hidden="true">✧</div>
+
+    <img
+      class="cover-envelope"
+      src="opening-envelope.png"
+      alt="Don and Lorena invitation card">
+
+    <p class="cover-message">
+      A celebration of love, a beginning of forever.
+    </p>
+
+    <div class="cover-hint">Please tap the invitation to open</div>
+  </div>
 </div>
+
+<!-- MAIN WEDDING WEBSITE -->
+<div id="weddingWebsite" hidden>
+
+<button type="button" class="back-invitation" id="backToInvitation">
+  ← Back to Invitation
+</button>
+
+<header class="topbar">
+  <nav class="nav wrap" aria-label="Main navigation">
+    <a class="brand" href="#home">Don <span>&amp;</span> Lorena</a>
+
+    <div class="navlinks">
+      <a href="#details">Details</a>
+      <a href="#story">Our Story</a>
+      <a href="#attire">Attire</a>
+      <a class="btn" href="#rsvp">RSVP</a>
+    </div>
+  </nav>
+</header>
+
+<main>
+
+<!-- HERO: COUPLE BANNER AND CENTERED NAMES -->
+<section class="hero wrap" id="home">
+
+  <img
+    class="couple-banner"
+    src="couple.png"
+    alt="Don and Lorena"
+    fetchpriority="high">
+
+  <div class="hero-copy">
+    <div class="eyebrow">Together with our families</div>
+
+    <h1>Don <span>&amp;</span> Lorena</h1>
+
+    <div class="divider" aria-hidden="true">✧</div>
+
+    <p>
+      With grateful hearts, we invite you to share in the beginning
+      of our forever. Your presence will make our celebration
+      even more meaningful.
+    </p>
+
+    <p class="eyebrow" style="margin-top:18px">
+      Our wedding day · Date to be announced
+    </p>
+
+    <div class="hero-actions">
+      <a class="btn" href="#rsvp">Kindly RSVP</a>
+      <a class="btn secondary" href="#details">Wedding Details</a>
+    </div>
+  </div>
+</section>
+
+<!-- WEDDING DETAILS -->
+<section class="section" id="details">
+  <div class="wrap">
+
+    <div class="section-head">
+      <div class="eyebrow">The celebration</div>
+      <h2>Wedding Details</h2>
+      <div class="divider" aria-hidden="true">✧</div>
+      <p>
+        We look forward to celebrating this special day with the people
+        we love. Event details will be updated here.
+      </p>
+    </div>
+
+    <div class="details-grid">
+
+      <article class="detail-card">
+        <img src="ceremony.png" alt="Wedding ceremony venue" loading="lazy">
+        <div class="detail-label">The ceremony</div>
+        <h3>Wedding Ceremony</h3>
+        <p><strong>Venue to be announced</strong></p>
+        <p>Time and location will be shared soon.</p>
+      </article>
+
+      <article class="detail-card">
+        <img src="reception.png" alt="Wedding reception venue" loading="lazy">
+        <div class="detail-label">The celebration</div>
+        <h3>Wedding Reception</h3>
+        <p><strong>Reception venue to be announced</strong></p>
+        <p>We can't wait to celebrate with you.</p>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- OUR STORY: FOUR IMAGES, FILENAMES HAVE SPACES -->
+<section class="section" id="story">
+  <div class="wrap">
+
+    <div class="section-head">
+      <div class="eyebrow">A little piece of us</div>
+      <h2>Our Story</h2>
+      <div class="divider" aria-hidden="true">✧</div>
+      <p>
+        Every love story is made of little moments.
+        Here are a few memories from our journey together.
+      </p>
+    </div>
+
+    <div class="story-grid">
+
+      <figure class="story-tile">
+        <img src="story%201.png" alt="Couple memory one" loading="lazy">
+      </figure>
+
+      <figure class="story-tile">
+        <img src="story%202.png" alt="Couple memory two" loading="lazy">
+      </figure>
+
+      <figure class="story-tile">
+        <img src="story%203.png" alt="Couple memory three" loading="lazy">
+      </figure>
+
+      <figure class="story-tile">
+        <img src="story%204.png" alt="Couple memory four" loading="lazy">
+      </figure>
+
+    </div>
+
+    <p class="story-note">“The best is yet to come.”</p>
+  </div>
+</section>
+
+<!-- ATTIRE AND ENTOURAGE -->
+<section class="section" id="attire">
+  <div class="wrap">
+
+    <div class="section-head">
+      <div class="eyebrow">Dress with the day in mind</div>
+      <h2>Attire &amp; Entourage</h2>
+      <div class="divider" aria-hidden="true">✧</div>
+      <p>
+        Our celebration embraces quiet luxury: ivory, champagne,
+        beige, taupe, greige, and subtle gold accents.
+        Final dress-code details will be announced soon.
+      </p>
+    </div>
+
+    <div class="attire-panel">
+      <h3>Wedding Party &amp; Guests</h3>
+
+      <div class="attire-images">
+        <figure>
+          <img
+            src="principal-sponsors.png"
+            alt="Principal sponsor attire inspiration"
+            loading="lazy">
+          <figcaption>Principal Sponsors</figcaption>
+        </figure>
+
+        <figure>
+          <img
+            src="guests.png"
+            alt="Wedding guest attire inspiration"
+            loading="lazy">
+          <figcaption>Guests</figcaption>
+        </figure>
+      </div>
+
+      <img
+        class="entourage-image"
+        src="entourage.png"
+        alt="Wedding entourage"
+        loading="lazy">
+    </div>
+
+  </div>
+</section>
+
+<!-- GIFTS -->
+<section class="section" id="gifts">
+  <div class="wrap">
+
+    <div class="section-head">
+      <div class="eyebrow">Your presence is a gift</div>
+      <h2>Gift Wishes</h2>
+      <div class="divider" aria-hidden="true">✧</div>
+    </div>
+
+    <div class="gift-wrap">
+
+      <img
+        class="gift-image"
+        src="gift.png"
+        alt="Champagne gift box"
+        loading="lazy">
+
+      <div class="gift-copy">
+        <div class="eyebrow">With love and gratitude</div>
+        <h3>In Lieu of Gifts</h3>
+        <p>
+          Your love and presence are the greatest gifts we could ask for.
+          Should you wish to bless us with a gift, a monetary contribution
+          toward our new chapter would be warmly appreciated.
+        </p>
+        <p>Gift details will be shared here.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- OH SNAP: CAMERA AFTER GIFTS -->
+<section class="oh-snap" id="oh-snap">
+  <div class="oh-snap-inner">
+
+    <img
+      class="camera-banner"
+      src="camera.png"
+      alt="Champagne camera with ribbon"
+      loading="lazy">
+
+    <div class="eyebrow">Capture the memories</div>
+    <h2>OH SNAP!</h2>
+
+    <p class="hashtag-caption">
+      Use our official hashtag
+    </p>
+
+    <div class="hashtag">#theDONandonlyforLORENA</div>
+
+  </div>
+</section>
+
+<!-- RSVP -->
+<section class="section rsvp-section" id="rsvp">
+  <div class="wrap">
+
+    <div class="rsvp-card">
+
+      <div class="section-head">
+        <div class="eyebrow">Kindly reply</div>
+        <h2>Will You Join Us?</h2>
+        <div class="divider" aria-hidden="true">✧</div>
+        <p>Please let us know if you can celebrate with us.</p>
+      </div>
+
+      <form id="rsvpForm">
+
+        <div class="honeypot" aria-hidden="true">
+          <label>
+            Leave this field empty
+            <input name="website" tabindex="-1" autocomplete="off">
+          </label>
+        </div>
+
+        <div class="form-grid">
+
+          <div class="field">
+            <label for="fullName">Full name *</label>
+            <input
+              id="fullName"
+              name="fullName"
+              required
+              maxlength="120"
+              autocomplete="name"
+              placeholder="Your full name">
+          </div>
+
+          <div class="field">
+            <label for="email">Email address</label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              maxlength="180"
+              autocomplete="email"
+              placeholder="you@example.com">
+          </div>
+
+          <div class="field">
+            <label for="phone">Mobile number</label>
+            <input
+              id="phone"
+              name="phone"
+              type="tel"
+              maxlength="40"
+              autocomplete="tel"
+              placeholder="Your contact number">
+          </div>
+
+          <div class="field">
+            <label for="attendance">Will you attend? *</label>
+            <select id="attendance" name="attendance" required>
+              <option value="">Please select</option>
+              <option value="yes">Joyfully accepts</option>
+              <option value="no">Regretfully declines</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="guestCount">Number of guests</label>
+            <select id="guestCount" name="guestCount">
+              <option value="1">1 guest</option>
+              <option value="2">2 guests</option>
+              <option value="3">3 guests</option>
+              <option value="4">4 guests</option>
+              <option value="5">5 guests</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="dietary">Dietary requirements</label>
+            <input
+              id="dietary"
+              name="dietary"
+              maxlength="240"
+              placeholder="Optional">
+          </div>
+
+          <div class="field full">
+            <label for="message">A note for the couple</label>
+            <textarea
+              id="message"
+              name="message"
+              maxlength="1000"
+              placeholder="Leave Don &amp; Lorena a message"></textarea>
+          </div>
+
+        </div>
+
+        <p class="form-note">
+          Please submit one response per invited party.
+          The RSVP service must be connected to save responses.
+        </p>
+
+        <div class="submit-row">
+          <button class="btn" id="submitBtn" type="submit">
+            Send My RSVP
+          </button>
+        </div>
+
+        <div class="status" id="formStatus" role="status" aria-live="polite"></div>
+
+      </form>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <a class="brand" href="#home">Don <span>&amp;</span> Lorena</a>
+    <div>Made with love for the beginning of forever.</div>
+  </div>
+</footer>
+
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const cover = document.getElementById("invitationCover");
+  const card = document.getElementById("invitationCard");
+  const website = document.getElementById("weddingWebsite");
+  const backButton = document.getElementById("backToInvitation");
+
+  function openInvitation() {
+    cover.hidden = true;
+    website.hidden = false;
+    document.body.classList.remove("invitation-closed");
+    document.body.style.overflow = "auto";
+    history.replaceState(null, "", location.pathname + location.search);
+    window.scrollTo(0, 0);
+  }
+
+  function backToOpening() {
+    website.hidden = true;
+    cover.hidden = false;
+    document.body.classList.add("invitation-closed");
+    document.body.style.overflow = "hidden";
+    history.replaceState(null, "", location.pathname + location.search);
+    window.scrollTo(0, 0);
+  }
+
+  card.addEventListener("click", openInvitation);
+
+  card.addEventListener("keydown", function (event) {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      openInvitation();
+    }
+  });
+
+  backButton.addEventListener("click", backToOpening);
+
+  /*
+    RSVP NOTE:
+    This form posts to /api/rsvp.
+    The API must be configured on your hosting platform to save responses.
+    If you use Google Forms, connect your existing Google Form instead.
+  */
+  const form = document.getElementById("rsvpForm");
+  const statusBox = document.getElementById("formStatus");
+  const submitBtn = document.getElementById("submitBtn");
+
+  form.addEventListener("submit", async function (event) {
+    event.preventDefault();
+
+    if (!form.reportValidity()) return;
+
+    const data = Object.fromEntries(new FormData(form).entries());
+
+    if (data.website) return;
+    delete data.website;
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Sending…";
+    statusBox.classList.remove("show");
+
+    try {
+      const response = await fetch("/api/rsvp", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      });
+
+      if (!response.ok) {
+        throw new Error("The RSVP service is not connected or could not save your response.");
+      }
+
+      statusBox.textContent =
+        "Thank you! Your RSVP has been received.";
+      form.reset();
+
+    } catch (error) {
+      statusBox.textContent =
+        "The RSVP service still needs to be connected. Please use the couple's official RSVP form until the service is configured.";
+
+    } finally {
+      statusBox.classList.add("show");
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Send My RSVP";
+    }
+  });
+});
+</script>
+
+</body>
+</html>
