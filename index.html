@@ -2,1362 +2,1224 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#F8F4EE">
-  <title>Don &amp; Lorena | Wedding Invitation</title>
-
-  <style>
-    :root {
-      --ivory: #F8F4EE;
-      --champagne: #EADCCB;
-      --beige: #D7C6B8;
-      --taupe: #B7A99A;
-      --greige: #9E8F82;
-      --gold: #D4AF7C;
-      --brown: #806A56;
-      --text: #6F5D4D;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-      scroll-padding-top: 85px;
-    }
-
-    body {
-      margin: 0;
-      color: var(--text);
-      font-family: Georgia, "Times New Roman", serif;
-      line-height: 1.7;
-      background: var(--ivory);
-    }
-
-    body.locked {
-      overflow: hidden;
-    }
-
-    img {
-      display: block;
-      max-width: 100%;
-    }
-
-    button,
-    a {
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    button {
-      font: inherit;
-    }
-
-    /* OPENING ENVELOPE AND INVITATION */
-
-    .opening-screen {
-      position: fixed;
-      inset: 0;
-      z-index: 5000;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: auto;
-      padding: 24px;
-      background:
-        linear-gradient(rgba(248,244,238,.18), rgba(248,244,238,.28)),
-        url("invitation background.png") center center / cover no-repeat,
-        var(--ivory);
-      transition: opacity .7s ease, visibility .7s ease;
-    }
-
-    .opening-screen.is-hidden {
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-    }
-
-    .opening-stage {
-      width: min(760px, 100%);
-      min-height: 70vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-    }
-
-    .opening-envelope-button {
-      display: block;
-      width: min(620px, 100%);
-      padding: 0;
-      border: 0;
-      background: transparent;
-      cursor: pointer;
-      animation: envelopeFloat 3s ease-in-out infinite;
-    }
-
-    .opening-envelope-button img {
-      width: 100%;
-      height: auto;
-      max-height: 75vh;
-      object-fit: contain;
-      filter: drop-shadow(0 15px 22px rgba(100,78,54,.12));
-    }
-
-    .opening-envelope-button:focus-visible,
-    .invitation-card-button:focus-visible {
-      outline: 2px solid var(--gold);
-      outline-offset: 6px;
-    }
-
-    .opening-instruction {
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 4px;
-      text-align: center;
-      color: var(--brown);
-      font: 700 11px/1.6 Arial, sans-serif;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      padding: 0 10px;
-    }
-
-    .invitation-reveal {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 8px 0 30px;
-      opacity: 0;
-      visibility: hidden;
-      transform: translateY(25px) scale(.96);
-      transition:
-        opacity .65s ease,
-        transform .65s ease,
-        visibility .65s ease;
-      pointer-events: none;
-    }
-
-    .opening-screen.envelope-open .opening-envelope-button {
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-      transform: scale(.92);
-    }
-
-    .opening-screen.envelope-open .opening-instruction {
-      opacity: 0;
-      visibility: hidden;
-    }
-
-    .opening-screen.envelope-open .invitation-reveal {
-      opacity: 1;
-      visibility: visible;
-      transform: translateY(0) scale(1);
-      pointer-events: auto;
-    }
-
-    .opening-envelope-button {
-      transition: opacity .4s ease, transform .4s ease, visibility .4s ease;
-    }
-
-    .invitation-card-button {
-      display: block;
-      width: min(520px, 100%);
-      max-height: 78vh;
-      padding: 0;
-      overflow: auto;
-      border: 0;
-      background: transparent;
-      cursor: pointer;
-      border-radius: 3px;
-    }
-
-    .invitation-card-button img {
-      width: 100%;
-      height: auto;
-      max-height: 76vh;
-      object-fit: contain;
-      margin: auto;
-      filter: drop-shadow(0 12px 20px rgba(80,60,40,.12));
-    }
-
-    .invitation-instruction {
-      margin: 12px 0 0;
-      color: var(--brown);
-      font: 700 10px/1.6 Arial, sans-serif;
-      letter-spacing: 1.7px;
-      text-align: center;
-      text-transform: uppercase;
-    }
-
-    /* MAIN WEBSITE */
-
-    #weddingSite {
-      display: none;
-    }
-
-    #weddingSite.site-visible {
-      display: block;
-      animation: siteAppear .7s ease both;
-    }
-
-    @keyframes envelopeFloat {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-8px); }
-    }
-
-    @keyframes siteAppear {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    .site-header {
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-      padding: 12px max(5%, calc((100% - 1200px) / 2));
-      background: rgba(248,244,238,.96);
-      border-bottom: 1px solid rgba(183,169,154,.4);
-      backdrop-filter: blur(10px);
-    }
-
-    .brand {
-      color: var(--brown);
-      text-decoration: none;
-      font-size: 23px;
-      white-space: nowrap;
-    }
-
-    .brand span {
-      color: var(--gold);
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 20px;
-    }
-
-    .nav-links a {
-      color: var(--brown);
-      text-decoration: none;
-      text-transform: uppercase;
-      font: 700 10px Arial, sans-serif;
-      letter-spacing: 1.2px;
-    }
-
-    .nav-links a:hover {
-      color: var(--greige);
-    }
-
-    .nav-links .rsvp-nav {
-      padding: 9px 15px;
-      background: var(--gold);
-      color: var(--ivory);
-    }
-
-    section {
-      position: relative;
-      scroll-margin-top: 82px;
-      padding: 80px 6%;
-    }
-
-    .section-inner {
-      width: min(1100px, 100%);
-      margin: 0 auto;
-    }
-
-    .eyebrow {
-      margin: 0 0 12px;
-      color: var(--greige);
-      font: 700 10px/1.6 Arial, sans-serif;
-      letter-spacing: 2.5px;
-      text-transform: uppercase;
-    }
-
-    h1, h2, h3, p {
-      overflow-wrap: break-word;
-    }
-
-    h1, h2, h3 {
-      font-weight: 400;
-      line-height: 1.2;
-    }
-
-    h2 {
-      margin: 0;
-      color: var(--brown);
-      font-size: clamp(36px, 5vw, 58px);
-    }
-
-    h3 {
-      color: var(--brown);
-    }
-
-    .section-heading {
-      margin-bottom: 42px;
-      text-align: center;
-    }
-
-    .ornament {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 15px;
-      margin: 18px auto;
-      color: var(--gold);
-    }
-
-    .ornament::before,
-    .ornament::after {
-      content: "";
-      width: 55px;
-      height: 1px;
-      background: var(--gold);
-    }
-
-    .intro {
-      max-width: 660px;
-      margin: 18px auto 0;
-      font-size: 16px;
-    }
-
-    .button {
-      display: inline-block;
-      padding: 12px 22px;
-      border: 1px solid var(--taupe);
-      background: transparent;
-      color: var(--brown);
-      text-decoration: none;
-      font: 700 10px Arial, sans-serif;
-      letter-spacing: 1.3px;
-      text-transform: uppercase;
-      cursor: pointer;
-    }
-
-    .button:hover {
-      background: var(--brown);
-      color: var(--ivory);
-    }
-
-    /* HOME */
-
-    #home {
-      min-height: 85vh;
-      display: flex;
-      align-items: center;
-      text-align: center;
-      background:
-        linear-gradient(rgba(248,244,238,.2), rgba(248,244,238,.28)),
-        url("inside background.png") center center / cover no-repeat,
-        var(--ivory);
-    }
-
-    .home-content {
-      width: min(900px, 100%);
-      margin: auto;
-    }
-
-    .couple-banner {
-      width: min(650px, 90%);
-      max-height: 290px;
-      object-fit: contain;
-      margin: 0 auto 22px;
-    }
-
-    #home h1 {
-      margin: 0;
-      color: var(--brown);
-      font-size: clamp(50px, 9vw, 92px);
-      letter-spacing: -2px;
-    }
-
-    #home h1 span {
-      color: var(--gold);
-    }
-
-    .home-message {
-      max-width: 600px;
-      margin: 22px auto;
-      font-size: 17px;
-    }
-
-    .wedding-date {
-      margin: 22px 0;
-      font: 700 12px Arial, sans-serif;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-    }
-
-    /* DETAILS AND VENUES */
-
-    #details {
-      background:
-        linear-gradient(rgba(248,244,238,.24), rgba(248,244,238,.24)),
-        url("inside background.png") center center / cover no-repeat,
-        var(--champagne);
-      background-attachment: fixed;
-    }
-
-    .venue-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 28px;
-    }
-
-    .venue-card {
-      padding: 25px 20px;
-      text-align: center;
-      background: rgba(248,244,238,.48);
-      border: 1px solid rgba(183,169,154,.35);
-    }
-
-    .venue-card img {
-      width: 100%;
-      height: 260px;
-      object-fit: contain;
-      margin: 0 auto 18px;
-    }
-
-    .venue-card h3 {
-      margin: 10px 0;
-      font-size: 28px;
-    }
-
-    .venue-name {
-      font-weight: bold;
-      font-size: 18px;
-    }
-
-    .entourage-list {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 15px 28px;
-      margin-top: 30px;
-    }
-
-    .entourage-item {
-      padding: 18px;
-      border-bottom: 1px solid var(--taupe);
-      text-align: center;
-    }
-
-    .entourage-item h3 {
-      margin: 0 0 8px;
-      font-size: 22px;
-    }
-
-    .entourage-item p {
-      margin: 3px 0;
-    }
-
-    /* OUR STORY */
-
-    #story {
-      background:
-        linear-gradient(rgba(248,244,238,.2), rgba(248,244,238,.2)),
-        url("inside background.png") center center / cover no-repeat,
-        var(--ivory);
-      background-attachment: fixed;
-    }
-
-    .story-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 22px;
-    }
-
-    .story-photo {
-      min-width: 0;
-      margin: 0;
-      padding: 0;
-      background: transparent;
-      border: 1px solid rgba(183,169,154,.35);
-    }
-
-    .story-photo img {
-      width: 100%;
-      height: 390px;
-      object-fit: contain;
-      background: transparent;
-    }
-
-    /* ATTIRE */
-
-    #attire {
-      background:
-        linear-gradient(rgba(248,244,238,.18), rgba(248,244,238,.18)),
-        url("inside background.png") center center / cover no-repeat,
-        var(--champagne);
-      background-attachment: fixed;
-    }
-
-    .attire-card {
-      margin: 0 0 35px;
-      padding: 22px;
-      background: rgba(248,244,238,.35);
-      border: 1px solid rgba(183,169,154,.4);
-      text-align: center;
-    }
-
-    .attire-card > img {
-      width: 100%;
-      max-height: 600px;
-      object-fit: contain;
-      margin: 0 auto 20px;
-    }
-
-    .attire-card h3 {
-      margin: 12px 0;
-      font-size: 29px;
-    }
-
-    .palette {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 18px;
-      margin: 25px auto 0;
-    }
-
-    .swatch {
-      width: 82px;
-      text-align: center;
-      font: 700 10px Arial, sans-serif;
-      letter-spacing: .5px;
-    }
-
-    .swatch-color {
-      width: 62px;
-      height: 62px;
-      margin: 0 auto 8px;
-      border: 1px solid rgba(128,106,86,.15);
-      border-radius: 50%;
-    }
-
-    .swatch-name {
-      display: block;
-      color: var(--brown);
-    }
-
-    /* GIFTS */
-
-    #gifts {
-      background:
-        linear-gradient(rgba(248,244,238,.2), rgba(248,244,238,.2)),
-        url("inside background.png") center center / cover no-repeat,
-        var(--ivory);
-      background-attachment: fixed;
-    }
-
-    .gift-content {
-      max-width: 850px;
-      margin: auto;
-      text-align: center;
-    }
-
-    .gift-icon {
-      width: min(380px, 85%);
-      height: 300px;
-      object-fit: contain;
-      margin: 0 auto 24px;
-    }
-
-    .gift-copy {
-      max-width: 700px;
-      margin: 0 auto;
-    }
-
-    .gift-copy h3 {
-      margin: 12px 0;
-      font-size: 32px;
-    }
-
-    .gift-copy p {
-      font-size: 16px;
-    }
-
-    /* OH SNAP */
-
-    #oh-snap {
-      background:
-        linear-gradient(rgba(248,244,238,.18), rgba(248,244,238,.18)),
-        url("inside background.png") center center / cover no-repeat,
-        var(--champagne);
-      background-attachment: fixed;
-      text-align: center;
-    }
-
-    .camera-icon {
-      width: min(250px, 65%);
-      height: 190px;
-      object-fit: contain;
-      margin: 0 auto 18px;
-    }
-
-    .hashtag {
-      color: var(--brown);
-      font-weight: bold;
-      overflow-wrap: anywhere;
-    }
-
-    /* RSVP */
-
-    #rsvp {
-      background:
-        linear-gradient(rgba(248,244,238,.2), rgba(248,244,238,.2)),
-        url("inside background.png") center center / cover no-repeat,
-        var(--ivory);
-      background-attachment: fixed;
-      text-align: center;
-    }
-
-    .rsvp-link {
-      display: block;
-      width: min(850px, 100%);
-      margin: 0 auto;
-      border: none;
-      cursor: pointer;
-      transition: transform .25s ease;
-    }
-
-    .rsvp-link:hover {
-      transform: scale(1.015);
-    }
-
-    .rsvp-image {
-      width: 100%;
-      height: auto;
-      max-height: 600px;
-      object-fit: contain;
-      margin: 0 auto;
-    }
-
-    .rsvp-caption {
-      margin-top: 18px;
-      font: 700 10px Arial, sans-serif;
-      letter-spacing: 1.8px;
-      text-transform: uppercase;
-    }
-
-    footer {
-      padding: 30px 20px;
-      background: var(--champagne);
-      text-align: center;
-    }
-
-    footer p {
-      margin: 5px;
-    }
-
-    /* MUSIC BUTTON */
-
-    .music-control {
-      position: fixed;
-      right: 18px;
-      bottom: 18px;
-      z-index: 1500;
-      display: none;
-      width: 48px;
-      height: 48px;
-      border: 1px solid var(--gold);
-      border-radius: 50%;
-      background: rgba(248,244,238,.96);
-      color: var(--brown);
-      font-size: 19px;
-      cursor: pointer;
-      box-shadow: 0 4px 15px rgba(80,60,40,.12);
-    }
-
-    .music-control.visible {
-      display: block;
-    }
-
-    /* MOBILE RESPONSIVE */
-
-    @media (max-width: 700px) {
-      .opening-screen {
-        padding: 15px;
-      }
-
-      .opening-stage {
-        min-height: 65vh;
-      }
-
-      .opening-envelope-button {
-        width: min(520px, 100%);
-      }
-
-      .opening-envelope-button img {
-        max-height: 65vh;
-      }
-
-      .invitation-card-button {
-        width: min(450px, 100%);
-        max-height: 76vh;
-      }
-
-      .invitation-card-button img {
-        max-height: 70vh;
-      }
-
-      .opening-instruction {
-        bottom: 0;
-        font-size: 9px;
-        letter-spacing: 1.3px;
-      }
-
-      .site-header {
-        flex-direction: column;
-        gap: 10px;
-        padding: 10px 4%;
-      }
-
-      .brand {
-        font-size: 21px;
-      }
-
-      .nav-links {
-        gap: 12px;
-      }
-
-      .nav-links a {
-        font-size: 9px;
-        letter-spacing: .7px;
-      }
-
-      .nav-links .rsvp-nav {
-        padding: 7px 10px;
-      }
-
-      section {
-        padding: 58px 5%;
-      }
-
-      .venue-grid,
-      .story-grid,
-      .entourage-list {
-        grid-template-columns: 1fr;
-      }
-
-      .venue-card {
-        padding: 20px 15px;
-      }
-
-      .venue-card img {
-        height: 220px;
-      }
-
-      .story-photo img {
-        height: auto;
-        max-height: 500px;
-      }
-
-      .attire-card {
-        padding: 14px;
-      }
-
-      .attire-card > img {
-        max-height: 480px;
-      }
-
-      .gift-icon {
-        height: 230px;
-      }
-
-      #home h1 {
-        letter-spacing: -1px;
-      }
-
-      #details,
-      #story,
-      #attire,
-      #gifts,
-      #oh-snap,
-      #rsvp {
-        background-attachment: scroll;
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      html {
-        scroll-behavior: auto;
-      }
-
-      *,
-      *::before,
-      *::after {
-        animation-duration: .01ms !important;
-        transition-duration: .01ms !important;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#F8F4EE">
+<title>Don &amp; Lorena | Wedding Invitation</title>
+
+<style>
+:root {
+  --ivory:#F8F4EE;
+  --champagne:#EADCCB;
+  --beige:#D7C6B8;
+  --taupe:#B7A99A;
+  --greige:#9E8F82;
+  --gold:#D4AF7C;
+  --brown:#806A56;
+  --text:#6F5D4D;
+}
+
+* { box-sizing:border-box; }
+
+html {
+  scroll-behavior:smooth;
+  scroll-padding-top:90px;
+}
+
+body {
+  margin:0;
+  color:var(--text);
+  font-family:Georgia,"Times New Roman",serif;
+  line-height:1.7;
+  background:var(--ivory);
+}
+
+body.locked { overflow:hidden; }
+
+img {
+  display:block;
+  max-width:100%;
+}
+
+button,a { -webkit-tap-highlight-color:transparent; }
+button { font:inherit; }
+
+/* OPENING ENVELOPE SCREEN */
+
+.opening-screen {
+  position:fixed;
+  inset:0;
+  z-index:5000;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:auto;
+  padding:24px;
+  background:
+    linear-gradient(rgba(248,244,238,.18),rgba(248,244,238,.18)),
+    url("invitation background.png") center center / cover no-repeat,
+    var(--ivory);
+  transition:opacity .6s ease, visibility .6s ease;
+}
+
+.opening-screen.is-hidden {
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+}
+
+.opening-stage {
+  width:min(760px,100%);
+  min-height:75vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+}
+
+.envelope-scene {
+  width:min(650px,100%);
+  text-align:center;
+  transition:opacity .4s ease,transform .4s ease;
+}
+
+.opening-envelope-button {
+  display:block;
+  width:100%;
+  padding:0;
+  border:0;
+  background:transparent;
+  cursor:pointer;
+  animation:floatEnvelope 3s ease-in-out infinite;
+}
+
+.opening-envelope-button img {
+  width:100%;
+  height:auto;
+  max-height:68vh;
+  object-fit:contain;
+  margin:auto;
+  filter:drop-shadow(0 12px 22px rgba(100,78,54,.13));
+}
+
+/* Names are displayed separately so they remain visible
+   even when the envelope PNG does not contain text. */
+
+.opening-names {
+  margin:0 0 14px;
+  color:var(--brown);
+  font-size:clamp(36px,7vw,66px);
+  line-height:1.15;
+  font-weight:400;
+}
+
+.opening-names span { color:var(--gold); }
+
+.opening-date {
+  margin:10px 0 18px;
+  font:700 11px Arial,sans-serif;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  color:var(--brown);
+}
+
+.opening-instruction {
+  margin:12px 0 0;
+  color:var(--brown);
+  font:700 10px Arial,sans-serif;
+  letter-spacing:1.8px;
+  text-transform:uppercase;
+}
+
+/* INVITATION CARD REVEAL
+   This is the only image shown after clicking the envelope. */
+
+.invitation-reveal {
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:10px 0;
+  opacity:0;
+  visibility:hidden;
+  transform:translateY(18px) scale(.97);
+  transition:opacity .5s ease,transform .5s ease,visibility .5s ease;
+  pointer-events:none;
+}
+
+.opening-screen.envelope-open .envelope-scene {
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+  transform:scale(.95);
+}
+
+.opening-screen.envelope-open .invitation-reveal {
+  opacity:1;
+  visibility:visible;
+  transform:translateY(0) scale(1);
+  pointer-events:auto;
+}
+
+.invitation-card-button {
+  display:block;
+  width:min(520px,100%);
+  max-height:78vh;
+  padding:0;
+  margin:auto;
+  overflow:auto;
+  border:0;
+  border-radius:3px;
+  background:transparent;
+  cursor:pointer;
+}
+
+.invitation-card-button img {
+  width:100%;
+  height:auto;
+  max-height:74vh;
+  object-fit:contain;
+  margin:auto;
+  filter:drop-shadow(0 12px 20px rgba(80,60,40,.12));
+}
+
+.invitation-instruction {
+  margin:12px 0 0;
+  text-align:center;
+  color:var(--brown);
+  font:700 10px Arial,sans-serif;
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+}
+
+@keyframes floatEnvelope {
+  0%,100% { transform:translateY(0); }
+  50% { transform:translateY(-7px); }
+}
+
+/* MAIN WEBSITE */
+
+#weddingSite { display:none; }
+
+#weddingSite.site-visible {
+  display:block;
+  animation:fadeIn .6s ease both;
+}
+
+@keyframes fadeIn {
+  from { opacity:0; }
+  to { opacity:1; }
+}
+
+.site-header {
+  position:sticky;
+  top:0;
+  z-index:1000;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+  padding:12px max(5%,calc((100% - 1200px)/2));
+  background:rgba(248,244,238,.96);
+  border-bottom:1px solid rgba(183,169,154,.4);
+  backdrop-filter:blur(10px);
+}
+
+.brand {
+  color:var(--brown);
+  text-decoration:none;
+  font-size:23px;
+  white-space:nowrap;
+}
+
+.brand span { color:var(--gold); }
+
+.nav-links {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:18px;
+}
+
+.nav-links a {
+  color:var(--brown);
+  text-decoration:none;
+  text-transform:uppercase;
+  font:700 10px Arial,sans-serif;
+  letter-spacing:1px;
+}
+
+.nav-links a:hover { color:var(--greige); }
+
+.nav-links .rsvp-nav {
+  padding:9px 14px;
+  background:var(--gold);
+  color:var(--ivory);
+}
+
+section {
+  position:relative;
+  scroll-margin-top:90px;
+  padding:76px 6%;
+}
+
+.section-inner {
+  width:min(1100px,100%);
+  margin:0 auto;
+}
+
+.eyebrow {
+  margin:0 0 12px;
+  color:var(--greige);
+  font:700 10px/1.6 Arial,sans-serif;
+  letter-spacing:2.5px;
+  text-transform:uppercase;
+}
+
+h1,h2,h3 {
+  font-weight:400;
+  line-height:1.2;
+  overflow-wrap:break-word;
+}
+
+h2 {
+  margin:0;
+  color:var(--brown);
+  font-size:clamp(36px,5vw,58px);
+}
+
+h3 { color:var(--brown); }
+
+.section-heading {
+  margin-bottom:40px;
+  text-align:center;
+}
+
+.ornament {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:15px;
+  margin:18px auto;
+  color:var(--gold);
+}
+
+.ornament::before,.ornament::after {
+  content:"";
+  width:55px;
+  height:1px;
+  background:var(--gold);
+}
+
+.intro {
+  max-width:660px;
+  margin:18px auto 0;
+  font-size:16px;
+}
+
+.button {
+  display:inline-block;
+  padding:12px 22px;
+  border:1px solid var(--taupe);
+  background:transparent;
+  color:var(--brown);
+  text-decoration:none;
+  font:700 10px Arial,sans-serif;
+  letter-spacing:1.3px;
+  text-transform:uppercase;
+  cursor:pointer;
+}
+
+.button:hover {
+  background:var(--brown);
+  color:var(--ivory);
+}
+
+/* BACK TO INVITATION */
+
+.back-invitation {
+  display:block;
+  width:fit-content;
+  margin:0 auto 25px;
+  padding:9px 16px;
+  border:1px solid var(--taupe);
+  background:rgba(248,244,238,.7);
+  color:var(--brown);
+  text-decoration:none;
+  font:700 10px Arial,sans-serif;
+  letter-spacing:1px;
+  text-transform:uppercase;
+  cursor:pointer;
+}
+
+.back-invitation:hover {
+  background:var(--brown);
+  color:var(--ivory);
+}
+
+/* HOME */
+
+#home {
+  min-height:82vh;
+  display:flex;
+  align-items:center;
+  text-align:center;
+  background:
+    linear-gradient(rgba(248,244,238,.2),rgba(248,244,238,.2)),
+    url("inside background.png") center center / cover no-repeat,
+    var(--ivory);
+}
+
+.home-content {
+  width:min(900px,100%);
+  margin:auto;
+}
+
+.couple-banner {
+  width:min(650px,90%);
+  max-height:290px;
+  object-fit:contain;
+  margin:0 auto 22px;
+}
+
+#home h1 {
+  margin:0;
+  color:var(--brown);
+  font-size:clamp(50px,9vw,92px);
+  letter-spacing:-2px;
+}
+
+#home h1 span { color:var(--gold); }
+
+.home-message {
+  max-width:600px;
+  margin:22px auto;
+  font-size:17px;
+}
+
+.wedding-date {
+  margin:22px 0;
+  font:700 12px Arial,sans-serif;
+  letter-spacing:2px;
+  text-transform:uppercase;
+}
+
+/* DETAILS AND VENUES */
+
+#details {
+  background:
+    linear-gradient(rgba(248,244,238,.24),rgba(248,244,238,.24)),
+    url("inside background.png") center center / cover no-repeat,
+    var(--champagne);
+  background-attachment:fixed;
+}
+
+.venue-grid {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:28px;
+}
+
+.venue-card {
+  padding:25px 20px;
+  text-align:center;
+  background:rgba(248,244,238,.38);
+  border:1px solid rgba(183,169,154,.35);
+}
+
+.venue-card img {
+  width:100%;
+  height:260px;
+  object-fit:contain;
+  margin:0 auto 18px;
+}
+
+.venue-card h3 {
+  margin:10px 0;
+  font-size:28px;
+}
+
+.venue-name {
+  font-weight:bold;
+  font-size:18px;
+}
+
+.entourage-list {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:15px 28px;
+  margin-top:30px;
+}
+
+.entourage-item {
+  padding:18px;
+  border-bottom:1px solid var(--taupe);
+  text-align:center;
+}
+
+.entourage-item h3 {
+  margin:0 0 8px;
+  font-size:22px;
+}
+
+.entourage-item p { margin:3px 0; }
+
+/* OUR STORY */
+
+#story {
+  background:
+    linear-gradient(rgba(248,244,238,.2),rgba(248,244,238,.2)),
+    url("inside background.png") center center / cover no-repeat,
+    var(--ivory);
+  background-attachment:fixed;
+}
+
+.story-grid {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:22px;
+}
+
+.story-photo {
+  min-width:0;
+  margin:0;
+  padding:0;
+  background:transparent;
+  border:1px solid rgba(183,169,154,.35);
+}
+
+.story-photo img {
+  width:100%;
+  height:390px;
+  object-fit:contain;
+  background:transparent;
+}
+
+/* ATTIRE */
+
+#attire {
+  background:
+    linear-gradient(rgba(248,244,238,.18),rgba(248,244,238,.18)),
+    url("inside background.png") center center / cover no-repeat,
+    var(--champagne);
+  background-attachment:fixed;
+}
+
+.attire-card {
+  margin:0 0 35px;
+  padding:22px;
+  background:rgba(248,244,238,.3);
+  border:1px solid rgba(183,169,154,.4);
+  text-align:center;
+}
+
+.attire-card>img {
+  width:100%;
+  max-height:600px;
+  object-fit:contain;
+  margin:0 auto 20px;
+}
+
+.attire-card h3 {
+  margin:12px 0;
+  font-size:29px;
+}
+
+.palette {
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:18px;
+  margin:25px auto 0;
+}
+
+.swatch {
+  width:82px;
+  text-align:center;
+  font:700 10px Arial,sans-serif;
+  letter-spacing:.5px;
+}
+
+.swatch-color {
+  width:62px;
+  height:62px;
+  margin:0 auto 8px;
+  border:1px solid rgba(128,106,86,.15);
+  border-radius:50%;
+}
+
+.swatch-name {
+  display:block;
+  color:var(--brown);
+}
+
+/* GIFTS */
+
+#gifts {
+  background:
+    linear-gradient(rgba(248,244,238,.2),rgba(248,244,238,.2)),
+    url("inside background.png") center center / cover no-repeat,
+    var(--ivory);
+  background-attachment:fixed;
+}
+
+.gift-content {
+  max-width:850px;
+  margin:auto;
+  text-align:center;
+}
+
+.gift-icon {
+  width:min(380px,85%);
+  height:300px;
+  object-fit:contain;
+  margin:0 auto 24px;
+}
+
+.gift-copy {
+  max-width:700px;
+  margin:0 auto;
+}
+
+.gift-copy h3 {
+  margin:12px 0;
+  font-size:32px;
+}
+
+/* OH SNAP */
+
+#oh-snap {
+  background:
+    linear-gradient(rgba(248,244,238,.18),rgba(248,244,238,.18)),
+    url("inside background.png") center center / cover no-repeat,
+    var(--champagne);
+  background-attachment:fixed;
+  text-align:center;
+}
+
+.camera-icon {
+  width:min(250px,65%);
+  height:190px;
+  object-fit:contain;
+  margin:0 auto 18px;
+}
+
+.hashtag {
+  color:var(--brown);
+  font-weight:bold;
+  overflow-wrap:anywhere;
+}
+
+/* RSVP */
+
+#rsvp {
+  background:
+    linear-gradient(rgba(248,244,238,.2),rgba(248,244,238,.2)),
+    url("inside background.png") center center / cover no-repeat,
+    var(--ivory);
+  background-attachment:fixed;
+  text-align:center;
+}
+
+.rsvp-link {
+  display:block;
+  width:min(850px,100%);
+  margin:0 auto;
+  border:0;
+  cursor:pointer;
+  transition:transform .25s ease;
+}
+
+.rsvp-link:hover { transform:scale(1.015); }
+
+.rsvp-image {
+  width:100%;
+  height:auto;
+  max-height:600px;
+  object-fit:contain;
+  margin:0 auto;
+}
+
+.rsvp-caption {
+  margin-top:18px;
+  font:700 10px Arial,sans-serif;
+  letter-spacing:1.8px;
+  text-transform:uppercase;
+}
+
+footer {
+  padding:30px 20px;
+  background:var(--champagne);
+  text-align:center;
+}
+
+footer p { margin:5px; }
+
+/* MUSIC CONTROL */
+
+.music-control {
+  position:fixed;
+  right:18px;
+  bottom:18px;
+  z-index:1500;
+  display:none;
+  width:48px;
+  height:48px;
+  border:1px solid var(--gold);
+  border-radius:50%;
+  background:rgba(248,244,238,.96);
+  color:var(--brown);
+  font-size:19px;
+  cursor:pointer;
+  box-shadow:0 4px 15px rgba(80,60,40,.12);
+}
+
+.music-control.visible { display:block; }
+
+/* MOBILE */
+
+@media(max-width:700px) {
+  .opening-screen { padding:15px; }
+
+  .opening-stage { min-height:68vh; }
+
+  .opening-envelope-button img { max-height:58vh; }
+
+  .opening-names {
+    font-size:clamp(34px,9vw,52px);
+  }
+
+  .invitation-card-button {
+    width:min(450px,100%);
+    max-height:76vh;
+  }
+
+  .invitation-card-button img { max-height:70vh; }
+
+  .site-header {
+    flex-direction:column;
+    gap:10px;
+    padding:10px 4%;
+  }
+
+  .brand { font-size:21px; }
+
+  .nav-links { gap:12px; }
+
+  .nav-links a {
+    font-size:9px;
+    letter-spacing:.6px;
+  }
+
+  .nav-links .rsvp-nav { padding:7px 10px; }
+
+  section { padding:58px 5%; }
+
+  .venue-grid,.story-grid,.entourage-list {
+    grid-template-columns:1fr;
+  }
+
+  .venue-card { padding:20px 15px; }
+  .venue-card img { height:220px; }
+  .story-photo img { height:auto; max-height:500px; }
+  .attire-card { padding:14px; }
+  .attire-card>img { max-height:480px; }
+  .gift-icon { height:230px; }
+  #home h1 { letter-spacing:-1px; }
+
+  #details,#story,#attire,#gifts,#oh-snap,#rsvp {
+    background-attachment:scroll;
+  }
+}
+
+@media(prefers-reduced-motion:reduce) {
+  html { scroll-behavior:auto; }
+
+  *,*::before,*::after {
+    animation-duration:.01ms !important;
+    transition-duration:.01ms !important;
+  }
+}
+</style>
 </head>
 
 <body class="locked">
 
-  <!-- OPENING MUSIC -->
-  <audio id="weddingMusic" src="wedding.mp3" loop preload="auto"></audio>
+<audio id="weddingMusic" src="wedding.mp3" loop preload="auto"></audio>
 
-  <!-- STEP 1: CLICK THE ENVELOPE -->
-  <div class="opening-screen" id="openingScreen">
-    <div class="opening-stage">
+<!-- OPENING SCREEN: COUPLE NAMES + ENVELOPE -->
+<div class="opening-screen" id="openingScreen">
+  <div class="opening-stage">
+
+    <div class="envelope-scene" id="envelopeScene">
+      <p class="eyebrow">You are cordially invited</p>
+
+      <h1 class="opening-names">Don <span>&amp;</span> Lorena</h1>
+
+      <p class="opening-date">January 18, 2019</p>
 
       <button
         class="opening-envelope-button"
         id="openEnvelope"
         type="button"
-        aria-label="Open the wedding envelope"
+        aria-label="Click to open Don and Lorena's wedding envelope"
       >
-        <img
-          src="opening-envelope.png"
-          alt="Wedding invitation envelope"
-        >
+        <img src="opening-envelope.png" alt="Wedding invitation envelope">
       </button>
 
-      <p class="opening-instruction" id="envelopeInstruction">
+      <p class="opening-instruction">
         Click the envelope to open your invitation
       </p>
+    </div>
 
-      <!-- STEP 2: CLICK THE INVITATION CARD -->
-      <div class="invitation-reveal" id="invitationReveal">
-        <div>
-          <button
-            class="invitation-card-button"
-            id="enterWebsite"
-            type="button"
-            aria-label="Open Don and Lorena's wedding website"
-          >
-            <img
-              src="invitation.png"
-              alt="Don and Lorena wedding invitation card"
-            >
-          </button>
-          <p class="invitation-instruction">
-            Click the invitation to continue
+    <!-- ONE CARD ONLY. CLICKING IT OPENS THE WEBSITE DIRECTLY. -->
+    <div class="invitation-reveal" id="invitationReveal">
+      <div>
+        <button
+          class="invitation-card-button"
+          id="enterWebsite"
+          type="button"
+          aria-label="Enter Don and Lorena's wedding website"
+        >
+          <img src="invitation.png" alt="Don and Lorena's wedding invitation">
+        </button>
+
+        <p class="invitation-instruction">
+          Click the invitation to enter
+        </p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- MAIN WEDDING WEBSITE -->
+<div id="weddingSite">
+
+  <header class="site-header">
+    <a class="brand" href="#home">Don <span>&amp;</span> Lorena</a>
+
+    <nav class="nav-links" aria-label="Main navigation">
+      <a href="#details">Details</a>
+      <a href="#story">Our Story</a>
+      <a href="#attire">Attire</a>
+      <a href="#gifts">Gifts</a>
+      <a class="rsvp-nav" href="#rsvp">RSVP</a>
+    </nav>
+  </header>
+
+  <main>
+
+    <section id="home">
+      <div class="home-content">
+        <p class="eyebrow">Together with our families</p>
+
+        <img class="couple-banner" src="couple.png" alt="Don and Lorena">
+
+        <h1>Don <span>&amp;</span> Lorena</h1>
+
+        <div class="ornament">✧</div>
+
+        <p class="home-message">
+          With grateful hearts, we invite you to share in the beginning
+          of our forever. Your presence will make our celebration even
+          more meaningful.
+        </p>
+
+        <p class="wedding-date">January 18, 2019</p>
+      </div>
+    </section>
+
+    <section id="details">
+      <div class="section-inner">
+
+        <button class="back-invitation" type="button" data-back-invitation>
+          ← Back to Invitation
+        </button>
+
+        <div class="section-heading">
+          <p class="eyebrow">The celebration</p>
+          <h2>Wedding Details</h2>
+          <div class="ornament">✧</div>
+          <p class="intro">
+            We look forward to celebrating this special day with the
+            people we love.
           </p>
+        </div>
+
+        <div class="venue-grid">
+          <article class="venue-card">
+            <img src="ceremony.png" alt="Wedding ceremony">
+            <p class="eyebrow">The ceremony</p>
+            <h3>Wedding Ceremony</h3>
+            <p class="venue-name">St. Rita's Parish</p>
+            <p>Balingasag</p>
+            <p><strong>January 18, 2019</strong></p>
+          </article>
+
+          <article class="venue-card">
+            <img src="reception.png" alt="Wedding reception">
+            <p class="eyebrow">The celebration</p>
+            <h3>Wedding Reception</h3>
+            <p class="venue-name">Sofie Red Hotel</p>
+          </article>
+        </div>
+
+        <div class="section-heading" style="margin:60px 0 25px;">
+          <p class="eyebrow">Together with our families</p>
+          <h2 style="font-size:clamp(32px,4vw,46px);">Wedding Entourage</h2>
+          <div class="ornament">✧</div>
+        </div>
+
+        <div class="entourage-list">
+          <div class="entourage-item">
+            <h3>Parents of the Bride</h3>
+            <p>Mother of the Bride</p>
+            <p>Father of the Bride</p>
+          </div>
+
+          <div class="entourage-item">
+            <h3>Parents of the Groom</h3>
+            <p>Mother of the Groom</p>
+            <p>Father of the Groom</p>
+          </div>
+
+          <div class="entourage-item">
+            <h3>Principal Sponsors</h3>
+            <p>Principal Sponsors</p>
+          </div>
+
+          <div class="entourage-item">
+            <h3>Wedding Party</h3>
+            <p>Maid of Honor</p>
+            <p>Best Man</p>
+            <p>Bridesmaids</p>
+            <p>Groomsmen</p>
+          </div>
+
+          <div class="entourage-item">
+            <h3>Wedding Attendants</h3>
+            <p>Flower Girls</p>
+            <p>Ring Bearer</p>
+            <p>Coin Bearer</p>
+            <p>Bible Bearer</p>
+          </div>
+
+          <div class="entourage-item">
+            <h3>Other Participants</h3>
+            <p>Candle Sponsors</p>
+            <p>Veil Sponsors</p>
+            <p>Cord Sponsors</p>
+          </div>
         </div>
       </div>
+    </section>
 
-    </div>
-  </div>
+    <section id="story">
+      <div class="section-inner">
 
-  <!-- MAIN WEBSITE: SHOWN AFTER THE INVITATION IS CLICKED -->
-  <div id="weddingSite">
+        <button class="back-invitation" type="button" data-back-invitation>
+          ← Back to Invitation
+        </button>
 
-    <header class="site-header">
-      <a class="brand" href="#home">Don <span>&amp;</span> Lorena</a>
-
-      <nav class="nav-links" aria-label="Main navigation">
-        <a href="#details">Details</a>
-        <a href="#story">Our Story</a>
-        <a href="#attire">Attire</a>
-        <a href="#gifts">Gifts</a>
-        <a class="rsvp-nav" href="#rsvp">RSVP</a>
-      </nav>
-    </header>
-
-    <main>
-
-      <!-- HOME -->
-      <section id="home">
-        <div class="home-content">
-          <p class="eyebrow">You are cordially invited</p>
-
-          <img
-            class="couple-banner"
-            src="couple.png"
-            alt="Don and Lorena"
-          >
-
-          <h1>Don <span>&amp;</span> Lorena</h1>
-
+        <div class="section-heading">
+          <p class="eyebrow">A little piece of us</p>
+          <h2>Our Story</h2>
           <div class="ornament">✧</div>
-
-          <p class="home-message">
-            With grateful hearts, we invite you to share in the beginning
-            of our forever. Your presence will make our celebration even
-            more meaningful.
-          </p>
-
-          <p class="wedding-date">January 18, 2019</p>
-
-          <a class="button" href="#details">Wedding Details</a>
-        </div>
-      </section>
-
-      <!-- WEDDING DETAILS -->
-      <section id="details">
-        <div class="section-inner">
-
-          <div class="section-heading">
-            <p class="eyebrow">The celebration</p>
-            <h2>Wedding Details</h2>
-            <div class="ornament">✧</div>
-            <p class="intro">
-              We look forward to celebrating this special day with the
-              people we love.
-            </p>
-          </div>
-
-          <div class="venue-grid">
-
-            <article class="venue-card">
-              <img
-                src="ceremony.png"
-                alt="Wedding ceremony"
-              >
-              <p class="eyebrow">The ceremony</p>
-              <h3>Wedding Ceremony</h3>
-              <p class="venue-name">St. Rita's Parish</p>
-              <p>Balingasag</p>
-              <p><strong>January 18, 2019</strong></p>
-            </article>
-
-            <article class="venue-card">
-              <img
-                src="reception.png"
-                alt="Wedding reception"
-              >
-              <p class="eyebrow">The celebration</p>
-              <h3>Wedding Reception</h3>
-              <p class="venue-name">Sofie Red Hotel</p>
-              <p>We look forward to celebrating with you.</p>
-            </article>
-
-          </div>
-
-          <div class="section-heading" style="margin: 60px 0 25px;">
-            <p class="eyebrow">Together with our families</p>
-            <h2 style="font-size:clamp(32px,4vw,46px);">
-              Wedding Entourage
-            </h2>
-            <div class="ornament">✧</div>
-          </div>
-
-          <div class="entourage-list">
-
-            <div class="entourage-item">
-              <h3>Parents of the Bride</h3>
-              <p>Mother of the Bride</p>
-              <p>Father of the Bride</p>
-            </div>
-
-            <div class="entourage-item">
-              <h3>Parents of the Groom</h3>
-              <p>Mother of the Groom</p>
-              <p>Father of the Groom</p>
-            </div>
-
-            <div class="entourage-item">
-              <h3>Principal Sponsors</h3>
-              <p>Principal Sponsors</p>
-            </div>
-
-            <div class="entourage-item">
-              <h3>Wedding Party</h3>
-              <p>Maid of Honor</p>
-              <p>Best Man</p>
-              <p>Bridesmaids</p>
-              <p>Groomsmen</p>
-            </div>
-
-            <div class="entourage-item">
-              <h3>Wedding Attendants</h3>
-              <p>Flower Girls</p>
-              <p>Ring Bearer</p>
-              <p>Coin Bearer</p>
-              <p>Bible Bearer</p>
-            </div>
-
-            <div class="entourage-item">
-              <h3>Other Participants</h3>
-              <p>Candle Sponsors</p>
-              <p>Veil Sponsors</p>
-              <p>Cord Sponsors</p>
-            </div>
-
-          </div>
-        </div>
-      </section>
-
-      <!-- OUR STORY -->
-      <section id="story">
-        <div class="section-inner">
-
-          <div class="section-heading">
-            <p class="eyebrow">A little piece of us</p>
-            <h2>Our Story</h2>
-            <div class="ornament">✧</div>
-            <p class="intro">
-              Every love story is made of little moments. Here are some
-              memories from our journey together.
-            </p>
-          </div>
-
-          <div class="story-grid">
-
-            <figure class="story-photo">
-              <img src="story 1.png" alt="Don and Lorena memory one">
-            </figure>
-
-            <figure class="story-photo">
-              <img src="story 2.png" alt="Don and Lorena memory two">
-            </figure>
-
-            <figure class="story-photo">
-              <img src="story 3.png" alt="Don and Lorena memory three">
-            </figure>
-
-            <figure class="story-photo">
-              <img src="story 4.png" alt="Don and Lorena memory four">
-            </figure>
-
-            <figure class="story-photo">
-              <img src="story 5.png" alt="Don and Lorena memory five">
-            </figure>
-
-            <figure class="story-photo">
-              <img src="story 6.png" alt="Don and Lorena memory six">
-            </figure>
-
-            <figure class="story-photo">
-              <img src="story 7.png" alt="Don and Lorena memory seven">
-            </figure>
-
-          </div>
-        </div>
-      </section>
-
-      <!-- WEDDING ATTIRE -->
-      <section id="attire">
-        <div class="section-inner">
-
-          <div class="section-heading">
-            <p class="eyebrow">Dress with elegance</p>
-            <h2>Wedding Attire</h2>
-            <div class="ornament">✧</div>
-            <p class="intro">
-              Our wedding follows a Quiet Luxury Neutrals theme with
-              refined, timeless and elegant shades.
-            </p>
-          </div>
-
-          <!-- PRINCIPAL SPONSORS -->
-          <article class="attire-card">
-            <img
-              src="principal sponsors.png"
-              alt="Principal sponsors attire inspiration"
-            >
-
-            <h3>Principal Sponsors</h3>
-            <p>Elegant formal attire in champagne tones.</p>
-
-            <div class="palette">
-              <div class="swatch">
-                <div
-                  class="swatch-color"
-                  style="background:#EADCCB"
-                ></div>
-                <span class="swatch-name">Champagne</span>
-              </div>
-            </div>
-          </article>
-
-          <!-- ENTOURAGE -->
-          <article class="attire-card">
-            <img
-              src="entourage.png"
-              alt="Wedding entourage attire inspiration"
-            >
-
-            <h3>Entourage</h3>
-            <p>Coordinated, refined champagne attire.</p>
-
-            <div class="palette">
-              <div class="swatch">
-                <div
-                  class="swatch-color"
-                  style="background:#EADCCB"
-                ></div>
-                <span class="swatch-name">Champagne</span>
-              </div>
-            </div>
-          </article>
-
-          <!-- GUESTS -->
-          <article class="attire-card">
-            <img
-              src="guests.png"
-              alt="Guest attire inspiration"
-            >
-
-            <h3>Guests</h3>
-            <p>
-              Kindly choose elegant formal attire in one of the following
-              neutral shades.
-            </p>
-
-            <div class="palette">
-
-              <div class="swatch">
-                <div
-                  class="swatch-color"
-                  style="background:#D7C6B8"
-                ></div>
-                <span class="swatch-name">Beige</span>
-              </div>
-
-              <div class="swatch">
-                <div
-                  class="swatch-color"
-                  style="background:#B7A99A"
-                ></div>
-                <span class="swatch-name">Taupe</span>
-              </div>
-
-              <div class="swatch">
-                <div
-                  class="swatch-color"
-                  style="background:#9E8F82"
-                ></div>
-                <span class="swatch-name">Greige</span>
-              </div>
-
-            </div>
-          </article>
-
-        </div>
-      </section>
-
-      <!-- GIFTS -->
-      <section id="gifts">
-        <div class="section-inner">
-
-          <div class="section-heading">
-            <p class="eyebrow">Your presence is a gift</p>
-            <h2>Gift Wishes</h2>
-            <div class="ornament">✧</div>
-          </div>
-
-          <div class="gift-content">
-            <img
-              class="gift-icon"
-              src="gift.png"
-              alt="Wedding gift"
-            >
-
-            <div class="gift-copy">
-              <p class="eyebrow">With love and gratitude</p>
-              <h3>In Lieu of Gifts</h3>
-
-              <p>
-                Your love and presence are the greatest gifts we could ask
-                for. Should you wish to bless us with a gift, a monetary
-                contribution toward our new chapter would be warmly
-                appreciated.
-              </p>
-
-              <p>Thank you for your love and generosity.</p>
-            </div>
-          </div>
-
-        </div>
-      </section>
-
-      <!-- OH SNAP -->
-      <section id="oh-snap">
-        <div class="section-inner">
-
-          <img
-            class="camera-icon"
-            src="camera.png"
-            alt="Camera"
-          >
-
-          <p class="eyebrow">Capture the memories</p>
-          <h2>OH SNAP!</h2>
-          <div class="ornament">✧</div>
-
           <p class="intro">
-            Celebrate with us and share your favorite moments from our
-            special day.
+            Every love story is made of little moments. Here are some
+            memories from our journey together.
           </p>
-
-          <p class="hashtag">Use our official hashtag</p>
-          <h3 class="hashtag">#theDONandonlyforLORENA</h3>
-
         </div>
-      </section>
 
-      <!-- RSVP -->
-      <section id="rsvp">
-        <div class="section-inner">
+        <div class="story-grid">
+          <figure class="story-photo"><img src="story 1.png" alt="Don and Lorena memory one"></figure>
+          <figure class="story-photo"><img src="story 2.png" alt="Don and Lorena memory two"></figure>
+          <figure class="story-photo"><img src="story 3.png" alt="Don and Lorena memory three"></figure>
+          <figure class="story-photo"><img src="story 4.png" alt="Don and Lorena memory four"></figure>
+          <figure class="story-photo"><img src="story 5.png" alt="Don and Lorena memory five"></figure>
+          <figure class="story-photo"><img src="story 6.png" alt="Don and Lorena memory six"></figure>
+          <figure class="story-photo"><img src="story 7.png" alt="Don and Lorena memory seven"></figure>
+        </div>
+      </div>
+    </section>
 
-          <div class="section-heading">
-            <p class="eyebrow">Kindly respond</p>
-            <h2>RSVP</h2>
-            <div class="ornament">✧</div>
+    <section id="attire">
+      <div class="section-inner">
 
-            <p class="intro">
-              Please tap the invitation below to let us know if you can
-              join us.
-            </p>
+        <button class="back-invitation" type="button" data-back-invitation>
+          ← Back to Invitation
+        </button>
+
+        <div class="section-heading">
+          <p class="eyebrow">Dress with elegance</p>
+          <h2>Wedding Attire</h2>
+          <div class="ornament">✧</div>
+          <p class="intro">
+            Our wedding follows a Quiet Luxury Neutrals theme with
+            refined, timeless and elegant shades.
+          </p>
+        </div>
+
+        <article class="attire-card">
+          <img src="principal sponsors.png" alt="Principal sponsors attire inspiration">
+          <h3>Principal Sponsors</h3>
+          <p>Elegant formal attire in champagne tones.</p>
+          <div class="palette">
+            <div class="swatch">
+              <div class="swatch-color" style="background:#EADCCB"></div>
+              <span class="swatch-name">Champagne</span>
+            </div>
           </div>
+        </article>
 
-          <a
-            class="rsvp-link"
-            href="https://docs.google.com/forms/d/e/1FAIpQLScsO1iRItMTNGV_ZegZWFWmXlLHG_dxTFKQsQjdOL0rUwyxSQ/viewform?usp=header"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Open Don and Lorena's wedding RSVP form"
-          >
-            <img
-              class="rsvp-image"
-              src="RSVP envelope.png"
-              alt="Tap to open the wedding RSVP form"
-            >
-          </a>
+        <article class="attire-card">
+          <img src="entourage.png" alt="Wedding entourage attire inspiration">
+          <h3>Entourage</h3>
+          <p>Coordinated, refined champagne attire.</p>
+          <div class="palette">
+            <div class="swatch">
+              <div class="swatch-color" style="background:#EADCCB"></div>
+              <span class="swatch-name">Champagne</span>
+            </div>
+          </div>
+        </article>
 
-          <p class="rsvp-caption">
-            Tap the RSVP invitation to respond
-          </p>
+        <article class="attire-card">
+          <img src="guests.png" alt="Guest attire inspiration">
+          <h3>Guests</h3>
+          <p>Please choose elegant formal attire in one of these shades.</p>
+          <div class="palette">
+            <div class="swatch">
+              <div class="swatch-color" style="background:#D7C6B8"></div>
+              <span class="swatch-name">Beige</span>
+            </div>
+            <div class="swatch">
+              <div class="swatch-color" style="background:#B7A99A"></div>
+              <span class="swatch-name">Taupe</span>
+            </div>
+            <div class="swatch">
+              <div class="swatch-color" style="background:#9E8F82"></div>
+              <span class="swatch-name">Greige</span>
+            </div>
+          </div>
+        </article>
 
+      </div>
+    </section>
+
+    <section id="gifts">
+      <div class="section-inner">
+
+        <button class="back-invitation" type="button" data-back-invitation>
+          ← Back to Invitation
+        </button>
+
+        <div class="section-heading">
+          <p class="eyebrow">Your presence is a gift</p>
+          <h2>Gift Wishes</h2>
+          <div class="ornament">✧</div>
         </div>
-      </section>
 
-    </main>
+        <div class="gift-content">
+          <img class="gift-icon" src="gift.png" alt="Wedding gift">
 
-    <footer>
-      <p>With love,</p>
-      <p><strong>Don &amp; Lorena</strong></p>
-      <p>Thank you for being part of our story.</p>
-    </footer>
+          <div class="gift-copy">
+            <p class="eyebrow">With love and gratitude</p>
+            <h3>In Lieu of Gifts</h3>
+            <p>
+              Your love and presence are the greatest gifts we could ask
+              for. Should you wish to bless us with a gift, a monetary
+              contribution toward our new chapter would be warmly
+              appreciated.
+            </p>
+            <p>Thank you for your love and generosity.</p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-  </div>
+    <section id="oh-snap">
+      <div class="section-inner">
 
-  <!-- MUSIC CONTROL -->
-  <button
-    class="music-control"
-    id="musicToggle"
-    type="button"
-    aria-label="Play wedding music"
-    title="Play or pause wedding music"
-  >♫</button>
+        <button class="back-invitation" type="button" data-back-invitation>
+          ← Back to Invitation
+        </button>
 
-  <script>
-    (function () {
-      "use strict";
+        <img class="camera-icon" src="camera.png" alt="Camera">
 
-      const openingScreen = document.getElementById("openingScreen");
-      const openEnvelope = document.getElementById("openEnvelope");
-      const enterWebsite = document.getElementById("enterWebsite");
-      const weddingSite = document.getElementById("weddingSite");
-      const music = document.getElementById("weddingMusic");
-      const musicToggle = document.getElementById("musicToggle");
+        <p class="eyebrow">Capture the memories</p>
+        <h2>OH SNAP!</h2>
+        <div class="ornament">✧</div>
+        <p class="intro">
+          Celebrate with us and share your favorite moments from our
+          special day.
+        </p>
+        <p class="hashtag">Use our official hashtag</p>
+        <h3 class="hashtag">#theDONandonlyforLORENA</h3>
 
-      let musicStarted = false;
+      </div>
+    </section>
 
-      /* Attempt to start music after a visitor interaction.
-         Browsers may block automatic playback until a click or tap. */
-      async function startMusic() {
-        try {
-          await music.play();
-          musicStarted = true;
-          updateMusicButton();
-        } catch (error) {
-          musicStarted = false;
-          updateMusicButton();
-        }
-      }
+    <section id="rsvp">
+      <div class="section-inner">
 
-      function updateMusicButton() {
-        musicToggle.textContent = music.paused ? "♫" : "♪";
-        musicToggle.setAttribute(
-          "aria-label",
-          music.paused ? "Play wedding music" : "Pause wedding music"
-        );
-        musicToggle.title = music.paused
-          ? "Play wedding music"
-          : "Pause wedding music";
-      }
+        <button class="back-invitation" type="button" data-back-invitation>
+          ← Back to Invitation
+        </button>
 
-      /* STEP 1: Reveal the invitation card when the envelope is clicked. */
-      openEnvelope.addEventListener("click", function () {
-        openingScreen.classList.add("envelope-open");
-        startMusic();
-      });
+        <div class="section-heading">
+          <p class="eyebrow">Kindly respond</p>
+          <h2>RSVP</h2>
+          <div class="ornament">✧</div>
+          <p class="intro">
+            Please tap the invitation below to let us know if you can
+            join us.
+          </p>
+        </div>
 
-      /* STEP 2: Reveal the website when the invitation card is clicked. */
-      enterWebsite.addEventListener("click", function () {
-        weddingSite.classList.add("site-visible");
-        openingScreen.classList.add("is-hidden");
-        document.body.classList.remove("locked");
-        musicToggle.classList.add("visible");
+        <a
+          class="rsvp-link"
+          href="https://docs.google.com/forms/d/e/1FAIpQLScsO1iRItMTNGV_ZegZWFWmXlLHG_dxTFKQsQjdOL0rUwyxSQ/viewform?usp=header"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Open wedding RSVP form"
+        >
+          <img class="rsvp-image" src="RSVP envelope.png" alt="Tap to open the wedding RSVP form">
+        </a>
 
-        if (!musicStarted || music.paused) {
-          startMusic();
-        }
+        <p class="rsvp-caption">Tap the RSVP invitation to respond</p>
 
-        /* Prevent the hidden opening screen from intercepting clicks. */
-        window.setTimeout(function () {
-          openingScreen.style.display = "none";
-        }, 750);
+      </div>
+    </section>
 
-        window.scrollTo({ top: 0, behavior: "auto" });
-      });
+  </main>
 
-      /* MUSIC PLAY / PAUSE */
-      musicToggle.addEventListener("click", function () {
-        if (music.paused) {
-          startMusic();
-        } else {
-          music.pause();
-          updateMusicButton();
-        }
-      });
+  <footer>
+    <p>With love,</p>
+    <p><strong>Don &amp; Lorena</strong></p>
+    <p>Thank you for being part of our story.</p>
+    <button class="back-invitation" type="button" data-back-invitation>
+      ← Back to Invitation
+    </button>
+  </footer>
 
-      music.addEventListener("play", updateMusicButton);
-      music.addEventListener("pause", updateMusicButton);
+</div>
 
-      /* Smooth navigation to the website sections. */
-      document.querySelectorAll('#weddingSite a[href^="#"]').forEach(
-        function (link) {
-          link.addEventListener("click", function (event) {
-            const targetId = link.getAttribute("href");
-            const target = document.querySelector(targetId);
+<button
+  class="music-control"
+  id="musicToggle"
+  type="button"
+  aria-label="Play wedding music"
+  title="Play or pause wedding music"
+>♫</button>
 
-            if (target) {
-              event.preventDefault();
-              target.scrollIntoView({
-                behavior: "smooth",
-                block: "start"
-              });
-            }
-          });
-        }
-      );
+<script>
+(function () {
+  "use strict";
 
-      /* Avoid broken image icons if an asset fails to load. */
-      document.querySelectorAll("img").forEach(function (image) {
-        image.addEventListener("error", function () {
-          console.error("Image failed to load:", image.getAttribute("src"));
-        });
-      });
+  const openingScreen = document.getElementById("openingScreen");
+  const openEnvelope = document.getElementById("openEnvelope");
+  const enterWebsite = document.getElementById("enterWebsite");
+  const weddingSite = document.getElementById("weddingSite");
+  const music = document.getElementById("weddingMusic");
+  const musicToggle = document.getElementById("musicToggle");
 
+  let musicWasStarted = false;
+
+  async function startMusic() {
+    try {
+      await music.play();
+      musicWasStarted = true;
       updateMusicButton();
-    })();
-  </script>
+    } catch (error) {
+      updateMusicButton();
+    }
+  }
+
+  function updateMusicButton() {
+    musicToggle.textContent = music.paused ? "♫" : "♪";
+    musicToggle.setAttribute(
+      "aria-label",
+      music.paused ? "Play wedding music" : "Pause wedding music"
+    );
+    musicToggle.title = music.paused
+      ? "Play wedding music"
+      : "Pause wedding music";
+  }
+
+  /* Clicking the envelope reveals the invitation card. */
+  openEnvelope.addEventListener("click", function () {
+    openingScreen.classList.add("envelope-open");
+    startMusic();
+  });
+
+  /* Clicking the card opens the website DIRECTLY.
+     No second image or extra invitation screen is shown. */
+  enterWebsite.addEventListener("click", function () {
+    weddingSite.classList.add("site-visible");
+    openingScreen.classList.add("is-hidden");
+    document.body.classList.remove("locked");
+    musicToggle.classList.add("visible");
+
+    if (!musicWasStarted || music.paused) {
+      startMusic();
+    }
+
+    window.setTimeout(function () {
+      openingScreen.style.display = "none";
+    }, 650);
+
+    window.scrollTo({ top: 0, behavior: "auto" });
+  });
+
+  /* Back to Invitation returns to the original clickable envelope screen. */
+  function backToInvitation() {
+    openingScreen.style.display = "flex";
+    openingScreen.classList.remove("is-hidden");
+    openingScreen.classList.remove("envelope-open");
+
+    weddingSite.classList.remove("site-visible");
+    document.body.classList.add("locked");
+    musicToggle.classList.remove("visible");
+
+    window.scrollTo({ top: 0, behavior: "auto" });
+  }
+
+  document.querySelectorAll("[data-back-invitation]").forEach(function (button) {
+    button.addEventListener("click", backToInvitation);
+  });
+
+  /* Music remains playing when navigating between sections. */
+  musicToggle.addEventListener("click", function () {
+    if (music.paused) {
+      startMusic();
+    } else {
+      music.pause();
+      updateMusicButton();
+    }
+  });
+
+  music.addEventListener("play", updateMusicButton);
+  music.addEventListener("pause", updateMusicButton);
+
+  /* Smooth scrolling for internal website navigation. */
+  document.querySelectorAll('#weddingSite a[href^="#"]').forEach(function (link) {
+    link.addEventListener("click", function (event) {
+      const target = document.querySelector(link.getAttribute("href"));
+
+      if (target) {
+        event.preventDefault();
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    });
+  });
+
+  updateMusicButton();
+})();
+</script>
 
 </body>
 </html>
