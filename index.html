@@ -46,7 +46,7 @@ img { max-width: 100%; }
   margin: 0 auto;
 }
 
-/* CONSISTENT TEXTURED BACKGROUND */
+/* CONSISTENT TEXTURED WEBSITE BACKGROUND */
 .wedding-website {
   min-height: 100vh;
   background:
@@ -95,7 +95,7 @@ h2 {
   text-align: center;
 }
 
-/* OPENING ENVELOPE */
+/* OPENING INVITATION */
 .invitation-cover {
   position: fixed;
   inset: 0;
@@ -215,7 +215,7 @@ h2 {
   color: var(--ivory);
 }
 
-/* ONE BACK BUTTON ONLY */
+/* SINGLE BACK BUTTON */
 .back-invitation {
   position: fixed;
   top: 82px;
@@ -331,7 +331,7 @@ h2 {
   background: transparent;
 }
 
-/* ATTIRE SECTIONS */
+/* ATTIRE */
 .attire-list {
   display: flex;
   flex-direction: column;
@@ -345,7 +345,7 @@ h2 {
 }
 
 .attire-category h3 {
-  margin: 0 0 20px;
+  margin: 20px 0 12px;
   font-size: 1.75rem;
   font-weight: 400;
   color: var(--ink);
@@ -360,15 +360,7 @@ h2 {
   margin: 0 auto;
 }
 
-/* LABEL AND COLOR PALETTE BELOW EACH IMAGE */
-.palette-label {
-  margin: 20px 0 8px;
-  font: 600 .7rem Arial, sans-serif;
-  letter-spacing: .15em;
-  text-transform: uppercase;
-  color: var(--greige);
-}
-
+/* COLOR SWATCHES — NO PALETTE CAPTIONS */
 .palette-swatches {
   display: flex;
   flex-wrap: wrap;
@@ -397,15 +389,13 @@ h2 {
   box-shadow: 0 2px 7px rgba(70,50,30,.08);
 }
 
-.swatch.champagne { background: var(--champagne); }
-.swatch.beige { background: var(--beige); }
-.swatch.taupe { background: var(--taupe); }
-.swatch.greige { background: var(--greige); }
+.swatch.champagne { background: #EADCCB; }
+.swatch.beige { background: #D7C6B8; }
+.swatch.taupe { background: #B7A99A; }
+.swatch.greige { background: #9E8F82; }
 
-/* GIFTS — LARGE CENTERED IMAGE */
-.gift-section {
-  text-align: center;
-}
+/* GIFTS — CENTERED IMAGE */
+.gift-section { text-align: center; }
 
 .gift-wrap {
   display: flex;
@@ -504,7 +494,7 @@ h2 {
   text-transform: uppercase;
 }
 
-/* FOOTER — CONTINUES THE SAME BACKGROUND */
+/* FOOTER */
 .footer {
   padding: 35px 0 45px;
   text-align: center;
@@ -598,9 +588,7 @@ h2 {
 
   .story-tile img { height: 260px; }
   .attire-list { gap: 42px; }
-
   .attire-category img { max-height: 320px; }
-
   .palette-swatches { gap: 12px; }
 
   .swatch-item {
@@ -641,7 +629,7 @@ h2 {
 
 <body class="invitation-closed">
 
-<!-- OPENING ENVELOPE -->
+<!-- OPENING SCREEN -->
 <div class="invitation-cover" id="invitationCover">
   <div
     class="cover-card"
@@ -650,7 +638,7 @@ h2 {
     tabindex="0"
     aria-label="Open Don and Lorena's wedding invitation"
   >
-    <div class="eyebrow">You are cordially invited</div>
+    <div class="eyebrow">Wedding Invitation</div>
 
     <h1 class="cover-title">Don <span>&amp;</span> Lorena</h1>
 
@@ -659,7 +647,7 @@ h2 {
     <img
       class="cover-envelope"
       src="opening-envelope.png"
-      alt="Don and Lorena's wedding envelope"
+      alt="Don and Lorena's wedding invitation"
     >
 
     <p class="cover-message">
@@ -670,7 +658,7 @@ h2 {
   </div>
 </div>
 
-<!-- WEBSITE -->
+<!-- MAIN WEBSITE -->
 <div class="wedding-website" id="weddingWebsite" hidden>
 
   <button
@@ -696,7 +684,7 @@ h2 {
 
   <main>
 
-    <!-- HERO: NO EXTRA BUTTONS -->
+    <!-- HERO -->
     <section class="hero wrap" id="home">
       <div class="hero-copy">
         <div class="eyebrow">Together with our families</div>
@@ -721,7 +709,7 @@ h2 {
       </div>
     </section>
 
-    <!-- DETAILS -->
+    <!-- WEDDING DETAILS -->
     <section class="section" id="details">
       <div class="wrap">
         <div class="section-head">
@@ -790,7 +778,7 @@ h2 {
       </div>
     </section>
 
-    <!-- ATTIRE: IMAGE, NAME AND PALETTE BELOW EACH IMAGE -->
+    <!-- ATTIRE -->
     <section class="section" id="attire">
       <div class="wrap">
         <div class="section-head">
@@ -814,7 +802,6 @@ h2 {
             >
 
             <h3>Principal Sponsors</h3>
-            <div class="palette-label">Official Color Palette</div>
 
             <div class="palette-swatches">
               <div class="swatch-item">
@@ -833,7 +820,6 @@ h2 {
             >
 
             <h3>Entourage</h3>
-            <div class="palette-label">Official Color Palette</div>
 
             <div class="palette-swatches">
               <div class="swatch-item">
@@ -843,16 +829,15 @@ h2 {
             </div>
           </div>
 
-          <!-- GUESTS: BEIGE, TAUPE AND GREIGE -->
+          <!-- GUESTS: MATCHING THE EXISTING GUEST IMAGE PALETTE -->
           <div class="attire-category">
             <img
               src="guests.png"
-              alt="Wedding guest attire inspiration"
+              alt="Wedding guest attire inspiration in beige, taupe, and greige"
               loading="lazy"
             >
 
             <h3>Guests</h3>
-            <div class="palette-label">Suggested Color Palette</div>
 
             <div class="palette-swatches">
               <div class="swatch-item">
@@ -876,7 +861,7 @@ h2 {
       </div>
     </section>
 
-    <!-- GIFTS: LARGE IMAGE CENTERED -->
+    <!-- GIFTS -->
     <section class="section gift-section" id="gifts">
       <div class="wrap">
         <div class="section-head">
@@ -905,7 +890,7 @@ h2 {
       </div>
     </section>
 
-    <!-- OH SNAP: LARGE CAMERA CENTERED -->
+    <!-- OH SNAP -->
     <section class="oh-snap" id="oh-snap">
       <div class="wrap">
         <img
@@ -966,7 +951,7 @@ h2 {
 
   </main>
 
-  <!-- TRANSPARENT FOOTER -->
+  <!-- FOOTER -->
   <footer class="footer">
     <div class="wrap">
       <p>With love,</p>
@@ -978,7 +963,7 @@ h2 {
 
 </div>
 
-<!-- MUSIC -->
+<!-- CONTINUOUS LOOPING MUSIC -->
 <audio id="weddingMusic" src="wedding.mp3" loop preload="auto"></audio>
 
 <button
@@ -1002,21 +987,22 @@ function updateMusicButton() {
   musicButton.textContent = weddingMusic.paused ? "♪" : "♫";
   musicButton.setAttribute(
     "aria-label",
-    weddingMusic.paused ? "Play wedding music" : "Pause wedding music"
+    weddingMusic.paused
+      ? "Play wedding music"
+      : "Pause wedding music"
   );
 }
 
-/*
- * Try autoplay immediately when the invitation page loads.
- * Some browsers block audible autoplay until the visitor interacts.
- */
-function attemptInitialAutoplay() {
-  const promise = weddingMusic.play();
+/* Try autoplay on initial page load. */
+function attemptAutoplay() {
+  const playPromise = weddingMusic.play();
 
-  if (promise && typeof promise.catch === "function") {
-    promise.then(updateMusicButton).catch(() => {
-      // The opening-envelope click below retries playback.
-    });
+  if (playPromise && typeof playPromise.then === "function") {
+    playPromise
+      .then(updateMusicButton)
+      .catch(() => {
+        /* Retry on the visitor's envelope click. */
+      });
   }
 }
 
@@ -1028,26 +1014,20 @@ function openWeddingInvitation() {
   document.body.classList.remove("invitation-closed");
   document.body.style.overflow = "auto";
 
-  /*
-   * Play directly inside the click event to meet browser
-   * user-interaction requirements when autoplay is blocked.
-   */
-  const promise = weddingMusic.play();
+  /* Retry music directly within the user's click action. */
+  const playPromise = weddingMusic.play();
 
-  if (promise && typeof promise.then === "function") {
-    promise.then(updateMusicButton).catch(() => {
-      updateMusicButton();
-    });
+  if (playPromise && typeof playPromise.then === "function") {
+    playPromise
+      .then(updateMusicButton)
+      .catch(updateMusicButton);
   }
 
   window.scrollTo({ top: 0, behavior: "auto" });
 }
 
 function returnToInvitation() {
-  /*
-   * Keep the music playing when returning to the cover,
-   * so it can continue from opening through the full site.
-   */
+  /* Music continues playing when returning to the opening screen. */
   weddingWebsite.hidden = true;
   invitationCover.hidden = false;
   musicButton.hidden = true;
@@ -1089,8 +1069,7 @@ musicButton.addEventListener("click", function() {
 weddingMusic.addEventListener("play", updateMusicButton);
 weddingMusic.addEventListener("pause", updateMusicButton);
 
-/* Initial attempt; envelope click retries if the browser blocks it. */
-attemptInitialAutoplay();
+attemptAutoplay();
 </script>
 
 </body>
