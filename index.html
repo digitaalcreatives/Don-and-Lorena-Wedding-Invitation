@@ -2,1323 +2,1423 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#F8F4EE">
-<meta name="description" content="Don and Lorena's wedding invitation">
-<title>Don &amp; Lorena | Wedding Invitation</title>
-
-<style>
-:root {
-  --ivory: #F8F4EE;
-  --champagne: #EADCCB;
-  --beige: #D7C6B8;
-  --taupe: #B7A99A;
-  --greige: #9E8F82;
-  --gold: #D4AF7C;
-  --ink: #806B57;
-  --line: rgba(158,143,130,.35);
-}
-
-* { box-sizing: border-box; }
-
-html {
-  scroll-behavior: smooth;
-  scroll-padding-top: 85px;
-}
-
-body {
-  margin: 0;
-  color: var(--ink);
-  font-family: Georgia, "Times New Roman", serif;
-  line-height: 1.7;
-  background: var(--ivory);
-}
-
-body.invitation-closed { overflow: hidden; }
-
-a { color: inherit; }
-button { font: inherit; }
-img { max-width: 100%; }
-[hidden] { display: none !important; }
-
-.wrap {
-  width: min(1120px, calc(100% - 40px));
-  margin: 0 auto;
-}
-
-.wedding-website {
-  min-height: 100vh;
-  background:
-    linear-gradient(rgba(248,244,238,.10), rgba(248,244,238,.10)),
-    url("inside background.png") center center / cover no-repeat fixed;
-}
-
-/* OPENING INVITATION */
-.invitation-cover {
-  position: fixed;
-  inset: 0;
-  z-index: 10000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow-y: auto;
-  padding: 12px;
-  background:
-    linear-gradient(rgba(248,244,238,.10), rgba(248,244,238,.10)),
-    url("invitation background.png") center center / cover no-repeat;
-}
-
-.cover-card {
-  width: min(100%, 1100px);
-  min-height: 95svh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  cursor: pointer;
-  padding: 14px;
-  background: transparent;
-  border: 0;
-  outline: none;
-}
-
-.cover-card:focus-visible {
-  outline: 2px solid var(--gold);
-}
-
-.cover-title {
-  margin: 8px 0;
-  font-size: clamp(2.8rem, 7vw, 5.4rem);
-  line-height: 1.08;
-  font-weight: 400;
-  color: var(--ink);
-}
-
-.cover-title span,
-.hero h1 span { color: var(--gold); }
-
-.cover-envelope {
-  display: block;
-  width: min(96vw, 900px);
-  height: min(66svh, 650px);
-  object-fit: contain;
-  margin: 10px auto;
-}
-
-.cover-message {
-  margin: 8px 0;
-  font-size: clamp(1rem, 2vw, 1.25rem);
-  font-style: italic;
-}
-
-.eyebrow {
-  font: 600 .68rem/1.6 Arial, sans-serif;
-  letter-spacing: .18em;
-  text-transform: uppercase;
-  color: var(--greige);
-}
-
-.cover-hint {
-  margin-top: 12px;
-  font: 600 .7rem Arial, sans-serif;
-  letter-spacing: .17em;
-  text-transform: uppercase;
-  color: var(--greige);
-}
-
-/* NAVIGATION */
-.topbar {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  background: rgba(248,244,238,.92);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--line);
-}
-
-.nav {
-  min-height: 68px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 15px;
-}
-
-.brand {
-  text-decoration: none;
-  white-space: nowrap;
-  font-size: 1.45rem;
-  color: var(--ink);
-}
-
-.brand span { color: var(--gold); }
-
-.navlinks {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-}
-
-.navlinks a {
-  text-decoration: none;
-  font: 600 .66rem Arial, sans-serif;
-  letter-spacing: .1em;
-  text-transform: uppercase;
-  color: var(--ink);
-}
-
-.navlinks a:hover { color: var(--gold); }
-
-.navlinks .nav-rsvp {
-  padding: 10px 16px;
-  background: var(--gold);
-  color: var(--ivory);
-}
-
-/* ONE BACK BUTTON ONLY */
-.back-invitation {
-  position: fixed;
-  top: 82px;
-  left: 16px;
-  z-index: 200;
-  padding: 10px 14px;
-  border: 1px solid var(--gold);
-  background: rgba(248,244,238,.95);
-  color: var(--ink);
-  font: 600 .65rem Arial, sans-serif;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-  cursor: pointer;
-}
-
-.back-invitation:hover { background: var(--champagne); }
-
-/* GENERAL SECTIONS */
-.section {
-  padding: 85px 0;
-  background: transparent;
-}
-
-.section-head {
-  max-width: 750px;
-  margin: 0 auto 38px;
-  text-align: center;
-}
-
-.section-head p {
-  max-width: 620px;
-  margin: 0 auto;
-}
-
-h2 {
-  margin: 8px 0 16px;
-  font-size: clamp(2.2rem, 5vw, 3.7rem);
-  line-height: 1.15;
-  font-weight: 400;
-  color: var(--ink);
-}
-
-/* DIVIDER.PNG: only before the three requested headings */
-.section-head.divider-before::before {
-  content: "";
-  display: block;
-  width: min(340px, 78%);
-  height: 58px;
-  margin: 0 auto 16px;
-  background-image: url("divider.png");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: contain;
-}
-
-/* HERO */
-.hero {
-  min-height: 82vh;
-  display: grid;
-  grid-template-columns: 1fr 1.15fr;
-  align-items: center;
-  gap: 30px;
-  padding-top: 65px;
-  padding-bottom: 65px;
-  background: transparent;
-}
-
-.hero-copy { text-align: center; }
-
-/* OUR WEDDING DAY IS NOW THE MAIN HEADLINE */
-.wedding-date-title {
-  display: block;
-  margin: 0 auto 22px;
-  color: var(--ink);
-  line-height: 1.15;
-}
-
-.wedding-date-title .date-label {
-  display: block;
-  font-size: clamp(3.1rem, 5.5vw, 5rem);
-  font-weight: 400;
-  letter-spacing: -.035em;
-  line-height: 1.08;
-}
-
-.wedding-date-title .date-value {
-  display: block;
-  margin-top: 12px;
-  font-size: clamp(1.65rem, 2.8vw, 2.35rem);
-  font-weight: 400;
-  line-height: 1.3;
-}
-
-.hero h1 {
-  margin: 10px 0 18px;
-  font-size: clamp(2.5rem, 4vw, 3.8rem);
-  line-height: 1.05;
-  font-weight: 400;
-  color: var(--ink);
-}
-
-.hero-copy p {
-  max-width: 490px;
-  margin: 15px auto;
-}
-
-.hero-art {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.hero-art img {
-  display: block;
-  width: 100%;
-  max-width: 700px;
-  max-height: 720px;
-  object-fit: contain;
-}
-
-/* COUNTDOWN */
-.countdown-section {
-  padding: 65px 0;
-  text-align: center;
-  background: transparent;
-}
-
-.countdown-panel {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px 10px;
-  background: transparent;
-}
-
-.countdown-grid {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0,1fr));
-  gap: 14px;
-  max-width: 700px;
-  margin: 25px auto;
-}
-
-.countdown-unit {
-  padding: 16px 6px;
-  border: 1px solid var(--line);
-  background: rgba(248,244,238,.24);
-}
-
-.countdown-number {
-  display: block;
-  font-size: clamp(1.8rem, 4vw, 3rem);
-  line-height: 1.2;
-}
-
-.countdown-label {
-  display: block;
-  margin-top: 8px;
-  font: 600 .63rem Arial, sans-serif;
-  letter-spacing: .1em;
-  text-transform: uppercase;
-  color: var(--greige);
-}
-
-.countdown-message {
-  margin: 20px auto;
-  font-style: italic;
-}
-
-/* WEDDING DETAILS */
-.details-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0,1fr));
-  gap: 35px;
-}
-
-.detail-card {
-  padding: 20px;
-  text-align: center;
-  background: transparent;
-  border: 0;
-  box-shadow: none;
-}
-
-.detail-card img {
-  display: block;
-  width: 100%;
-  height: 270px;
-  object-fit: contain;
-  margin: 0 auto 15px;
-}
-
-.detail-card h3 {
-  font-size: 1.7rem;
-  font-weight: 400;
-  margin: 8px 0;
-}
-
-.detail-card p { margin: 6px 0; }
-
-/* ATTIRE */
-.attire-list {
-  display: flex;
-  flex-direction: column;
-  gap: 58px;
-}
-
-.attire-category {
-  width: 100%;
-  text-align: center;
-  background: transparent;
-}
-
-.attire-category h3 {
-  margin: 20px 0 12px;
-  font-size: 1.75rem;
-  font-weight: 400;
-  color: var(--ink);
-}
-
-.attire-category img {
-  display: block;
-  width: 100%;
-  max-width: 900px;
-  max-height: 440px;
-  object-fit: contain;
-  margin: 0 auto;
-}
-
-.palette-swatches {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  gap: 18px;
-  margin: 14px auto 0;
-}
-
-.swatch-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 7px;
-  min-width: 75px;
-  font: 600 .68rem Arial, sans-serif;
-  color: var(--ink);
-}
-
-.swatch {
-  width: 56px;
-  height: 56px;
-  display: block;
-  border-radius: 50%;
-  border: 1px solid rgba(102,86,74,.25);
-  box-shadow: 0 2px 7px rgba(70,50,30,.08);
-}
-
-.swatch.champagne { background: #EADCCB; }
-.swatch.beige { background: #D7C6B8; }
-.swatch.taupe { background: #B7A99A; }
-.swatch.greige { background: #9E8F82; }
-
-/* ENTOURAGE LIST */
-.entourage-list {
-  max-width: 850px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0,1fr));
-  gap: 18px 35px;
-}
-
-.entourage-group {
-  padding: 18px 10px;
-  text-align: center;
-  border-bottom: 1px solid var(--line);
-  background: transparent;
-}
-
-.entourage-group h3 {
-  margin: 0 0 8px;
-  font-size: 1.2rem;
-  font-weight: 400;
-}
-
-.entourage-group p {
-  margin: 4px 0;
-  font-size: .96rem;
-}
-
-/* OUR STORY */
-.story-copy {
-  max-width: 800px;
-  margin: 0 auto 35px;
-  text-align: center;
-  font-size: 1.08rem;
-}
-
-.story-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0,1fr));
-  gap: 20px;
-}
-
-.story-tile {
-  margin: 0;
-  padding: 0;
-  background: transparent;
-  border: 0;
-}
-
-.story-tile img {
-  display: block;
-  width: 100%;
-  height: 350px;
-  object-fit: contain;
-  background: transparent;
-}
-
-/* GIFTS */
-.gift-section { text-align: center; }
-
-.gift-wrap {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 18px;
-  max-width: 760px;
-  margin: 0 auto;
-  text-align: center;
-  background: transparent;
-}
-
-.gift-wrap img {
-  display: block;
-  width: min(100%, 320px);
-  height: 270px;
-  object-fit: contain;
-  margin: 0 auto;
-}
-
-.gift-wrap h3 {
-  font-size: 2rem;
-  font-weight: 400;
-  margin: 8px 0;
-}
-
-.gift-wrap p {
-  max-width: 600px;
-  margin: 0 auto;
-}
-
-/* OH SNAP */
-.oh-snap {
-  padding: 65px 0 80px;
-  text-align: center;
-  background: transparent;
-}
-
-.camera-icon {
-  display: block;
-  width: min(300px, 75vw);
-  height: 250px;
-  object-fit: contain;
-  margin: 0 auto 20px;
-}
-
-.oh-snap h2 { margin-bottom: 10px; }
-
-.official-hashtag {
-  margin: 14px auto;
-  font-size: clamp(1.25rem, 3vw, 1.8rem);
-  overflow-wrap: anywhere;
-}
-
-/* RSVP */
-.rsvp-section {
-  background: transparent;
-  text-align: center;
-}
-
-.rsvp-card {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 20px 0;
-  background: transparent;
-}
-
-.rsvp-invitation-link {
-  display: block;
-  width: 100%;
-  max-width: 850px;
-  margin: 0 auto;
-  text-decoration: none;
-}
-
-.rsvp-envelope {
-  display: block;
-  width: 100%;
-  max-height: 500px;
-  object-fit: contain;
-  margin: 0 auto;
-}
-
-.rsvp-hint {
-  margin: 15px 0 0;
-  font: 600 .68rem Arial, sans-serif;
-  letter-spacing: .17em;
-  text-transform: uppercase;
-}
-
-/* FOOTER */
-.footer {
-  padding: 35px 0 45px;
-  text-align: center;
-  color: var(--ink);
-  background: transparent;
-}
-
-.footer .brand {
-  display: block;
-  margin-bottom: 8px;
-}
-
-.footer p { margin: 5px 0; }
-
-.back-top {
-  display: inline-block;
-  margin-top: 12px;
-  text-decoration: none;
-  font: 600 .65rem Arial, sans-serif;
-  letter-spacing: .12em;
-  text-transform: uppercase;
-}
-
-/* MUSIC */
-.music-button {
-  position: fixed;
-  right: 20px;
-  bottom: 20px;
-  z-index: 300;
-  width: 52px;
-  height: 52px;
-  border: 1px solid var(--gold);
-  border-radius: 50%;
-  background: rgba(248,244,238,.95);
-  color: var(--ink);
-  cursor: pointer;
-  box-shadow: 0 5px 18px rgba(100,79,57,.1);
-  font-size: 1.2rem;
-}
-
-/* MOBILE */
-@media (max-width: 760px) {
-  .wrap { width: calc(100% - 28px); }
-
-  .nav { min-height: 62px; }
-  .brand { font-size: 1.1rem; }
-  .navlinks { gap: 10px; }
-
-  .navlinks a {
-    font-size: .54rem;
-    letter-spacing: .03em;
-  }
-
-  .navlinks a:nth-child(2),
-  .navlinks a:nth-child(3),
-  .navlinks a:nth-child(4) {
-    display: none;
-  }
-
-  .navlinks .nav-rsvp { padding: 9px 10px; }
-
-  .back-invitation {
-    top: 72px;
-    left: 10px;
-    padding: 9px 10px;
-    font-size: .58rem;
-  }
-
-  .cover-envelope {
-    width: 98%;
-    height: min(62svh, 570px);
-  }
-
-  .hero {
-    min-height: auto;
-    grid-template-columns: 1fr;
-    gap: 15px;
-    padding-top: 75px;
-    padding-bottom: 45px;
-  }
-
-  .hero-art { grid-row: 1; }
-  .hero-art img { max-height: 550px; }
-  .hero-copy { grid-row: 2; }
-
-  /* Keep the wedding headline bigger than the couple's names on mobile */
-  .wedding-date-title .date-label {
-    font-size: clamp(2.7rem, 9vw, 3.7rem);
-    line-height: 1.08;
-  }
-
-  .wedding-date-title .date-value {
-    font-size: clamp(1.45rem, 5vw, 2rem);
-    margin-top: 10px;
-  }
-
-  .hero h1 {
-    font-size: clamp(2.25rem, 7vw, 3rem);
-  }
-
-  .section { padding: 60px 0; }
-
-  .section-head.divider-before::before {
-    width: min(300px, 85%);
-    height: 48px;
-    margin-bottom: 13px;
-  }
-
-  .details-grid {
-    grid-template-columns: 1fr;
-    gap: 15px;
-  }
-
-  .detail-card img { height: 230px; }
-
-  .story-grid {
-    grid-template-columns: repeat(2, minmax(0,1fr));
-    gap: 13px;
-  }
-
-  .story-tile img { height: 260px; }
-
-  .attire-list { gap: 42px; }
-  .attire-category img { max-height: 330px; }
-  .palette-swatches { gap: 12px; }
-
-  .swatch-item {
-    min-width: 65px;
-    font-size: .62rem;
-  }
-
-  .swatch {
-    width: 48px;
-    height: 48px;
-  }
-
-  .entourage-list {
-    grid-template-columns: 1fr;
-    gap: 5px;
-  }
-
-  .countdown-grid { gap: 7px; }
-  .countdown-unit { padding: 12px 3px; }
-
-  .countdown-label {
-    font-size: .53rem;
-    letter-spacing: .04em;
-  }
-
-  .gift-wrap img {
-    width: min(100%, 260px);
-    height: 220px;
-  }
-
-  .camera-icon {
-    width: min(280px, 75vw);
-    height: 220px;
-  }
-
-  .rsvp-envelope { max-height: 350px; }
-
-  .music-button {
-    right: 12px;
-    bottom: 12px;
-    width: 46px;
-    height: 46px;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#F8F4EE">
+  <meta name="description" content="The wedding invitation of Don & Lorena. Join us as we celebrate love and the beginning of forever.">
+  <title>Don &amp; Lorena | Wedding Invitation</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --ivory: #F8F4EE;
+      --champagne: #EADCCB;
+      --beige: #D7C6B8;
+      --taupe: #B7A99A;
+      --greige: #9E8F82;
+      --gold: #D4AF7C;
+      --text: #826C56;
+      --deep-text: #715C48;
+      --page-background: "inside background.png";
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 100px;
+    }
+
+    body {
+      margin: 0;
+      color: var(--text);
+      background-color: var(--ivory);
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 19px;
+      line-height: 1.65;
+    }
+
+    body.invitation-closed {
+      overflow: hidden;
+    }
+
+    button,
+    a {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    img {
+      max-width: 100%;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    /* OPENING INVITATION
+       One image contains the complete invitation design. */
+    #invitationCover {
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100vh;
+      height: 100dvh;
+      overflow: auto;
+      padding: 0;
+      background: var(--ivory);
+      transition: opacity 0.65s ease, visibility 0.65s ease;
+    }
+
+    #invitationCover.is-hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .cover-card {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      min-height: 0;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      cursor: pointer;
+    }
+
+    .cover-envelope {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center;
+      border: 0;
+      margin: 0;
+    }
+
+    .cover-card:focus-visible {
+      outline: 3px solid var(--gold);
+      outline-offset: -5px;
+    }
+
+    /* MAIN WEBSITE */
+
+    #weddingWebsite {
+      display: none;
+      min-height: 100vh;
+      background-color: var(--ivory);
+      background-image: url("inside%20background.png");
+      background-position: center center;
+      background-size: cover;
+      background-attachment: fixed;
+      background-repeat: repeat-y;
+    }
+
+    #weddingWebsite.is-visible {
+      display: block;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      width: 100%;
+      min-height: 74px;
+      padding: 10px clamp(18px, 6vw, 100px);
+      background: rgba(248, 244, 238, 0.96);
+      border-bottom: 1px solid rgba(183, 169, 154, 0.28);
+      backdrop-filter: blur(10px);
+    }
+
+    .brand {
+      flex-shrink: 0;
+      font-size: clamp(24px, 2.2vw, 32px);
+      font-weight: 500;
+      line-height: 1.1;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .brand span {
+      color: var(--gold);
+    }
+
+    .site-nav {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+      gap: clamp(12px, 2vw, 28px);
+    }
+
+    .site-nav a {
+      font-family: "Montserrat", sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: color 0.2s ease;
+    }
+
+    .site-nav a:hover {
+      color: var(--gold);
+    }
+
+    .site-nav .nav-rsvp {
+      padding: 10px 17px;
+      color: white;
+      background: var(--gold);
+    }
+
+    .back-to-invitation {
+      position: fixed;
+      top: 88px;
+      left: 17px;
+      z-index: 900;
+      padding: 9px 14px;
+      color: var(--text);
+      background: rgba(248, 244, 238, 0.94);
+      border: 1px solid var(--gold);
+      font-family: "Montserrat", sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-decoration: none;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+
+    .section {
+      position: relative;
+      padding: clamp(65px, 8vw, 110px) 22px;
+      text-align: center;
+      scroll-margin-top: 72px;
+    }
+
+    .section-inner {
+      width: min(1120px, 100%);
+      margin: 0 auto;
+    }
+
+    .eyebrow {
+      margin: 0 0 12px;
+      color: var(--greige);
+      font-family: "Montserrat", sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2.4px;
+      line-height: 1.8;
+      text-transform: uppercase;
+    }
+
+    .section-title {
+      margin: 0 0 12px;
+      color: var(--text);
+      font-size: clamp(44px, 6vw, 68px);
+      font-weight: 500;
+      line-height: 1.05;
+    }
+
+    .section-description {
+      max-width: 720px;
+      margin: 18px auto 0;
+      font-size: clamp(18px, 2vw, 21px);
+      line-height: 1.7;
+    }
+
+    /* LUXURY DIVIDER */
+
+    .divider {
+      display: block;
+      width: min(330px, 65vw);
+      height: auto;
+      max-height: 75px;
+      object-fit: contain;
+      margin: 28px auto;
+      border: 0;
+    }
+
+    /* HERO */
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      align-items: center;
+      gap: clamp(30px, 5vw, 70px);
+      width: min(1250px, 100%);
+      min-height: calc(100vh - 74px);
+      margin: 0 auto;
+      padding: 75px clamp(24px, 7vw, 100px);
+      text-align: center;
+    }
+
+    .hero-copy {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .hero-date {
+      margin: 0 auto 18px;
+      color: var(--text);
+      font-size: clamp(35px, 4.2vw, 58px);
+      font-weight: 600;
+      line-height: 1.12;
+    }
+
+    .hero-date span {
+      display: block;
+      margin-top: 6px;
+    }
+
+    .hero .eyebrow {
+      margin-bottom: 12px;
+    }
+
+    .couple-names {
+      margin: 0;
+      color: var(--text);
+      font-size: clamp(64px, 8vw, 112px);
+      font-weight: 500;
+      letter-spacing: -2px;
+      line-height: 0.98;
+    }
+
+    .couple-names span {
+      color: var(--gold);
+    }
+
+    .hero-divider {
+      width: min(250px, 65%);
+      margin: 24px auto;
+    }
+
+    .hero-message {
+      max-width: 520px;
+      margin: 0 auto 20px;
+      font-size: clamp(18px, 2vw, 22px);
+      line-height: 1.6;
+    }
+
+    .hero-photo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 0;
+    }
+
+    .hero-photo img {
+      display: block;
+      width: 100%;
+      max-width: 610px;
+      max-height: 780px;
+      height: auto;
+      object-fit: contain;
+      border: 0;
+      box-shadow: none;
+    }
+
+    /* DETAILS */
+
+    .venue-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: clamp(35px, 7vw, 100px);
+      margin-top: 42px;
+    }
+
+    .venue {
+      min-width: 0;
+      padding: 0;
+      background: transparent;
+      border: 0;
+    }
+
+    .venue img {
+      display: block;
+      width: 100%;
+      max-width: 400px;
+      height: 290px;
+      object-fit: contain;
+      margin: 0 auto 16px;
+    }
+
+    .venue h3 {
+      margin: 0 0 14px;
+      font-size: clamp(28px, 3vw, 36px);
+      font-weight: 500;
+      line-height: 1.2;
+    }
+
+    .venue p {
+      margin: 5px 0;
+    }
+
+    .venue-name {
+      font-weight: 700;
+    }
+
+    /* COUNTDOWN - informational display only */
+
+    .countdown {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+      width: min(650px, 100%);
+      margin: 32px auto 0;
+    }
+
+    .countdown-unit {
+      padding: 15px 8px;
+      background: rgba(234, 220, 203, 0.34);
+      border: 1px solid rgba(183, 169, 154, 0.35);
+    }
+
+    .countdown-number {
+      display: block;
+      font-size: clamp(30px, 5vw, 45px);
+      font-weight: 600;
+      line-height: 1.1;
+    }
+
+    .countdown-label {
+      display: block;
+      margin-top: 7px;
+      font-family: "Montserrat", sans-serif;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 1.3px;
+      text-transform: uppercase;
+    }
+
+    /* ATTIRE */
+
+    .attire-list {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: clamp(25px, 4vw, 50px);
+      margin-top: 40px;
+    }
+
+    .attire-group {
+      min-width: 0;
+      padding: 0;
+      background: transparent;
+      border: 0;
+    }
+
+    .attire-group img {
+      display: block;
+      width: 100%;
+      height: 320px;
+      object-fit: contain;
+      margin: 0 auto 20px;
+    }
+
+    .attire-group h3 {
+      margin: 0 0 15px;
+      font-size: clamp(23px, 2.5vw, 30px);
+      font-weight: 600;
+      line-height: 1.2;
+    }
+
+    .palette {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 13px;
+      margin-top: 15px;
+    }
+
+    .swatch-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+      min-width: 60px;
+      font-family: "Montserrat", sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+    }
+
+    .swatch {
+      display: block;
+      width: 48px;
+      height: 48px;
+      border: 1px solid rgba(113, 92, 72, 0.2);
+      border-radius: 50%;
+    }
+
+    /* ENTOURAGE */
+
+    .entourage-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px 45px;
+      max-width: 900px;
+      margin: 45px auto 0;
+      text-align: left;
+    }
+
+    .entourage-item {
+      padding: 14px 8px;
+      border-bottom: 1px solid rgba(158, 143, 130, 0.4);
+    }
+
+    .entourage-item h3 {
+      margin: 0 0 3px;
+      color: var(--text);
+      font-size: 24px;
+      font-weight: 600;
+    }
+
+    .entourage-item p {
+      margin: 0;
+      color: var(--greige);
+      font-family: "Montserrat", sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.5px;
+    }
+
+    /* OUR STORY */
+
+    .story-copy {
+      max-width: 850px;
+      margin: 25px auto 0;
+      font-size: clamp(18px, 2vw, 22px);
+      line-height: 1.8;
+    }
+
+    .story-gallery {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: clamp(18px, 3vw, 36px);
+      margin-top: 42px;
+    }
+
+    .story-gallery img {
+      display: block;
+      width: 100%;
+      height: 360px;
+      object-fit: contain;
+      margin: 0 auto;
+      border: 0;
+      background: transparent;
+    }
+
+    /* GIFTS */
+
+    .gift-art {
+      display: block;
+      width: min(390px, 78vw);
+      height: 300px;
+      object-fit: contain;
+      margin: 28px auto 10px;
+    }
+
+    .gift-message {
+      max-width: 720px;
+      margin: 18px auto 0;
+      font-size: 21px;
+    }
+
+    /* OH SNAP */
+
+    .camera-art {
+      display: block;
+      width: min(180px, 42vw);
+      height: 150px;
+      object-fit: contain;
+      margin: 25px auto 14px;
+    }
+
+    .hashtag {
+      margin: 20px 0;
+      color: var(--text);
+      font-size: clamp(25px, 4vw, 38px);
+      font-weight: 600;
+      overflow-wrap: anywhere;
+    }
+
+    /* RSVP */
+
+    .rsvp-art {
+      display: block;
+      width: min(390px, 80vw);
+      height: 280px;
+      object-fit: contain;
+      margin: 25px auto;
+    }
+
+    .rsvp-link {
+      display: inline-block;
+      margin-top: 16px;
+      padding: 13px 25px;
+      color: #fff;
+      background: var(--gold);
+      border: 1px solid var(--gold);
+      font-family: "Montserrat", sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.3px;
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: background 0.2s ease;
+    }
+
+    .rsvp-link:hover {
+      background: var(--greige);
+      border-color: var(--greige);
+    }
+
+    /* FOOTER */
+
+    .site-footer {
+      padding: 35px 20px 45px;
+      text-align: center;
+      background: rgba(234, 220, 203, 0.78);
+    }
+
+    .site-footer p {
+      margin: 5px 0;
+    }
+
+    .footer-names {
+      font-size: 25px;
+      font-weight: 700;
+    }
+
+    /* MUSIC CONTROL */
+
+    .music-control {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      z-index: 1100;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      width: 54px;
+      height: 54px;
+      padding: 0;
+      color: var(--text);
+      background: rgba(248, 244, 238, 0.96);
+      border: 1px solid var(--gold);
+      border-radius: 50%;
+      box-shadow: 0 4px 15px rgba(113, 92, 72, 0.1);
+      cursor: pointer;
+      font-size: 23px;
+    }
+
+    .music-control.is-visible {
+      display: flex;
+    }
+
+    .music-control:focus-visible,
+    .rsvp-link:focus-visible,
+    .back-to-invitation:focus-visible {
+      outline: 2px solid var(--text);
+      outline-offset: 4px;
+    }
+
+    /* RESPONSIVE */
+
+    @media (max-width: 850px) {
+      .hero {
+        grid-template-columns: 1fr;
+        min-height: auto;
+        gap: 30px;
+        padding-top: 75px;
+      }
+
+      .hero-photo {
+        grid-row: 1;
+      }
+
+      .hero-photo img {
+        max-width: 470px;
+        max-height: 560px;
+      }
+
+      .hero-copy {
+        grid-row: 2;
+      }
+
+      .attire-group img {
+        height: 260px;
+      }
+
+      .story-gallery img {
+        height: 280px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      body {
+        font-size: 17px;
+      }
+
+      #weddingWebsite {
+        background-attachment: scroll;
+      }
+
+      .site-header {
+        align-items: center;
+        gap: 12px;
+        min-height: 65px;
+        padding: 12px 14px;
+      }
+
+      .brand {
+        font-size: 22px;
+      }
+
+      .site-nav {
+        gap: 9px 12px;
+      }
+
+      .site-nav a {
+        font-size: 9px;
+        letter-spacing: 0.5px;
+      }
+
+      .site-nav .nav-rsvp {
+        padding: 8px 10px;
+      }
+
+      .back-to-invitation {
+        top: 75px;
+        left: 10px;
+        padding: 8px 10px;
+        font-size: 9px;
+      }
+
+      .section {
+        padding: 70px 18px;
+      }
+
+      .hero {
+        padding: 95px 22px 55px;
+      }
+
+      .hero-date {
+        font-size: clamp(34px, 9vw, 48px);
+      }
+
+      .couple-names {
+        font-size: clamp(60px, 17vw, 85px);
+      }
+
+      .venue-grid {
+        grid-template-columns: 1fr;
+        gap: 50px;
+      }
+
+      .venue img {
+        height: 250px;
+      }
+
+      .attire-list {
+        grid-template-columns: 1fr;
+        gap: 55px;
+      }
+
+      .attire-group img {
+        height: 300px;
+      }
+
+      .entourage-list {
+        grid-template-columns: 1fr;
+        gap: 6px;
+      }
+
+      .story-gallery {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      .story-gallery img {
+        height: 340px;
+      }
+
+      .countdown {
+        gap: 7px;
+      }
+
+      .countdown-unit {
+        padding: 12px 3px;
+      }
+
+      .countdown-label {
+        font-size: 8px;
+        letter-spacing: 0.5px;
+      }
+
+      .swatch {
+        width: 43px;
+        height: 43px;
+      }
+
+      .music-control {
+        right: 13px;
+        bottom: 13px;
+        width: 48px;
+        height: 48px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
 </head>
 
 <body class="invitation-closed">
 
-<!-- OPENING INVITATION -->
-<div class="invitation-cover" id="invitationCover">
-  <div
-    class="cover-card"
-    id="invitationCard"
-    role="button"
-    tabindex="0"
-    aria-label="Open Don and Lorena's wedding invitation"
-  >
-    <div class="eyebrow">Wedding Invitation</div>
-    <h1 class="cover-title">Don <span>&amp;</span> Lorena</h1>
-
-    <img
-      class="cover-envelope"
-      src="opening-envelope.png"
-      alt="Don and Lorena's wedding invitation"
+  <!-- SINGLE CLICKABLE OPENING IMAGE -->
+  <div id="invitationCover">
+    <button
+      type="button"
+      class="cover-card"
+      id="invitationCard"
+      aria-label="Open Don and Lorena's wedding invitation"
     >
-
-    <p class="cover-message">
-      A celebration of love, a beginning of forever.
-    </p>
-
-    <div class="cover-hint">Tap the invitation to open</div>
+      <img
+        class="cover-envelope"
+        src="opening-invitation.png"
+        alt="Don and Lorena's elegant ivory wedding invitation"
+        fetchpriority="high"
+      >
+    </button>
   </div>
-</div>
 
-<!-- MAIN WEBSITE -->
-<div class="wedding-website" id="weddingWebsite" hidden>
+  <!-- MAIN WEDDING WEBSITE -->
+  <div id="weddingWebsite">
 
-  <button type="button" class="back-invitation" id="backToInvitation">
-    ← Back to Invitation
-  </button>
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="Don and Lorena home">
+        Don <span>&amp;</span> Lorena
+      </a>
 
-  <header class="topbar">
-    <nav class="nav wrap" aria-label="Main navigation">
-      <a class="brand" href="#home">Don <span>&amp;</span> Lorena</a>
-
-      <!-- NAVIGATION ORDER UPDATED -->
-      <div class="navlinks">
+      <!-- Requested navigation sequence -->
+      <nav class="site-nav" aria-label="Main navigation">
         <a href="#story">Our Story</a>
         <a href="#details">Details</a>
         <a href="#entourage">Entourage</a>
         <a href="#attire">Attire</a>
         <a class="nav-rsvp" href="#rsvp">RSVP</a>
-      </div>
-    </nav>
-  </header>
+      </nav>
+    </header>
 
-  <main>
+    <!-- Exactly one Back to Invitation button -->
+    <button type="button" class="back-to-invitation" id="backToInvitation">
+      &#8592; Back to Invitation
+    </button>
 
     <!-- HERO -->
-    <section class="hero wrap" id="home">
-      <div class="hero-copy">
+    <main id="top">
+      <section class="hero" aria-labelledby="coupleHeading">
+        <div class="hero-copy">
 
-        <div class="wedding-date-title">
-          <span class="date-label">Our Wedding Day</span>
-          <span class="date-value">January 18, 2019</span>
-        </div>
+          <h1 class="hero-date" id="coupleHeading">
+            Our Wedding Day
+            <span>January 18, 2019</span>
+          </h1>
 
-        <div class="eyebrow">Together with our families</div>
+          <p class="eyebrow">Together with our families</p>
 
-        <h1>Don <span>&amp;</span> Lorena</h1>
+          <h2 class="couple-names">
+            Don <span>&amp;</span><br>Lorena
+          </h2>
 
-        <p>
-          With grateful hearts, we invite you to share in the
-          beginning of our forever. Your presence will make
-          our celebration even more meaningful.
-        </p>
-      </div>
+          <img
+            class="divider hero-divider"
+            src="divider.png"
+            alt=""
+          >
 
-      <div class="hero-art">
-        <img src="couple.png" alt="Don and Lorena">
-      </div>
-    </section>
-
-    <!-- COUNTDOWN -->
-    <section class="countdown-section" id="countdown">
-      <div class="wrap countdown-panel">
-        <div class="eyebrow">A day to remember</div>
-        <h2>Wedding Countdown</h2>
-
-        <div class="countdown-grid">
-          <div class="countdown-unit">
-            <span class="countdown-number" id="days">--</span>
-            <span class="countdown-label">Days</span>
-          </div>
-          <div class="countdown-unit">
-            <span class="countdown-number" id="hours">--</span>
-            <span class="countdown-label">Hours</span>
-          </div>
-          <div class="countdown-unit">
-            <span class="countdown-number" id="minutes">--</span>
-            <span class="countdown-label">Minutes</span>
-          </div>
-          <div class="countdown-unit">
-            <span class="countdown-number" id="seconds">--</span>
-            <span class="countdown-label">Seconds</span>
-          </div>
-        </div>
-
-        <p class="countdown-message" id="countdownMessage">
-          Counting the moments until our special day.
-        </p>
-      </div>
-    </section>
-
-    <!-- 1. OUR STORY -->
-    <section class="section" id="story">
-      <div class="wrap">
-
-        <div class="section-head divider-before">
-          <div class="eyebrow">A little piece of us</div>
-          <h2>Our Story</h2>
-        </div>
-
-        <div class="story-copy">
-          <p>
-            Every beautiful love story begins with two lives
-            moving in their own directions, until a special
-            moment brings them closer. For Don and Lorena,
-            what began as getting to know one another grew
-            into a meaningful bond built on care, trust,
-            laughter, and understanding.
+          <p class="hero-message">
+            With grateful hearts, we invite you to share in the beginning
+            of our forever. Your presence will make our celebration
+            even more meaningful.
           </p>
 
-          <p>
-            Through life's little moments and the dreams they
-            continue to share, their connection became a
-            promise to stand beside each other through every
-            new chapter. Today, they look forward to beginning
-            their next adventure as husband and wife, surrounded
-            by the love and support of family and friends.
+        </div>
+
+        <div class="hero-photo">
+          <img
+            src="couple.png"
+            alt="Don and Lorena"
+          >
+        </div>
+      </section>
+
+      <!-- WEDDING DETAILS -->
+      <section class="section" id="details">
+        <div class="section-inner">
+
+          <p class="eyebrow">Our special day</p>
+          <h2 class="section-title">Wedding Details</h2>
+
+          <img class="divider" src="divider.png" alt="">
+
+          <p class="section-description">
+            We look forward to celebrating this special day with the people we love.
           </p>
 
-          <p><em>And so, their forever begins.</em></p>
-        </div>
+          <div class="venue-grid">
 
-        <div class="story-grid">
-          <figure class="story-tile">
-            <img src="story 1.png" alt="Don and Lorena memory 1" loading="lazy">
-          </figure>
-          <figure class="story-tile">
-            <img src="story 2.png" alt="Don and Lorena memory 2" loading="lazy">
-          </figure>
-          <figure class="story-tile">
-            <img src="story 3.png" alt="Don and Lorena memory 3" loading="lazy">
-          </figure>
-          <figure class="story-tile">
-            <img src="story 4.png" alt="Don and Lorena memory 4" loading="lazy">
-          </figure>
-          <figure class="story-tile">
-            <img src="story 5.png" alt="Don and Lorena memory 5" loading="lazy">
-          </figure>
-          <figure class="story-tile">
-            <img src="story 6.png" alt="Don and Lorena memory 6" loading="lazy">
-          </figure>
-          <figure class="story-tile">
-            <img src="story 7.png" alt="Don and Lorena memory 7" loading="lazy">
-          </figure>
-        </div>
-      </div>
-    </section>
+            <article class="venue">
+              <img src="ceremony.png" alt="Wedding ceremony illustration">
 
-    <!-- 2. WEDDING DETAILS -->
-    <section class="section" id="details">
-      <div class="wrap">
-        <div class="section-head">
-          <div class="eyebrow">Our special day</div>
-          <h2>Wedding Details</h2>
-          <p>
-            We look forward to celebrating this special day
-            with the people we love.
-          </p>
-        </div>
+              <h3>Wedding Ceremony</h3>
 
-        <div class="details-grid">
-          <article class="detail-card">
-            <img src="ceremony.png" alt="Wedding ceremony" loading="lazy">
-            <h3>Wedding Ceremony</h3>
-            <p><strong>St. Rita's Parish</strong></p>
-            <p>Balingasag</p>
-          </article>
+              <p class="venue-name">St. Rita's Parish</p>
+              <p>Balingasag</p>
+            </article>
 
-          <article class="detail-card">
-            <img src="reception.png" alt="Wedding reception" loading="lazy">
-            <h3>Wedding Reception</h3>
-            <p><strong>Sofie Red Hotel</strong></p>
-          </article>
-        </div>
-      </div>
-    </section>
+            <article class="venue">
+              <img src="reception.png" alt="Wedding reception illustration">
 
-    <!-- 3. OUR ENTOURAGE -->
-    <section class="section" id="entourage">
-      <div class="wrap">
-        <div class="section-head">
-          <div class="eyebrow">With love and gratitude</div>
-          <h2>Our Entourage</h2>
-          <p>
-            We are grateful to have our loved ones beside us
-            as we celebrate the beginning of our marriage.
-          </p>
-        </div>
+              <h3>Wedding Reception</h3>
 
-        <div class="entourage-list">
+              <p class="venue-name">Sofie Red Hotel</p>
+            </article>
 
-          <div class="entourage-group">
-            <h3>Parents of the Groom</h3>
-            <p>Father of the Groom</p>
-            <p>Mother of the Groom</p>
           </div>
 
-          <div class="entourage-group">
-            <h3>Parents of the Bride</h3>
-            <p>Father of the Bride</p>
-            <p>Mother of the Bride</p>
-          </div>
+          <div class="countdown-section">
+            <img class="divider" src="divider.png" alt="">
 
-          <div class="entourage-group">
-            <h3>Principal Sponsors</h3>
-            <p>Ninong</p>
-            <p>Ninang</p>
-            <p>Ninong</p>
-            <p>Ninang</p>
-          </div>
+            <p class="eyebrow">Counting the moments</p>
+            <h3 class="section-title" style="font-size:clamp(34px,4vw,48px)">
+              Wedding Countdown
+            </h3>
 
-          <div class="entourage-group">
-            <h3>Best Man &amp; Maid of Honor</h3>
-            <p>Best Man</p>
-            <p>Maid of Honor</p>
-          </div>
-
-          <div class="entourage-group">
-            <h3>Groomsmen</h3>
-            <p>Groomsman</p>
-            <p>Groomsman</p>
-            <p>Groomsman</p>
-          </div>
-
-          <div class="entourage-group">
-            <h3>Bridesmaids</h3>
-            <p>Bridesmaid</p>
-            <p>Bridesmaid</p>
-            <p>Bridesmaid</p>
-          </div>
-
-          <div class="entourage-group">
-            <h3>Secondary Sponsors</h3>
-            <p>Candle Sponsors</p>
-            <p>Veil Sponsors</p>
-            <p>Cord Sponsors</p>
-          </div>
-
-          <div class="entourage-group">
-            <h3>Little Attendants</h3>
-            <p>Ring Bearer</p>
-            <p>Coin Bearer</p>
-            <p>Flower Girl</p>
-            <p>Flower Girl</p>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- 4. ATTIRE -->
-    <section class="section" id="attire">
-      <div class="wrap">
-        <div class="section-head">
-          <div class="eyebrow">Dress with the day in mind</div>
-          <h2>Attire</h2>
-          <p>
-            Our wedding embraces quiet luxury and timeless
-            neutral elegance.
-          </p>
-        </div>
-
-        <div class="attire-list">
-
-          <div class="attire-category">
-            <img
-              src="principal sponsors.png"
-              alt="Principal sponsors attire inspiration"
-              loading="lazy"
-            >
-            <h3>Principal Sponsors</h3>
-            <div class="palette-swatches">
-              <div class="swatch-item">
-                <span class="swatch champagne"></span>
-                <span>Champagne</span>
+            <div class="countdown" aria-label="Countdown to the wedding">
+              <div class="countdown-unit">
+                <span class="countdown-number" id="countDays">--</span>
+                <span class="countdown-label">Days</span>
+              </div>
+              <div class="countdown-unit">
+                <span class="countdown-number" id="countHours">--</span>
+                <span class="countdown-label">Hours</span>
+              </div>
+              <div class="countdown-unit">
+                <span class="countdown-number" id="countMinutes">--</span>
+                <span class="countdown-label">Minutes</span>
+              </div>
+              <div class="countdown-unit">
+                <span class="countdown-number" id="countSeconds">--</span>
+                <span class="countdown-label">Seconds</span>
               </div>
             </div>
-          </div>
 
-          <div class="attire-category">
-            <img
-              src="entourage.png"
-              alt="Wedding entourage attire inspiration"
-              loading="lazy"
-            >
-            <h3>Entourage</h3>
-            <div class="palette-swatches">
-              <div class="swatch-item">
-                <span class="swatch champagne"></span>
-                <span>Champagne</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="attire-category">
-            <img
-              src="guests.png"
-              alt="Guest attire inspiration"
-              loading="lazy"
-            >
-            <h3>Guests</h3>
-            <div class="palette-swatches">
-              <div class="swatch-item">
-                <span class="swatch champagne"></span>
-                <span>Champagne</span>
-              </div>
-              <div class="swatch-item">
-                <span class="swatch beige"></span>
-                <span>Beige</span>
-              </div>
-              <div class="swatch-item">
-                <span class="swatch taupe"></span>
-                <span>Taupe</span>
-              </div>
-              <div class="swatch-item">
-                <span class="swatch greige"></span>
-                <span>Greige</span>
-              </div>
-            </div>
+            <p id="countdownMessage" class="section-description" aria-live="polite"></p>
           </div>
 
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- GIFTS -->
-    <section class="section gift-section" id="gifts">
-      <div class="wrap">
-        <div class="section-head divider-before">
-          <div class="eyebrow">Your presence is a gift</div>
-          <h2>Gift Wishes</h2>
+      <!-- ENTOURAGE -->
+      <section class="section" id="entourage">
+        <div class="section-inner">
+
+          <p class="eyebrow">With the love and support of our families</p>
+          <h2 class="section-title">Our Entourage</h2>
+
+          <img class="divider" src="divider.png" alt="">
+
+          <p class="section-description">
+            We are grateful to share this special milestone with the people
+            who have supported and encouraged us.
+          </p>
+
+          <div class="entourage-list">
+
+            <div class="entourage-item">
+              <h3>Parents of the Groom</h3>
+              <p>Names to be announced</p>
+            </div>
+
+            <div class="entourage-item">
+              <h3>Parents of the Bride</h3>
+              <p>Names to be announced</p>
+            </div>
+
+            <div class="entourage-item">
+              <h3>Principal Sponsors</h3>
+              <p>Names to be announced</p>
+            </div>
+
+            <div class="entourage-item">
+              <h3>Best Man</h3>
+              <p>Name to be announced</p>
+            </div>
+
+            <div class="entourage-item">
+              <h3>Maid of Honor</h3>
+              <p>Name to be announced</p>
+            </div>
+
+            <div class="entourage-item">
+              <h3>Groomsmen</h3>
+              <p>Names to be announced</p>
+            </div>
+
+            <div class="entourage-item">
+              <h3>Bridesmaids</h3>
+              <p>Names to be announced</p>
+            </div>
+
+            <div class="entourage-item">
+              <h3>Secondary Sponsors</h3>
+              <p>Names to be announced</p>
+            </div>
+
+            <div class="entourage-item">
+              <h3>Flower Girls</h3>
+              <p>Names to be announced</p>
+            </div>
+
+            <div class="entourage-item">
+              <h3>Ring Bearer</h3>
+              <p>Name to be announced</p>
+            </div>
+
+            <div class="entourage-item">
+              <h3>Coin Bearer</h3>
+              <p>Name to be announced</p>
+            </div>
+
+            <div class="entourage-item">
+              <h3> Bible Bearer</h3>
+              <p>Name to be announced</p>
+            </div>
+
+          </div>
         </div>
+      </section>
 
-        <div class="gift-wrap">
-          <img src="gift.png" alt="Elegant wedding gift" loading="lazy">
-          <div>
-            <h3>In Lieu of Gifts</h3>
+      <!-- ATTIRE -->
+      <section class="section" id="attire">
+        <div class="section-inner">
+
+          <p class="eyebrow">Dress with the day in mind</p>
+          <h2 class="section-title">Attire</h2>
+
+          <img class="divider" src="divider.png" alt="">
+
+          <p class="section-description">
+            Our wedding embraces quiet luxury and timeless neutral elegance.
+          </p>
+
+          <div class="attire-list">
+
+            <!-- PRINCIPAL SPONSORS FIRST -->
+            <article class="attire-group">
+              <img
+                src="principal sponsors.png"
+                alt="Principal sponsors wedding attire inspiration"
+              >
+
+              <h3>Principal Sponsors</h3>
+
+              <div class="palette" aria-label="Champagne attire color">
+                <div class="swatch-item">
+                  <span class="swatch" style="background:#EADCCB"></span>
+                  <span>Champagne</span>
+                </div>
+              </div>
+            </article>
+
+            <!-- ENTOURAGE SECOND -->
+            <article class="attire-group">
+              <img
+                src="entourage.png"
+                alt="Entourage wedding attire inspiration"
+              >
+
+              <h3>Entourage</h3>
+
+              <div class="palette" aria-label="Champagne attire color">
+                <div class="swatch-item">
+                  <span class="swatch" style="background:#EADCCB"></span>
+                  <span>Champagne</span>
+                </div>
+              </div>
+            </article>
+
+            <!-- GUESTS LAST -->
+            <article class="attire-group">
+              <img
+                src="guests.png"
+                alt="Guest wedding attire inspiration"
+              >
+
+              <h3>Guests</h3>
+
+              <div class="palette" aria-label="Guest attire colors">
+                <div class="swatch-item">
+                  <span class="swatch" style="background:#D7C6B8"></span>
+                  <span>Beige</span>
+                </div>
+
+                <div class="swatch-item">
+                  <span class="swatch" style="background:#B7A99A"></span>
+                  <span>Taupe</span>
+                </div>
+
+                <div class="swatch-item">
+                  <span class="swatch" style="background:#9E8F82"></span>
+                  <span>Greige</span>
+                </div>
+
+                <div class="swatch-item">
+                  <span class="swatch" style="background:#F8F4EE"></span>
+                  <span>Ivory</span>
+                </div>
+              </div>
+            </article>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- OUR STORY: AFTER ENTOURAGE LIST, BEFORE ATTIRE -->
+      <section class="section" id="story">
+        <div class="section-inner">
+
+          <p class="eyebrow">A little piece of us</p>
+          <h2 class="section-title">Our Story</h2>
+
+          <img class="divider" src="divider.png" alt="">
+
+          <div class="story-copy">
             <p>
-              Your love and presence are the greatest gifts
-              we could ask for. Should you wish to bless us
-              with a gift, a monetary contribution toward our
-              new chapter would be warmly appreciated.
+              Every beautiful love story begins with two lives moving in their
+              own directions, until a special moment brings them closer.
+              For Don and Lorena, what began as getting to know one another
+              grew into a meaningful bond built on care, trust, laughter,
+              and understanding.
             </p>
+
+            <p>
+              Through life's little moments and the dreams they continue to
+              share, their connection became a promise to stand beside each
+              other through every new chapter. Today, they look forward to
+              beginning their next adventure as husband and wife, surrounded
+              by the love and support of family and friends.
+            </p>
+
+            <p><em>And so, their forever begins.</em></p>
           </div>
+
+          <div class="story-gallery">
+            <img src="story 1.png" alt="A memory from Don and Lorena's journey">
+            <img src="story 2.png" alt="A special moment shared by Don and Lorena">
+            <img src="story 3.png" alt="Another memory from their story">
+            <img src="story 4.png" alt="A moment in their journey together">
+            <img src="story 5.png" alt="A memory of Don and Lorena">
+            <img src="story 6.png" alt="A cherished moment together">
+            <img src="story 7.png" alt="A final memory from their story">
+          </div>
+
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- OH SNAP -->
-    <section class="oh-snap" id="oh-snap">
-      <div class="wrap">
-        <img
-          class="camera-icon"
-          src="camera.png"
-          alt="Wedding camera"
-          loading="lazy"
-        >
+      <!-- GIFTS -->
+      <section class="section" id="gifts">
+        <div class="section-inner">
 
-        <div class="eyebrow">Capture the moments</div>
-        <h2>OH SNAP!</h2>
-        <p>Share your favorite moments from our special day.</p>
-        <p class="official-hashtag">#theDONandonlyforLORENA</p>
-        <p>Tag your photos with our official wedding hashtag.</p>
-      </div>
-    </section>
+          <p class="eyebrow">Your presence is a gift</p>
+          <h2 class="section-title">Your Presence Is a Gift</h2>
 
-    <!-- RSVP -->
-    <section class="section rsvp-section" id="rsvp">
-      <div class="wrap">
-        <div class="section-head divider-before">
-          <div class="eyebrow">Kindly reply</div>
-          <h2>Will You Join Us?</h2>
-          <p>
-            Kindly respond using our RSVP invitation below.
-            We look forward to celebrating with you!
+          <img class="divider" src="divider.png" alt="">
+
+          <img
+            class="gift-art"
+            src="gift.png"
+            alt="Elegant wedding gift illustration"
+          >
+
+          <p class="gift-message">
+            Having you with us on our special day is the greatest gift of all.
+            If you wish to honor us with a gift, a monetary contribution toward
+            our new chapter would be warmly appreciated.
           </p>
-        </div>
 
-        <div class="rsvp-card">
+        </div>
+      </section>
+
+      <!-- OH SNAP -->
+      <section class="section" id="oh-snap">
+        <div class="section-inner">
+
+          <img
+            class="camera-art"
+            src="camera.png"
+            alt="Wedding camera illustration"
+          >
+
+          <p class="eyebrow">Capture the moments</p>
+          <h2 class="section-title">Oh Snap!</h2>
+
+          <img class="divider" src="divider.png" alt="">
+
+          <p class="section-description">
+            Share your favorite moments from our special day.
+          </p>
+
+          <p class="hashtag">#theDONandonlyforLORENA</p>
+
+          <p>Tag your photos with our official wedding hashtag.</p>
+
+        </div>
+      </section>
+
+      <!-- RSVP -->
+      <section class="section" id="rsvp">
+        <div class="section-inner">
+
+          <p class="eyebrow">Kindly reply</p>
+          <h2 class="section-title">Kindly Reply</h2>
+
+          <img class="divider" src="divider.png" alt="">
+
+          <img
+            class="rsvp-art"
+            src="RSVP envelope.png"
+            alt="Wedding RSVP envelope illustration"
+          >
+
+          <p class="section-description">
+            Kindly let us know if you will be joining us as we celebrate
+            this special milestone.
+          </p>
+
           <a
-            class="rsvp-invitation-link"
+            class="rsvp-link"
             href="https://docs.google.com/forms/d/e/1FAIpQLScsO1iRItMTNGV_ZegZWFWmXlLHG_dxTFKQsQjdOL0rUwyxSQ/viewform?usp=header"
             target="_blank"
             rel="noopener noreferrer"
-            aria-label="Open Don and Lorena's RSVP form"
           >
-            <img
-              class="rsvp-envelope"
-              src="RSVP envelope.png"
-              alt="Wedding RSVP invitation. Tap to respond."
-              loading="lazy"
-            >
+            Reply Online
           </a>
 
-          <p class="rsvp-hint">Tap the RSVP invitation to respond</p>
         </div>
-      </div>
-    </section>
+      </section>
 
-  </main>
+    </main>
 
-  <footer class="footer">
-    <div class="wrap">
+    <footer class="site-footer">
       <p>With love,</p>
-      <a class="brand" href="#home"><strong>Don &amp; Lorena</strong></a>
+      <p class="footer-names">Don &amp; Lorena</p>
       <p>Thank you for being part of our story.</p>
-      <a class="back-top" href="#home">Back to top ↑</a>
-    </div>
-  </footer>
+      <p>#theDONandonlyforLORENA</p>
+    </footer>
 
-</div>
+  </div>
 
-<audio id="weddingMusic" src="wedding.mp3" loop preload="auto"></audio>
+  <!-- Wedding music -->
+  <audio id="weddingMusic" src="wedding.mp3" preload="auto" loop></audio>
 
-<button
-  type="button"
-  class="music-button"
-  id="musicButton"
-  aria-label="Play or pause wedding music"
-  title="Play or pause music"
-  hidden
->♫</button>
+  <button
+    type="button"
+    class="music-control"
+    id="musicControl"
+    aria-label="Pause wedding music"
+    title="Pause or play music"
+  >♫</button>
 
-<script>
-const invitationCover = document.getElementById("invitationCover");
-const invitationCard = document.getElementById("invitationCard");
-const weddingWebsite = document.getElementById("weddingWebsite");
-const backButton = document.getElementById("backToInvitation");
-const weddingMusic = document.getElementById("weddingMusic");
-const musicButton = document.getElementById("musicButton");
+  <script>
+    (() => {
+      "use strict";
 
-/* COUNTDOWN TO JANUARY 18, 2019 */
-function updateCountdown() {
-  const weddingDate = new Date(2019, 0, 18, 0, 0, 0);
-  const difference = weddingDate.getTime() - Date.now();
-  const message = document.getElementById("countdownMessage");
+      const cover = document.getElementById("invitationCover");
+      const invitationCard = document.getElementById("invitationCard");
+      const weddingWebsite = document.getElementById("weddingWebsite");
+      const backButton = document.getElementById("backToInvitation");
+      const music = document.getElementById("weddingMusic");
+      const musicControl = document.getElementById("musicControl");
 
-  if (difference <= 0) {
-    document.getElementById("days").textContent = "0";
-    document.getElementById("hours").textContent = "0";
-    document.getElementById("minutes").textContent = "0";
-    document.getElementById("seconds").textContent = "0";
-    message.textContent =
-      "Our wedding day has passed. Thank you for celebrating our story.";
-    return;
-  }
+      let musicStarted = false;
 
-  document.getElementById("days").textContent =
-    Math.floor(difference / 86400000);
+      /*
+       * Start music directly from the visitor's invitation click.
+       * Browsers may still restrict playback in some situations.
+       */
+      function startWeddingMusic() {
+        music.volume = 0.7;
 
-  document.getElementById("hours").textContent =
-    Math.floor((difference / 3600000) % 24);
+        const playAttempt = music.play();
 
-  document.getElementById("minutes").textContent =
-    Math.floor((difference / 60000) % 60);
+        if (playAttempt && typeof playAttempt.then === "function") {
+          playAttempt
+            .then(() => {
+              musicStarted = true;
+              musicControl.textContent = "♫";
+              musicControl.setAttribute("aria-label", "Pause wedding music");
+            })
+            .catch(() => {
+              musicStarted = false;
+              musicControl.textContent = "♫";
+              musicControl.setAttribute("aria-label", "Play wedding music");
+            });
+        }
+      }
 
-  document.getElementById("seconds").textContent =
-    Math.floor((difference / 1000) % 60);
-}
+      function openWeddingInvitation() {
+        /*
+         * Call play synchronously within the click event to give
+         * the browser the best chance to allow music to start.
+         */
+        startWeddingMusic();
 
-updateCountdown();
-setInterval(updateCountdown, 1000);
+        cover.classList.add("is-hidden");
+        weddingWebsite.classList.add("is-visible");
+        document.body.classList.remove("invitation-closed");
+        musicControl.classList.add("is-visible");
 
-function updateMusicButton() {
-  musicButton.textContent = weddingMusic.paused ? "♪" : "♫";
-  musicButton.setAttribute(
-    "aria-label",
-    weddingMusic.paused ? "Play wedding music" : "Pause wedding music"
-  );
-}
+        window.setTimeout(() => {
+          cover.style.display = "none";
+          window.scrollTo({ top: 0, behavior: "instant" });
+        }, 650);
+      }
 
-function openWeddingInvitation() {
-  invitationCover.hidden = true;
-  weddingWebsite.hidden = false;
-  musicButton.hidden = false;
+      function returnToInvitation() {
+        cover.style.display = "flex";
 
-  document.body.classList.remove("invitation-closed");
-  document.body.style.overflow = "auto";
+        requestAnimationFrame(() => {
+          cover.classList.remove("is-hidden");
+        });
 
-  /* Retry playback from the visitor's invitation click. */
-  const playPromise = weddingMusic.play();
+        weddingWebsite.classList.remove("is-visible");
+        document.body.classList.add("invitation-closed");
+        musicControl.classList.remove("is-visible");
 
-  if (playPromise && typeof playPromise.then === "function") {
-    playPromise.then(updateMusicButton).catch(updateMusicButton);
-  }
+        window.scrollTo({ top: 0, behavior: "instant" });
+      }
 
-  window.scrollTo({ top: 0, behavior: "auto" });
-}
+      invitationCard.addEventListener("click", openWeddingInvitation);
+      backButton.addEventListener("click", returnToInvitation);
 
-function returnToInvitation() {
-  weddingWebsite.hidden = true;
-  invitationCover.hidden = false;
-  musicButton.hidden = true;
+      musicControl.addEventListener("click", () => {
+        if (music.paused) {
+          const playAttempt = music.play();
 
-  document.body.classList.add("invitation-closed");
-  document.body.style.overflow = "hidden";
+          if (playAttempt && typeof playAttempt.then === "function") {
+            playAttempt
+              .then(() => {
+                musicStarted = true;
+                musicControl.setAttribute("aria-label", "Pause wedding music");
+              })
+              .catch(() => {
+                musicStarted = false;
+                musicControl.setAttribute("aria-label", "Play wedding music");
+              });
+          }
+        } else {
+          music.pause();
+          musicControl.setAttribute("aria-label", "Play wedding music");
+        }
+      });
 
-  history.replaceState(
-    null,
-    "",
-    window.location.pathname + window.location.search
-  );
+      /*
+       * Countdown for January 18, 2019.
+       * Because this date is in the past, the display will show
+       * that the wedding day has passed instead of counting below zero.
+       */
+      const weddingDate = new Date(2019, 0, 18, 0, 0, 0);
 
-  window.scrollTo({ top: 0, behavior: "auto" });
-}
+      const daysElement = document.getElementById("countDays");
+      const hoursElement = document.getElementById("countHours");
+      const minutesElement = document.getElementById("countMinutes");
+      const secondsElement = document.getElementById("countSeconds");
+      const countdownMessage = document.getElementById("countdownMessage");
 
-invitationCard.addEventListener("click", openWeddingInvitation);
+      function updateCountdown() {
+        const now = new Date();
+        const difference = weddingDate.getTime() - now.getTime();
 
-invitationCard.addEventListener("keydown", function(event) {
-  if (event.key === "Enter" || event.key === " ") {
-    event.preventDefault();
-    openWeddingInvitation();
-  }
-});
+        if (difference <= 0) {
+          daysElement.textContent = "♥";
+          hoursElement.textContent = "♥";
+          minutesElement.textContent = "♥";
+          secondsElement.textContent = "♥";
+          countdownMessage.textContent =
+            "January 18, 2019 — a day to remember with love.";
+          return;
+        }
 
-backButton.addEventListener("click", returnToInvitation);
+        daysElement.textContent = Math.floor(
+          difference / (1000 * 60 * 60 * 24)
+        );
 
-musicButton.addEventListener("click", function() {
-  if (weddingMusic.paused) {
-    weddingMusic.play()
-      .then(updateMusicButton)
-      .catch(updateMusicButton);
-  } else {
-    weddingMusic.pause();
-    updateMusicButton();
-  }
-});
+        hoursElement.textContent = Math.floor(
+          (difference / (1000 * 60 * 60)) % 24
+        );
 
-weddingMusic.addEventListener("play", updateMusicButton);
-weddingMusic.addEventListener("pause", updateMusicButton);
+        minutesElement.textContent = Math.floor(
+          (difference / (1000 * 60)) % 60
+        );
 
-/* Try autoplay; the invitation click retries if the browser blocks it. */
-const initialPlay = weddingMusic.play();
+        secondsElement.textContent = Math.floor(
+          (difference / 1000) % 60
+        );
 
-if (initialPlay && typeof initialPlay.then === "function") {
-  initialPlay.then(updateMusicButton).catch(() => {});
-}
-</script>
+        countdownMessage.textContent = "";
+      }
+
+      updateCountdown();
+      window.setInterval(updateCountdown, 1000);
+
+      /*
+       * Optional convenience: opening ?open in the URL skips
+       * the cover, but the browser may not autoplay music without
+       * a visitor interaction.
+       */
+      if (new URLSearchParams(window.location.search).has("open")) {
+        cover.style.display = "none";
+        cover.classList.add("is-hidden");
+        weddingWebsite.classList.add("is-visible");
+        document.body.classList.remove("invitation-closed");
+        musicControl.classList.add("is-visible");
+      }
+    })();
+  </script>
 
 </body>
 </html>
