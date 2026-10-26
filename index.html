@@ -9,95 +9,79 @@
 
 <style>
 :root {
-  --ivory:#F8F4EE;
-  --champagne:#EADCCB;
-  --beige:#D7C6B8;
-  --taupe:#B7A99A;
-  --greige:#9E8F82;
-  --gold:#D4AF7C;
-  --brown:#88715B;
-  --text:#766456;
-  --line:rgba(158,143,130,.35);
+  --ivory: #F8F4EE;
+  --champagne: #EADCCB;
+  --beige: #D7C6B8;
+  --taupe: #B7A99A;
+  --greige: #9E8F82;
+  --gold: #D4AF7C;
+  --brown: #88715B;
+  --text: #766456;
+  --line: rgba(158,143,130,.35);
 }
 
-* { box-sizing:border-box; }
+* { box-sizing: border-box; }
 
 html {
-  scroll-behavior:smooth;
-  scroll-padding-top:85px;
+  scroll-behavior: smooth;
+  scroll-padding-top: 85px;
 }
 
 body {
-  margin:0;
-  background:var(--ivory);
-  color:var(--text);
-  font-family:Georgia,"Times New Roman",serif;
-  line-height:1.7;
+  margin: 0;
+  background: var(--ivory);
+  color: var(--text);
+  font-family: Georgia, "Times New Roman", serif;
+  line-height: 1.7;
 }
 
-body.invitation-closed { overflow:hidden; }
+body.invitation-closed { overflow: hidden; }
 
-img { max-width:100%; }
+img {
+  display: block;
+  max-width: 100%;
+}
 
-button,input,select,textarea { font:inherit; }
+button, a { -webkit-tap-highlight-color: transparent; }
 
 .wrap {
-  width:min(1120px,calc(100% - 36px));
-  margin-inline:auto;
+  width: min(1120px, calc(100% - 36px));
+  margin-inline: auto;
 }
 
 .eyebrow {
-  color:var(--greige);
-  font:600 .68rem/1.6 Arial,sans-serif;
-  letter-spacing:.2em;
-  text-transform:uppercase;
+  color: var(--greige);
+  font: 600 .68rem/1.6 Arial, sans-serif;
+  letter-spacing: .2em;
+  text-transform: uppercase;
 }
 
 .divider {
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:14px;
-  color:var(--gold);
-  margin:12px 0 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  color: var(--gold);
+  margin: 12px 0 22px;
 }
 
-.divider::before,.divider::after {
-  content:"";
-  width:60px;
-  height:1px;
-  background:var(--gold);
-}
-
-.btn {
-  display:inline-flex;
-  justify-content:center;
-  align-items:center;
-  padding:12px 22px;
-  border:1px solid var(--gold);
-  background:var(--gold);
-  color:#fffdf9;
-  text-decoration:none;
-  text-transform:uppercase;
-  letter-spacing:.12em;
-  font:600 .67rem Arial,sans-serif;
-  cursor:pointer;
-}
-
-.btn:hover {
-  background:var(--brown);
-  border-color:var(--brown);
+.divider::before,
+.divider::after {
+  content: "";
+  width: 60px;
+  height: 1px;
+  background: var(--gold);
 }
 
 /* OPENING INVITATION */
 #invitationCover {
-  position:fixed;
-  inset:0;
-  z-index:99999;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:8px;
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
   background:
     linear-gradient(rgba(248,244,238,.15),rgba(248,244,238,.15)),
     url("invitation%20background.png") center/cover no-repeat,
@@ -106,583 +90,539 @@ button,input,select,textarea { font:inherit; }
 
 #invitationCover[hidden],
 #weddingWebsite[hidden] {
-  display:none !important;
+  display: none !important;
 }
 
 #invitationCard {
-  width:min(98vw,1200px);
-  height:calc(100svh - 16px);
-  padding:8px;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  cursor:pointer;
-  background:transparent;
-  border:0;
-  box-shadow:none;
+  width: min(98vw, 1200px);
+  height: calc(100svh - 16px);
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
 }
 
 #invitationCard:focus-visible {
-  outline:2px solid var(--gold);
+  outline: 2px solid var(--gold);
 }
 
 #invitationCard h1 {
-  margin:5px 0;
-  color:var(--brown);
-  font-size:clamp(2.5rem,7vw,5rem);
-  font-weight:400;
-  line-height:1.1;
+  margin: 5px 0;
+  color: var(--brown);
+  font-size: clamp(2.5rem, 7vw, 5rem);
+  font-weight: 400;
+  line-height: 1.1;
 }
 
 #invitationCard h1 span,
 .hero h1 span {
-  color:var(--gold);
-  font-style:italic;
+  color: var(--gold);
+  font-style: italic;
 }
 
 .cover-envelope {
-  display:block;
-  width:min(96vw,1000px);
-  height:min(65vh,700px);
-  object-fit:contain;
-  mix-blend-mode:multiply;
-  pointer-events:none;
+  width: min(96vw, 1000px);
+  height: min(65vh, 700px);
+  object-fit: contain;
+  mix-blend-mode: multiply;
+  pointer-events: none;
 }
 
 .cover-message {
-  max-width:330px;
-  margin:4px 0 8px;
-  font-style:italic;
+  max-width: 330px;
+  margin: 4px 0 8px;
+  font-style: italic;
 }
 
 .cover-hint {
-  margin-top:8px;
-  color:var(--greige);
-  font:600 .65rem Arial,sans-serif;
-  letter-spacing:.2em;
-  text-transform:uppercase;
+  margin-top: 8px;
+  color: var(--greige);
+  font: 600 .65rem Arial, sans-serif;
+  letter-spacing: .2em;
+  text-transform: uppercase;
 }
 
 /* NAVIGATION */
 .topbar {
-  position:sticky;
-  top:0;
-  z-index:100;
-  background:rgba(248,244,238,.96);
-  border-bottom:1px solid var(--line);
-  backdrop-filter:blur(12px);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(248,244,238,.96);
+  border-bottom: 1px solid var(--line);
+  backdrop-filter: blur(12px);
 }
 
 .nav {
-  min-height:68px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:16px;
+  min-height: 68px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
 }
 
 .brand {
-  color:var(--text);
-  text-decoration:none;
-  font-size:1.25rem;
-  white-space:nowrap;
+  color: var(--text);
+  text-decoration: none;
+  font-size: 1.25rem;
+  white-space: nowrap;
 }
 
-.brand span { color:var(--gold); }
+.brand span { color: var(--gold); }
 
 .navlinks {
-  display:flex;
-  align-items:center;
-  gap:22px;
+  display: flex;
+  align-items: center;
+  gap: 22px;
 }
 
 .navlinks a {
-  color:var(--greige);
-  text-decoration:none;
-  font:600 .65rem Arial,sans-serif;
-  letter-spacing:.12em;
-  text-transform:uppercase;
+  color: var(--greige);
+  text-decoration: none;
+  font: 600 .65rem Arial, sans-serif;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.navlinks .nav-rsvp {
+  padding: 12px 20px;
+  background: var(--gold);
+  color: white;
 }
 
 .back-invitation {
-  position:fixed;
-  left:18px;
-  top:82px;
-  z-index:110;
-  padding:10px 14px;
-  background:rgba(248,244,238,.97);
-  color:var(--text);
-  border:1px solid var(--gold);
-  font:600 .65rem Arial,sans-serif;
-  cursor:pointer;
+  position: fixed;
+  left: 18px;
+  top: 82px;
+  z-index: 110;
+  padding: 10px 14px;
+  background: rgba(248,244,238,.97);
+  color: var(--text);
+  border: 1px solid var(--gold);
+  font: 600 .65rem Arial, sans-serif;
+  cursor: pointer;
 }
 
 /* HERO */
 .hero {
-  min-height:calc(100svh - 68px);
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  padding:55px 0 75px;
+  min-height: calc(100svh - 68px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 55px 0 75px;
 }
 
 .couple-banner {
-  display:block;
-  width:min(100%,800px);
-  height:clamp(190px,34vw,380px);
-  object-fit:contain;
-  margin:0 auto 22px;
+  width: min(100%, 800px);
+  height: clamp(190px, 34vw, 380px);
+  object-fit: contain;
+  margin: 0 auto 22px;
 }
 
-.hero-copy { width:100%; }
+.hero-copy { width: 100%; }
 
 .hero h1 {
-  margin:12px 0;
-  color:var(--brown);
-  font-size:clamp(3.5rem,9vw,7rem);
-  line-height:1.05;
-  font-weight:400;
-  letter-spacing:-.055em;
+  margin: 12px 0;
+  color: var(--brown);
+  font-size: clamp(3.5rem, 9vw, 7rem);
+  line-height: 1.05;
+  font-weight: 400;
+  letter-spacing: -.055em;
 }
 
-.hero-copy>p {
-  max-width:570px;
-  margin:8px auto;
+.hero-copy > p {
+  max-width: 570px;
+  margin: 8px auto;
 }
 
-/* SECTIONS */
-.section { padding:82px 0; }
+/* GENERAL SECTIONS */
+.section { padding: 82px 0; }
 
 .section-head {
-  max-width:700px;
-  margin:0 auto 38px;
-  text-align:center;
+  max-width: 700px;
+  margin: 0 auto 38px;
+  text-align: center;
 }
 
 .section-head h2 {
-  margin:10px 0;
-  color:var(--brown);
-  font-size:clamp(2.5rem,5vw,4rem);
-  font-weight:400;
-  line-height:1.1;
+  margin: 10px 0;
+  color: var(--brown);
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 400;
+  line-height: 1.1;
 }
 
 .section-head p {
-  max-width:570px;
-  margin:0 auto;
+  max-width: 570px;
+  margin: 0 auto;
 }
 
 /* WEDDING DETAILS */
 .details-grid {
-  display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:22px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0,1fr));
+  gap: 22px;
 }
 
 .detail-card {
-  padding:26px;
-  text-align:center;
-  background:rgba(255,253,249,.72);
-  border:1px solid var(--line);
-  box-shadow:0 16px 45px rgba(100,79,57,.05);
+  padding: 26px;
+  text-align: center;
+  background: rgba(255,253,249,.72);
+  border: 1px solid var(--line);
+  box-shadow: 0 16px 45px rgba(100,79,57,.05);
 }
 
 .detail-card img {
-  display:block;
-  width:100%;
-  height:220px;
-  object-fit:contain;
-  margin-bottom:12px;
+  width: 100%;
+  height: 220px;
+  object-fit: contain;
+  margin-bottom: 12px;
 }
 
 .detail-label {
-  color:var(--greige);
-  font:600 .65rem Arial,sans-serif;
-  letter-spacing:.16em;
-  text-transform:uppercase;
+  color: var(--greige);
+  font: 600 .65rem Arial, sans-serif;
+  letter-spacing: .16em;
+  text-transform: uppercase;
 }
 
 .detail-card h3 {
-  margin:8px 0;
-  color:var(--brown);
-  font-size:1.7rem;
-  font-weight:400;
+  margin: 8px 0;
+  color: var(--brown);
+  font-size: 1.7rem;
+  font-weight: 400;
 }
 
-/* OUR STORY: KEEP THE WHOLE PHOTO VISIBLE */
+/* OUR STORY: KEEP FULL IMAGE VISIBLE */
 .story-grid {
-  display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:20px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0,1fr));
+  gap: 20px;
 }
 
 .story-tile {
-  margin:0;
-  padding:8px;
-  border:1px solid var(--line);
-  background:rgba(255,253,249,.65);
+  margin: 0;
+  padding: 8px;
+  border: 1px solid var(--line);
+  background: rgba(255,253,249,.65);
 }
 
 .story-tile img {
-  display:block;
-  width:100%;
-  height:auto;
-  object-fit:contain;
-  background:transparent;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  background: transparent;
 }
 
 .story-note {
-  margin:26px auto 0;
-  text-align:center;
-  font-style:italic;
+  margin: 26px auto 0;
+  text-align: center;
+  font-style: italic;
 }
 
 /* ATTIRE */
 .attire-panel {
-  margin-top:25px;
-  padding:24px;
-  border:1px solid var(--line);
-  background:rgba(234,220,203,.38);
+  margin-top: 25px;
+  padding: 24px;
+  border: 1px solid var(--line);
+  background: rgba(234,220,203,.38);
 }
 
 .attire-panel h3 {
-  margin:0 0 28px;
-  text-align:center;
-  font-size:1.7rem;
-  font-weight:400;
+  margin: 0 0 28px;
+  text-align: center;
+  font-size: 1.7rem;
+  font-weight: 400;
 }
 
 .attire-images {
-  display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:25px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0,1fr));
+  gap: 25px;
 }
 
 .attire-item {
-  min-width:0;
-  margin:0;
-  text-align:center;
+  min-width: 0;
+  margin: 0;
+  text-align: center;
 }
 
 .attire-item img {
-  display:block;
-  width:100%;
-  max-height:440px;
-  object-fit:contain;
-  margin:0 auto;
+  width: 100%;
+  max-height: 440px;
+  object-fit: contain;
+  margin: 0 auto;
 }
 
 .attire-item figcaption {
-  margin:16px 0 8px;
-  color:var(--brown);
-  font:700 .78rem Arial,sans-serif;
-  letter-spacing:.17em;
-  text-transform:uppercase;
+  margin: 16px 0 8px;
+  color: var(--brown);
+  font: 700 .78rem Arial, sans-serif;
+  letter-spacing: .17em;
+  text-transform: uppercase;
 }
 
-.entourage-block { margin-top:45px; }
+.entourage-block { margin-top: 45px; }
+.entourage-block img { max-height: 500px; }
 
-.entourage-block img { max-height:500px; }
-
-/* COLOR PALETTES */
+/* COLOR SWATCHES: NAMES ONLY, NO HEX CODES */
 .palette {
-  display:flex;
-  justify-content:center;
-  align-items:flex-start;
-  flex-wrap:wrap;
-  gap:15px;
-  margin:18px auto 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin: 18px auto 0;
 }
 
 .palette-color {
-  width:76px;
-  text-align:center;
+  width: 76px;
+  text-align: center;
 }
 
 .palette-swatch {
-  width:58px;
-  height:58px;
-  margin:0 auto 7px;
-  border-radius:50%;
-  border:1px solid rgba(118,100,86,.14);
+  width: 58px;
+  height: 58px;
+  margin: 0 auto 7px;
+  border-radius: 50%;
+  border: 1px solid rgba(118,100,86,.14);
 }
 
 .palette-name {
-  display:block;
-  color:var(--text);
-  font:600 .6rem Arial,sans-serif;
-  letter-spacing:.04em;
-  text-transform:uppercase;
+  display: block;
+  color: var(--text);
+  font: 600 .6rem Arial, sans-serif;
+  letter-spacing: .04em;
+  text-transform: uppercase;
 }
 
-.palette-code {
-  display:block;
-  color:var(--greige);
-  font:.59rem Arial,sans-serif;
-  margin-top:3px;
-}
+.palette-champagne { background: #EADCCB; }
+.palette-beige { background: #D7C6B8; }
+.palette-taupe { background: #B7A99A; }
+.palette-greige { background: #9E8F82; }
 
-.palette-champagne { background:#EADCCB; }
-.palette-beige { background:#D7C6B8; }
-.palette-taupe { background:#B7A99A; }
-.palette-greige { background:#9E8F82; }
-
-/* GIFTS: TRANSPARENT SECTION, NO WHITE CARD */
+/* GIFTS: NO WHITE RECTANGULAR BACKGROUND */
 .gift-wrap {
-  display:grid;
-  grid-template-columns:1fr 1.2fr;
-  align-items:center;
-  gap:30px;
-  padding:20px 0;
-  background:transparent;
-  border:0;
-  box-shadow:none;
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  align-items: center;
+  gap: 30px;
+  padding: 20px 0;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
 }
 
 .gift-image {
-  display:block;
-  width:100%;
-  height:300px;
-  object-fit:contain;
-  background:transparent;
-  mix-blend-mode:multiply;
+  width: 100%;
+  height: 300px;
+  object-fit: contain;
+  background: transparent;
+  mix-blend-mode: multiply;
 }
 
 .gift-copy h3 {
-  margin:8px 0;
-  color:var(--brown);
-  font-size:2rem;
-  font-weight:400;
+  margin: 8px 0;
+  color: var(--brown);
+  font-size: 2rem;
+  font-weight: 400;
 }
 
-.gift-copy p { margin:8px 0; }
+.gift-copy p { margin: 8px 0; }
 
 /* ENTOURAGE LIST */
 .entourage-list {
-  max-width:760px;
-  margin:30px auto 0;
-  padding:25px;
-  border:1px solid var(--line);
-  background:rgba(255,253,249,.45);
+  max-width: 760px;
+  margin: 30px auto 0;
+  padding: 25px;
+  border: 1px solid var(--line);
+  background: rgba(255,253,249,.45);
 }
 
 .entourage-list h3 {
-  color:var(--brown);
-  text-align:center;
-  font-size:1.6rem;
-  font-weight:400;
-  margin:0 0 18px;
+  color: var(--brown);
+  text-align: center;
+  font-size: 1.6rem;
+  font-weight: 400;
+  margin: 0 0 18px;
 }
 
 .entourage-list ul {
-  list-style:none;
-  padding:0;
-  margin:0;
-  display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:12px 25px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0,1fr));
+  gap: 12px 25px;
 }
 
 .entourage-list li {
-  padding:10px 0;
-  border-bottom:1px solid var(--line);
+  padding: 10px 0;
+  border-bottom: 1px solid var(--line);
 }
 
 /* OH SNAP */
 .oh-snap {
-  padding:30px 0 85px;
-  text-align:center;
+  padding: 30px 0 85px;
+  text-align: center;
 }
 
 .oh-snap-inner {
-  max-width:900px;
-  margin:0 auto;
-  padding:0 18px;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 18px;
 }
 
 .camera-banner {
-  display:block;
-  width:100%;
-  height:300px;
-  object-fit:contain;
-  margin:0 auto 12px;
-  background:transparent;
-  mix-blend-mode:multiply;
+  width: 100%;
+  height: 300px;
+  object-fit: contain;
+  margin: 0 auto 12px;
+  background: transparent;
+  mix-blend-mode: multiply;
 }
 
 .oh-snap h2 {
-  margin:8px 0;
-  color:var(--brown);
-  font-size:clamp(2.5rem,5vw,3.7rem);
-  font-weight:400;
+  margin: 8px 0;
+  color: var(--brown);
+  font-size: clamp(2.5rem, 5vw, 3.7rem);
+  font-weight: 400;
 }
 
 .hashtag {
-  display:inline-block;
-  margin-top:10px;
-  color:var(--brown);
-  font-weight:700;
-  overflow-wrap:anywhere;
+  display: inline-block;
+  margin-top: 10px;
+  color: var(--brown);
+  font-weight: 700;
+  overflow-wrap: anywhere;
 }
 
-/* RSVP */
+/* RSVP ENVELOPE IMAGE */
 .rsvp-section {
-  background:linear-gradient(
+  padding: 65px 0 85px;
+  border-top: 1px solid var(--line);
+  background: linear-gradient(
     135deg,
-    rgba(234,220,203,.45),
-    rgba(248,244,238,.85)
+    rgba(234,220,203,.35),
+    rgba(248,244,238,.9)
   );
-  border-top:1px solid var(--line);
 }
 
-.rsvp-card {
-  max-width:760px;
-  margin:auto;
-  padding:clamp(22px,5vw,48px);
-  border:1px solid var(--line);
-  background:rgba(255,253,249,.75);
+.rsvp-envelope-link {
+  display: block;
+  width: min(100%, 1100px);
+  margin: 0 auto;
+  text-decoration: none;
+  cursor: pointer;
+  border-radius: 3px;
+  outline-offset: 6px;
 }
 
-.form-grid {
-  display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:16px;
+.rsvp-envelope-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  background: transparent;
+  transition: transform .25s ease, filter .25s ease;
 }
 
-.field {
-  display:flex;
-  flex-direction:column;
-  gap:7px;
+.rsvp-envelope-link:hover .rsvp-envelope-image {
+  transform: scale(1.015);
+  filter: drop-shadow(0 14px 20px rgba(100,79,57,.13));
 }
 
-.field.full { grid-column:1/-1; }
-
-.field label {
-  color:var(--greige);
-  font:600 .68rem Arial,sans-serif;
-  text-transform:uppercase;
+.rsvp-instruction {
+  margin: 18px auto 0;
+  text-align: center;
+  color: var(--greige);
+  font: 600 .68rem Arial, sans-serif;
+  letter-spacing: .15em;
+  text-transform: uppercase;
 }
 
-.field input,.field select,.field textarea {
-  width:100%;
-  padding:12px;
-  color:var(--text);
-  background:rgba(255,253,249,.8);
-  border:1px solid var(--beige);
-}
-
-.field textarea {
-  min-height:100px;
-  resize:vertical;
-}
-
-.form-note {
-  margin:18px 0;
-  font-size:.85rem;
-}
-
-.submit-row {
-  margin-top:22px;
-  text-align:center;
-}
-
-.status {
-  display:none;
-  margin-top:18px;
-  padding:12px;
-  background:var(--champagne);
-  border:1px solid var(--line);
-}
-
-.status.show { display:block; }
-
-.honeypot {
-  position:absolute;
-  left:-10000px;
-  width:1px;
-  height:1px;
-  overflow:hidden;
-}
-
+/* FOOTER */
 .footer {
-  padding:35px 0;
-  text-align:center;
+  padding: 35px 0;
+  text-align: center;
 }
 
 .footer .brand {
-  display:block;
-  margin-bottom:6px;
+  display: block;
+  margin-bottom: 6px;
 }
 
-/* MOBILE */
 @media(max-width:760px) {
-  .wrap { width:calc(100% - 28px); }
+  .wrap { width: calc(100% - 28px); }
 
-  .nav { min-height:62px; }
-  .navlinks { gap:12px; }
-  .navlinks a { font-size:.56rem; }
+  .nav { min-height: 62px; }
+  .navlinks { gap: 12px; }
+  .navlinks a { font-size: .56rem; }
+
   .navlinks a:nth-child(2),
-  .navlinks a:nth-child(3) { display:none; }
+  .navlinks a:nth-child(3) { display: none; }
 
-  .hero { padding:40px 0 55px; }
+  .hero { padding: 40px 0 55px; }
 
   .couple-banner {
-    height:clamp(180px,55vw,300px);
+    height: clamp(180px,55vw,300px);
   }
 
   .hero h1 {
-    font-size:clamp(3.2rem,13vw,5.5rem);
+    font-size: clamp(3.2rem,13vw,5.5rem);
   }
 
-  .section { padding:62px 0; }
+  .section { padding: 62px 0; }
 
-  .details-grid { grid-template-columns:1fr; }
+  .details-grid { grid-template-columns: 1fr; }
 
   .story-grid {
-    grid-template-columns:repeat(2,minmax(0,1fr));
-    gap:12px;
+    grid-template-columns: repeat(2,minmax(0,1fr));
+    gap: 12px;
   }
 
-  .attire-images { grid-template-columns:1fr; }
+  .attire-images { grid-template-columns: 1fr; }
 
-  .attire-item img { max-height:380px; }
+  .attire-item img { max-height: 380px; }
 
-  .palette { gap:8px; }
-
-  .palette-color { width:66px; }
+  .palette { gap: 8px; }
+  .palette-color { width: 66px; }
 
   .palette-swatch {
-    width:45px;
-    height:45px;
+    width: 45px;
+    height: 45px;
   }
 
   .gift-wrap {
-    grid-template-columns:1fr;
-    text-align:center;
+    grid-template-columns: 1fr;
+    text-align: center;
   }
 
-  .form-grid { grid-template-columns:1fr; }
-  .field.full { grid-column:auto; }
-
   .back-invitation {
-    left:10px;
-    top:72px;
+    left: 10px;
+    top: 72px;
   }
 
   .cover-envelope {
-    width:98vw;
-    height:54vh;
+    width: 98vw;
+    height: 54vh;
   }
 
-  .entourage-list ul { grid-template-columns:1fr; }
+  .entourage-list ul { grid-template-columns: 1fr; }
+
+  .rsvp-section { padding: 48px 0 65px; }
 }
 
 @media(prefers-reduced-motion:reduce) {
-  html { scroll-behavior:auto; }
+  html { scroll-behavior: auto; }
+
+  .rsvp-envelope-image { transition: none; }
 }
 </style>
 </head>
@@ -716,18 +656,21 @@ button,input,select,textarea { font:inherit; }
 <!-- MAIN WEDDING WEBSITE -->
 <div id="weddingWebsite" hidden>
 
-<button type="button" class="back-invitation" id="backToInvitation">
+<button type="button"
+        class="back-invitation"
+        id="backToInvitation">
   ← Back to Invitation
 </button>
 
 <header class="topbar">
   <nav class="nav wrap">
     <a class="brand" href="#home">Don <span>&amp;</span> Lorena</a>
+
     <div class="navlinks">
       <a href="#details">Details</a>
       <a href="#story">Our Story</a>
       <a href="#attire">Attire</a>
-      <a class="btn" href="#rsvp">RSVP</a>
+      <a class="nav-rsvp" href="#rsvp">RSVP</a>
     </div>
   </nav>
 </header>
@@ -736,7 +679,6 @@ button,input,select,textarea { font:inherit; }
 
 <!-- HERO -->
 <section class="hero wrap" id="home">
-
   <img
     class="couple-banner"
     src="couple.png"
@@ -757,15 +699,12 @@ button,input,select,textarea { font:inherit; }
     <p class="eyebrow" style="margin-top:18px">
       Our Wedding Day · January 18, 2019
     </p>
-
-    <!-- RSVP AND WEDDING DETAILS HERO BUTTONS REMOVED -->
   </div>
 </section>
 
 <!-- WEDDING DETAILS -->
 <section class="section" id="details">
   <div class="wrap">
-
     <div class="section-head">
       <div class="eyebrow">The celebration</div>
       <h2>Wedding Details</h2>
@@ -777,7 +716,6 @@ button,input,select,textarea { font:inherit; }
     </div>
 
     <div class="details-grid">
-
       <article class="detail-card">
         <img src="ceremony.png"
              alt="Wedding ceremony"
@@ -800,7 +738,6 @@ button,input,select,textarea { font:inherit; }
         <p><strong>Sofie Red Hotel</strong></p>
         <p>We look forward to celebrating with you.</p>
       </article>
-
     </div>
   </div>
 </section>
@@ -808,7 +745,6 @@ button,input,select,textarea { font:inherit; }
 <!-- OUR STORY -->
 <section class="section" id="story">
   <div class="wrap">
-
     <div class="section-head">
       <div class="eyebrow">A little piece of us</div>
       <h2>Our Story</h2>
@@ -852,7 +788,6 @@ button,input,select,textarea { font:inherit; }
 <!-- ATTIRE AND COLOR PALETTES -->
 <section class="section" id="attire">
   <div class="wrap">
-
     <div class="section-head">
       <div class="eyebrow">Dress with the day in mind</div>
       <h2>Attire &amp; Entourage</h2>
@@ -871,10 +806,9 @@ button,input,select,textarea { font:inherit; }
 
         <!-- PRINCIPAL SPONSORS -->
         <figure class="attire-item">
-          <img
-            src="principal%20sponsors.png"
-            alt="Principal Sponsors attire"
-            loading="lazy">
+          <img src="principal%20sponsors.png"
+               alt="Principal Sponsors attire"
+               loading="lazy">
 
           <figcaption>Principal Sponsors</figcaption>
 
@@ -882,57 +816,47 @@ button,input,select,textarea { font:inherit; }
             <div class="palette-color">
               <div class="palette-swatch palette-champagne"></div>
               <span class="palette-name">Champagne</span>
-              <span class="palette-code">EADCCB</span>
             </div>
           </div>
         </figure>
 
-        <!-- GUESTS: NO IVORY OR GOLD -->
+        <!-- GUESTS: CHAMPAGNE, BEIGE, TAUPE, GREIGE ONLY -->
         <figure class="attire-item">
-          <img
-            src="guests.png"
-            alt="Guest attire"
-            loading="lazy">
+          <img src="guests.png"
+               alt="Guest attire"
+               loading="lazy">
 
           <figcaption>Guests</figcaption>
 
           <div class="palette">
-
             <div class="palette-color">
               <div class="palette-swatch palette-champagne"></div>
               <span class="palette-name">Champagne</span>
-              <span class="palette-code">EADCCB</span>
             </div>
 
             <div class="palette-color">
               <div class="palette-swatch palette-beige"></div>
               <span class="palette-name">Beige</span>
-              <span class="palette-code">D7C6B8</span>
             </div>
 
             <div class="palette-color">
               <div class="palette-swatch palette-taupe"></div>
               <span class="palette-name">Taupe</span>
-              <span class="palette-code">B7A99A</span>
             </div>
 
             <div class="palette-color">
               <div class="palette-swatch palette-greige"></div>
               <span class="palette-name">Greige</span>
-              <span class="palette-code">9E8F82</span>
             </div>
-
           </div>
         </figure>
-
       </div>
 
-      <!-- ENTOURAGE IMAGE AND CAPTION -->
+      <!-- ENTOURAGE -->
       <figure class="attire-item entourage-block">
-        <img
-          src="entourage.png"
-          alt="Wedding entourage attire"
-          loading="lazy">
+        <img src="entourage.png"
+             alt="Wedding entourage attire"
+             loading="lazy">
 
         <figcaption>Entourage</figcaption>
 
@@ -940,12 +864,11 @@ button,input,select,textarea { font:inherit; }
           <div class="palette-color">
             <div class="palette-swatch palette-champagne"></div>
             <span class="palette-name">Champagne</span>
-            <span class="palette-code">EADCCB</span>
           </div>
         </div>
       </figure>
 
-      <!-- ENTOURAGE ROLES, WITHOUT NAMES -->
+      <!-- ENTOURAGE LIST -->
       <div class="entourage-list">
         <h3>Our Wedding Entourage</h3>
 
@@ -964,7 +887,6 @@ button,input,select,textarea { font:inherit; }
           <li><strong>Bible Bearer</strong></li>
         </ul>
       </div>
-
     </div>
   </div>
 </section>
@@ -972,7 +894,6 @@ button,input,select,textarea { font:inherit; }
 <!-- GIFTS -->
 <section class="section" id="gifts">
   <div class="wrap">
-
     <div class="section-head">
       <div class="eyebrow">Your presence is a gift</div>
       <h2>Gift Wishes</h2>
@@ -980,12 +901,10 @@ button,input,select,textarea { font:inherit; }
     </div>
 
     <div class="gift-wrap">
-
-      <img
-        class="gift-image"
-        src="gift.png"
-        alt="Wedding gift"
-        loading="lazy">
+      <img class="gift-image"
+           src="gift.png"
+           alt="Wedding gift"
+           loading="lazy">
 
       <div class="gift-copy">
         <div class="eyebrow">With love and gratitude</div>
@@ -999,7 +918,6 @@ button,input,select,textarea { font:inherit; }
 
         <p>Gift details will be shared here.</p>
       </div>
-
     </div>
   </div>
 </section>
@@ -1007,12 +925,10 @@ button,input,select,textarea { font:inherit; }
 <!-- OH SNAP -->
 <section class="oh-snap" id="oh-snap">
   <div class="oh-snap-inner">
-
-    <img
-      class="camera-banner"
-      src="camera.png"
-      alt="Wedding camera"
-      loading="lazy">
+    <img class="camera-banner"
+         src="camera.png"
+         alt="Wedding camera"
+         loading="lazy">
 
     <div class="eyebrow">Capture the memories</div>
     <h2>OH SNAP!</h2>
@@ -1021,105 +937,31 @@ button,input,select,textarea { font:inherit; }
     <div class="hashtag">
       #theDONandonlyforLORENA
     </div>
-
   </div>
 </section>
 
-<!-- RSVP -->
-<section class="section rsvp-section" id="rsvp">
+<!-- RSVP: CLICKABLE IMAGE LINKS TO GOOGLE FORMS -->
+<section class="rsvp-section" id="rsvp">
   <div class="wrap">
 
-    <div class="rsvp-card">
+    <a
+      class="rsvp-envelope-link"
+      href="https://docs.google.com/forms/d/e/1FAIpQLScsO1iRItMTNGV_ZegZWFWmXlLHG_dxTFKQsQjdOL0rUwyxSQ/viewform?usp=header"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Open Don and Lorena's wedding RSVP Google Form">
 
-      <div class="section-head">
-        <div class="eyebrow">Kindly reply</div>
-        <h2>Will You Join Us?</h2>
-        <div class="divider">✧</div>
-        <p>Please let us know if you can celebrate with us.</p>
-      </div>
+      <img
+        class="rsvp-envelope-image"
+        src="RSVP%20envelope.png"
+        alt="Don and Lorena wedding RSVP. Click to respond."
+        loading="lazy">
+    </a>
 
-      <form id="rsvpForm">
+    <p class="rsvp-instruction">
+      Kindly tap the RSVP invitation above to respond
+    </p>
 
-        <div class="honeypot" aria-hidden="true">
-          <label>
-            Leave this field empty
-            <input name="website" tabindex="-1" autocomplete="off">
-          </label>
-        </div>
-
-        <div class="form-grid">
-
-          <div class="field">
-            <label for="fullName">Full name *</label>
-            <input id="fullName" name="fullName"
-                   required maxlength="120"
-                   placeholder="Your full name">
-          </div>
-
-          <div class="field">
-            <label for="email">Email address</label>
-            <input id="email" name="email"
-                   type="email" maxlength="180"
-                   placeholder="you@example.com">
-          </div>
-
-          <div class="field">
-            <label for="phone">Mobile number</label>
-            <input id="phone" name="phone"
-                   type="tel" maxlength="40"
-                   placeholder="Your contact number">
-          </div>
-
-          <div class="field">
-            <label for="attendance">Will you attend? *</label>
-            <select id="attendance" name="attendance" required>
-              <option value="">Please select</option>
-              <option value="yes">Joyfully accepts</option>
-              <option value="no">Regretfully declines</option>
-            </select>
-          </div>
-
-          <div class="field">
-            <label for="guestCount">Number of guests</label>
-            <select id="guestCount" name="guestCount">
-              <option value="1">1 guest</option>
-              <option value="2">2 guests</option>
-              <option value="3">3 guests</option>
-              <option value="4">4 guests</option>
-              <option value="5">5 guests</option>
-            </select>
-          </div>
-
-          <div class="field">
-            <label for="dietary">Dietary requirements</label>
-            <input id="dietary" name="dietary"
-                   maxlength="240" placeholder="Optional">
-          </div>
-
-          <div class="field full">
-            <label for="message">A note for the couple</label>
-            <textarea id="message" name="message"
-                      maxlength="1000"
-                      placeholder="Leave Don &amp; Lorena a message"></textarea>
-          </div>
-
-        </div>
-
-        <p class="form-note">
-          Please submit one response per invited party.
-        </p>
-
-        <div class="submit-row">
-          <button class="btn" id="submitBtn" type="submit">
-            Send My RSVP
-          </button>
-        </div>
-
-        <div class="status" id="formStatus"
-             role="status" aria-live="polite"></div>
-
-      </form>
-    </div>
   </div>
 </section>
 
@@ -1167,49 +1009,6 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   backButton.addEventListener("click", backToOpening);
-
-  const form = document.getElementById("rsvpForm");
-  const statusBox = document.getElementById("formStatus");
-  const submitBtn = document.getElementById("submitBtn");
-
-  form.addEventListener("submit", async function (event) {
-    event.preventDefault();
-    if (!form.reportValidity()) return;
-
-    const data = Object.fromEntries(new FormData(form).entries());
-
-    if (data.website) return;
-    delete data.website;
-
-    submitBtn.disabled = true;
-    submitBtn.textContent = "Sending…";
-    statusBox.classList.remove("show");
-
-    try {
-      const response = await fetch("/api/rsvp", {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify(data)
-      });
-
-      if (!response.ok) {
-        throw new Error("RSVP endpoint unavailable.");
-      }
-
-      statusBox.textContent =
-        "Thank you! Your RSVP has been received.";
-      form.reset();
-
-    } catch (error) {
-      statusBox.textContent =
-        "The RSVP service is not connected yet. Please contact the couple directly to confirm attendance.";
-
-    } finally {
-      statusBox.classList.add("show");
-      submitBtn.disabled = false;
-      submitBtn.textContent = "Send My RSVP";
-    }
-  });
 });
 </script>
 
