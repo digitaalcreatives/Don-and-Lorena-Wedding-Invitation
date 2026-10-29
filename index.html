@@ -54,7 +54,7 @@ img { max-width: 100%; }
     url("inside background.png") center center / cover no-repeat fixed;
 }
 
-/* OPENING INVITATION — FULL IMAGE, NO CROPPING */
+/* OPENING INVITATION — FULL IMAGE, BOOK-STYLE OPENING */
 .invitation-cover {
   position: fixed;
   inset: 0;
@@ -65,7 +65,8 @@ img { max-width: 100%; }
   overflow: hidden;
   padding: 0;
   background: var(--ivory);
-  perspective: 1800px;
+  perspective: 2200px;
+  perspective-origin: 50% 50%;
 }
 
 .cover-card {
@@ -78,7 +79,6 @@ img { max-width: 100%; }
   border: 0;
   outline: none;
   transform-style: preserve-3d;
-  perspective: 1800px;
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -87,6 +87,7 @@ img { max-width: 100%; }
   outline-offset: 4px;
 }
 
+/* Two perfectly aligned halves form one complete, uncropped image. */
 .cover-panel {
   position: absolute;
   top: 0;
@@ -98,37 +99,78 @@ img { max-width: 100%; }
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
   transform-style: preserve-3d;
+  will-change: transform;
 }
 
 .cover-panel-left {
   left: 0;
   background-position: left center;
-  transform-origin: right center;
+  transform-origin: 100% 50%;
+  box-shadow: inset -1px 0 0 rgba(104,75,45,.32);
 }
 
 .cover-panel-right {
   right: 0;
   background-position: right center;
-  transform-origin: left center;
+  transform-origin: 0% 50%;
+  box-shadow: inset 1px 0 0 rgba(104,75,45,.32);
 }
 
-/* The two halves swing away from the center like opening a book. */
+/* A fine center crease makes the closed image read as a hinged card. */
+.cover-card::after {
+  content: "";
+  position: absolute;
+  z-index: 3;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 1px;
+  pointer-events: none;
+  background: rgba(103,75,48,.22);
+  box-shadow: 0 0 5px rgba(80,55,35,.12);
+  transform: translateX(-50%);
+}
+
+/* On tap, both pages rotate away from the center seam like a book. */
 .cover-card.is-opening .cover-panel-left {
-  animation: open-left-page 1000ms cubic-bezier(.55,.05,.35,1) forwards;
+  animation: open-left-page 1150ms cubic-bezier(.45,.04,.25,1) forwards;
 }
 
 .cover-card.is-opening .cover-panel-right {
-  animation: open-right-page 1000ms cubic-bezier(.55,.05,.35,1) forwards;
+  animation: open-right-page 1150ms cubic-bezier(.45,.04,.25,1) forwards;
+}
+
+.cover-card.is-opening::after {
+  opacity: 0;
+  transition: opacity 180ms ease;
 }
 
 @keyframes open-left-page {
-  from { transform: rotateY(0deg); }
-  to { transform: rotateY(-115deg); }
+  0% {
+    transform: rotateY(0deg);
+    filter: brightness(1);
+  }
+  30% {
+    filter: brightness(.94);
+  }
+  100% {
+    transform: rotateY(-115deg);
+    filter: brightness(.86);
+  }
 }
 
 @keyframes open-right-page {
-  from { transform: rotateY(0deg); }
-  to { transform: rotateY(115deg); }
+  0% {
+    transform: rotateY(0deg);
+    filter: brightness(1);
+  }
+  30% {
+    filter: brightness(.94);
+  }
+  100% {
+    transform: rotateY(115deg);
+    filter: brightness(.86);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
