@@ -54,68 +54,88 @@ img { max-width: 100%; }
     url("inside background.png") center center / cover no-repeat fixed;
 }
 
-/* OPENING INVITATION — FULL-SCREEN IMAGE, NO TEXT OVERLAY */
+/* OPENING INVITATION — FULL IMAGE, NO CROPPING */
 .invitation-cover {
   position: fixed;
   inset: 0;
   z-index: 10000;
   display: flex;
-  align-items: stretch;
-  justify-content: stretch;
+  align-items: center;
+  justify-content: center;
   overflow: hidden;
   padding: 0;
   background: var(--ivory);
-  perspective: 1600px;
+  perspective: 1800px;
 }
 
 .cover-card {
   position: relative;
-  width: 100vw;
-  height: 100vh;
-  height: 100svh;
-  min-height: 0;
-  display: block;
-  flex: 1 1 auto;
+  width: min(100vw, calc(100svh * var(--cover-ratio, 1)));
+  aspect-ratio: var(--cover-ratio, 1);
+  max-height: 100svh;
+  flex: 0 0 auto;
   cursor: pointer;
-  padding: 0;
-  margin: 0;
   border: 0;
   outline: none;
-  background: url("opening-invitation.png") center center / cover no-repeat;
-  transform-origin: left center;
   transform-style: preserve-3d;
-  backface-visibility: hidden;
+  perspective: 1800px;
   -webkit-tap-highlight-color: transparent;
 }
 
 .cover-card:focus-visible {
-  outline: 3px solid var(--gold);
-  outline-offset: -6px;
+  outline: 2px solid var(--gold);
+  outline-offset: 4px;
 }
 
-/* Simulate opening a physical invitation card; keep the image crisp. */
-.cover-card.is-opening {
-  animation: invitation-open 1000ms cubic-bezier(.55,.08,.35,1) forwards;
-  pointer-events: none;
+.cover-panel {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50%;
+  background-image: url("opening-invitation.png");
+  background-repeat: no-repeat;
+  background-size: 200% 100%;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform-style: preserve-3d;
 }
 
-@keyframes invitation-open {
-  0% { transform: rotateY(0deg); }
-  25% { transform: rotateY(-12deg); }
-  100% { transform: rotateY(-105deg); }
+.cover-panel-left {
+  left: 0;
+  background-position: left center;
+  transform-origin: right center;
 }
 
-@media (max-width: 760px) {
-  .cover-card {
-    width: 100vw;
-    height: 100vh;
-    height: 100svh;
-    background-position: center center;
-  }
+.cover-panel-right {
+  right: 0;
+  background-position: right center;
+  transform-origin: left center;
+}
+
+/* The two halves swing away from the center like opening a book. */
+.cover-card.is-opening .cover-panel-left {
+  animation: open-left-page 1000ms cubic-bezier(.55,.05,.35,1) forwards;
+}
+
+.cover-card.is-opening .cover-panel-right {
+  animation: open-right-page 1000ms cubic-bezier(.55,.05,.35,1) forwards;
+}
+
+@keyframes open-left-page {
+  from { transform: rotateY(0deg); }
+  to { transform: rotateY(-115deg); }
+}
+
+@keyframes open-right-page {
+  from { transform: rotateY(0deg); }
+  to { transform: rotateY(115deg); }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .cover-card.is-opening { animation-duration: 1ms; }
+  .cover-card.is-opening .cover-panel-left,
+  .cover-card.is-opening .cover-panel-right {
+    animation-duration: 1ms;
+  }
 }
 
 /* NAVIGATION */
@@ -751,7 +771,7 @@ h2 {
 
 <body class="invitation-closed">
 
-<!-- OPENING INVITATION: image only, clickable -->
+<!-- OPENING INVITATION -->
 <div class="invitation-cover" id="invitationCover">
   <div
     class="cover-card"
@@ -759,7 +779,10 @@ h2 {
     role="button"
     tabindex="0"
     aria-label="Open Don and Lorena's wedding invitation"
-  ></div>
+  >
+    <div class="cover-panel cover-panel-left" aria-hidden="true"></div>
+    <div class="cover-panel cover-panel-right" aria-hidden="true"></div>
+  </div>
 </div>
 
 <!-- MAIN WEBSITE -->
@@ -1224,6 +1247,7 @@ function updateMusicButton() {
 
 function openWeddingInvitation() {
   if (invitationCard.classList.contains("is-opening")) return;
+
   invitationCard.classList.add("is-opening");
 
   window.setTimeout(function() {
@@ -1231,22 +1255,29 @@ function openWeddingInvitation() {
     weddingWebsite.hidden = false;
     musicButton.hidden = false;
 
-  document.body.classList.remove("invitation-closed");
-  document.body.style.overflow = "auto";
+    document.body.classList.remove("invitation-closed");
+    document.body.style.overflow = "auto";
 
-  /* Retry playback from the visitor's invitation click. */
-  const playPromise = weddingMusic.play();
+    /* Retry playback from the visitor's invitation click. */
+    const playPromise = weddingMusic.play();
 
-  if (playPromise && typeof playPromise.then === "function") {
-    playPromise.then(updateMusicButton).catch(updateMusicButton);
-  }
+    if (playPromise && typeof playPromise.then === "function") {
+      playPromise.then(updateMusicButton).catch(updateMusicButton);
+    }
 
     window.scrollTo({ top: 0, behavior: "auto" });
   }, 1000);
 }
 
+/* Read the image's real dimensions so the whole invitation always fits. */
+const openingImage = new Image();
+openingImage.onload = function() {
+  const ratio = openingImage.naturalWidth / openingImage.naturalHeight;
+  if (ratio > 0) invitationCard.style.setProperty("--cover-ratio", ratio);
+};
+openingImage.src = "opening-invitation.png";
+
 function returnToInvitation() {
-  invitationCard.classList.remove("is-opening");
   weddingWebsite.hidden = true;
   invitationCover.hidden = false;
   musicButton.hidden = true;
